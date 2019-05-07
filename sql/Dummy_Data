@@ -1,0 +1,80 @@
+
+--RCDY 프로젝트 Dummy 데이터 생성
+
+-- 상품테이블
+DROP TABLE tbl_product;
+CREATE TABLE tbl_product(
+    p_code VARCHAR2(5) PRIMARY KEY,
+    p_name VARCHAR2(100) NOT NULL,
+    p_type VARCHAR2(50) NOT NULL,
+    p_price NUMBER NOT NULL,
+    p_img VARCHAR2(100),
+    p_cnt NUMBER DEFAULT 0,
+    p_good NUMBER DEFAULT 0,
+    p_indate DATE DEFAULT SYSDATE
+);
+
+-- 상품 sequence
+DROP SEQUENCE seq_product;
+CREATE SEQUENCE seq_product
+START WITH 1
+INCREMENT BY 1
+NOCYCLE;
+
+INSERT INTO tbl_product(p_code, p_name, p_type, p_price, p_img, p_cnt, p_good)
+VALUES(seq_product.NEXTVAL,'프리 런 5.0', '신발', 109000, 'shoes1.jpg', 50, 33);
+
+INSERT INTO tbl_product(p_code, p_name, p_type, p_price, p_img, p_cnt, p_good)
+VALUES(seq_product.NEXTVAL, '에어 베어퍼맥스 2019', '신발', 219000, 'shoes3.jpg', 55, 23);
+
+INSERT INTO tbl_product(p_code, p_name, p_type, p_price, p_img, p_cnt, p_good)
+VALUES(seq_product.NEXTVAL, '에어맥스 97', '신발', 199000, 'shoes5.jpg', 70, 10);
+
+INSERT INTO tbl_product(p_code, p_name, p_type, p_price, p_img, p_cnt, p_good)
+VALUES(seq_product.NEXTVAL, '줌 페가수스 터보', '신발', 219000, 'shoes7.jpg', 60, 20);
+
+INSERT INTO tbl_product(p_code, p_name, p_type, p_price, p_img, p_cnt, p_good)
+VALUES(seq_product.NEXTVAL, '스피어 테크 트랜스폼 후디', '의류', 199000, 'clothing1.jpg', 100, 44);
+
+INSERT INTO tbl_product(p_code, p_name, p_type, p_price, p_img, p_cnt, p_good)
+VALUES(seq_product.NEXTVAL, '스피어 후디 긴팔 탑', '의류', 119000, 'clothing3.jpg', 70, 65);
+
+INSERT INTO tbl_product(p_code, p_name, p_type, p_price, p_img, p_cnt, p_good)
+VALUES(seq_product.NEXTVAL, '런 테크 윈드 후드 재킷', '의류', 229000, 'clothing5.jpg', 75, 27);
+
+INSERT INTO tbl_product(p_code, p_name, p_type, p_price, p_img, p_cnt, p_good)
+VALUES(seq_product.NEXTVAL, '써마 스피어 풀집 후디 탑', '의류', 129000, 'clothing7.jpg', 45, 59);
+
+SELECT * FROM tbl_product;
+
+
+SELECT * FROM tbl_product
+ORDER BY p_good DESC;
+
+-- ROWNUM으로 5번까지 뽑은 후 거기서 좋아요순으로 정렬된다
+SELECT * FROM tbl_product
+WHERE ROWNUM <= 5
+ORDER BY p_good DESC;
+
+-- 서브쿼리를 사용해서 best상품 (좋아요 높은 순) 
+SELECT * 
+FROM (SELECT * FROM tbl_product
+      ORDER BY p_good DESC)
+WHERE ROWNUM <=4;
+
+-- new 상품 5건 추출
+SELECT * FROM tbl_product
+WHERE rownum <=5
+ORDER BY indate DESC;
+
+SELECT *
+FROM (SELECT * FROM tbl_product
+      ORDER BY p_indate DESC)
+WHERE ROWNUM <= 4;
+
+
+SELECT * 
+FROM (SELECT * FROM tbl_product
+     WHERE p_type = '신발'
+     ORDER BY p_good DESC)
+WHERE ROWNUM <=4
