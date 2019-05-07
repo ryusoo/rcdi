@@ -1,0 +1,27 @@
+.footer {
+	text-align: center;
+	height: 60px;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	padding: 15px 32px;
+}
+.footer>ul>li  a {
+	color: darkgray;
+}
+.footer>ul>li {
+	display: inline-block;
+	padding: 0 5px;
+	font-size: 0.8em;
+	border-left: 1px solid #dadada;
+}
+.footer>ul>li:first-child {
+	border-left: 0px;
+}
+.address>span {
+	font-size: 0.5em;
+}
+.address>span>a {
+	color: black;
+}
+
+

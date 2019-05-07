@@ -1,0 +1,473 @@
+div.header_menu {
+	width: 100%;
+	/* height: 35px; 제일 밖에있는 div인데 제일 밖에있는 div가 35px이기 때문에 없애도 35px이다*/
+	background-color: #333;
+	height: 35px;
+}
+
+header {
+	width: 100%;
+	display: block;
+	position: fixed;
+	top: 0;
+	z-index: 9;
+}
+.header_menu {
+	position: absolute;
+	top: 0;
+	z-index: 5;
+}
+.two_wrap {
+	position: absolute;
+	top: -50px; /* -50~34 */
+	width: 100%;
+	z-index: 4;
+	transition: .4s;
+}
+.header_logo a {
+	display: inline-block;
+}
+.header_sns {
+	height: 35px;
+	float: left;
+	margin-left: 20px;
+}
+.header_sns>a>i { /* icon은 글자로 인식된다. */
+	color: white;
+	font-size: 1.3em;
+	padding: 0 2px; /* icon사이의 간격을 준다 */
+	line-height: 35px; /* 제일 안에있는 div인데 35px이기 때문에 밖에 안줘도 된다 */
+}
+.header_i1, .header_i2 {
+	display: inline-block;
+}
+.header_i {
+	width: 250px;
+	height: 34px;
+	margin: 0 auto;
+	padding-left: 30px;
+	display: inline-block;
+	position: relative;
+}
+.header_i>div>a>i {
+	color: white;
+	line-height: 35px;
+}
+.header_i2 {
+	float: right;
+}
+.header_i>div {
+	z-index: 999;
+	position: absolute;
+	right: 200px;
+	bottom: 0;
+}
+.header_i>div:hover {
+	right: 0;
+	transition: 2s;
+}
+.header_sns>i {
+	color: white;
+}
+.header_member {
+	float: right;
+	font-size: 0.5em;
+	margin-right: 20px;
+}
+.inner_header>ul {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	height: 65px;
+}
+.inner_header>ul>li>a {
+	display: block;
+	height: 100%;
+	padding: 0 20px;
+	line-height: 65px;
+}
+.inner_header li { /* 자손으로 줌 = .header_member > ul > li 직접 자식으로 타도 됨*/
+	height: 65px;
+}
+.header_member ul>li>a { /* = header_member a  */
+	color: white;
+	text-decoration: none; /* a태그의 언더라인을 없애준다. */
+	line-height: 35px;
+	/* 세로로 가운데 정렬 시켜주었다. div의 세로가 35px인데 같은 35px로 주면 세로로 가운데 정렬이 된다 */
+	padding: 0 10px;
+	font-size: 1.2em;
+	/* li태그와 a태그의 사이즈가 다르면 안된다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!주의!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+	/* 로그인창에 마우스 갖다대면 호버색도 변하는데 li태그와 a태그의 사이즈가 달라서 로그인이 안되면 개발이 잘못된 것이다 */
+	height: 35px;
+	display: inline-block;
+	cursor: pointer;
+}
+.header_member>ul>li>a:hover {
+	background-color: lightgray;
+	border-bottom: 2px solid white;
+	/* text-decoration: underline; */
+}
+.inner_header {
+	/* 너비를 1440 이상으로는 못 만든다는 뜻. 요즘 모니터가 엄청 넓어서 최대길이를 넘어가는 경우가 있다. 그러면 사이트가 다 깨지니까 최대로 나오는 화면.. 1440이 넘으면 깨지고 그래서 1440가 최대로 나오는 길이를 지정함. 1440를 넘어가는 길이는 여백으로 채워준다. 화면이 작아지는 경우는 맞춰서 같이 작아지니까 문제가 없다.*/
+	max-width: 1440px;
+	margin: 0 auto;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+.header_logo {
+	width: 100%;
+	background-color: white;
+	height: 84px;
+}
+.header_nav {
+	width: 100%;
+	background-color: white;
+	height: 65px;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	font-weight: bold;
+}
+.header_nav>div>div>ul>li>a {
+	text-decoration: none;
+	color: black;
+	padding: 0px 10px;
+	line-height: 65px;
+	display: inline-block;
+}
+
+.inner_header>div>ul>li {
+	float: left;
+}
+
+.inner_header_wrap {
+	display: flex;
+}
+
+.inner_header_logo {
+	display: block;
+	width: 289px;
+	height: 84px;
+	margin: auto;
+	flex: 1;
+}
+
+.inner_header_center {
+	flex: 1;
+}
+
+.inner_header_search {
+	flex: 1;
+}
+
+.inner_header>ul>li>a:hover {
+	color: dimgray;
+	transition: color 0.4s linear;
+}
+
+.men_dropdown {
+	display: none;
+	width: 300px;
+	height: 120px;
+	position: absolute;
+	border: 1px solid black;
+	padding: 5px 0 0 0;
+	background-color: white;
+}
+
+.men_dropdown ul {
+	height: 200px;
+}
+
+.men_dropdown li {
+	height: 25px;
+}
+
+.men_dropdown a {
+	display: block;
+	width: 140px;
+	height: 25px;
+}
+
+.inner_header>ul>li:hover .men_dropdown {
+	display: block;
+}
+
+.men_dropdown>div {
+	float: left;
+}
+
+.men_dropdown1 {
+	width: 50%;
+	height: 80px;
+	padding: 0 10px;
+	margin: 0;
+}
+.men_dropdown2 {
+	border-left: 1px solid darkgray;
+	width: 115px;
+	height: 100px;
+	margin: 0;
+	padding: 0 10px;
+}
+.main_img>img {
+	width: 100%;
+}
+#main_video {
+	position: relative;
+	height: 100vh !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	text-align: center;
+	overflow: hidden;
+}
+#main_video:before {
+	content: '';
+	display: block;
+	background-color: #041625;
+	width: 100%;
+	height: 100%;
+	opacity: .45;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+.inner {
+	position: relative;
+	z-index: 2;
+}
+#main_video video {
+	position: absolute;
+	transform: translate(50%, 50%);
+	bottom: 50%;
+	right: 50%;
+	width: auto;
+	height: auto;
+	min-width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+}
+.inner h1 { /* font-size: 45px; */
+	color: white;
+}
+.inner p {
+	font-size: 25px;
+	color: white;
+}
+section {
+	margin-top: 100px;
+}
+.footer {
+	text-align: center;
+	height: 60px;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	padding: 15px 32px;
+}
+.footer>ul>li  a {
+	color: darkgray;
+}
+.footer>ul>li {
+	display: inline-block;
+	padding: 0 5px;
+	font-size: 0.8em;
+	border-left: 1px solid #dadada;
+}
+.footer>ul>li:first-child {
+	border-left: 0px;
+}
+.address>span {
+	font-size: 0.5em;
+}
+.address>span>a {
+	color: black;
+}
+.shoes_product {
+	border: 1px solid transparent;
+	display: inline-block;
+	padding: 10px;
+	color: white;
+}
+.shoes_product:hover {
+	border: 1px solid lightgray;
+	color: white;
+	transform: scale(1.1);
+	transition: 0.4s;
+	background: #333;
+}
+.shoes_product:hover .shoes_product>a>img {
+	background: rgba(0, 0, 0, 0.7);
+}
+.men_shoes_product {
+	max-width: 100%;
+}
+.men_shoes_wrap {
+	width: 100%;
+	margin: 0 auto;
+	padding: 20px 0;
+	text-align: center;
+}
+#best_men_shoes {
+	display: inline-block;
+	font-size: 5em;
+	font-weight: 700;
+}
+/* 모달창 */
+#wrap {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	display: flex; /* 여기위치가 container이다 */
+	align-items: center;
+	justify-content: center;
+	display: none;
+}
+h1 {
+	float: left;
+	/* margin-left: 25px; */
+}
+#login_form {
+	position: relative;
+}
+#rcdy_content {
+	margin: 10px 0px;
+	/* width가 있으면 양쪽에 여백을 반토막내서 가운데 정렬해주는것이 margin: 0 auto이다; */
+	height: 400px;
+	text-align: center;
+}
+#login_content {
+	width: 100%;
+	height: 394px;
+	padding: 0 25px;
+	padding-top: 25px;
+	border: 1px solid #ddd;
+	text-align: left;
+	display: inline-block;
+	background-color: white;
+	border-radius: 3px;
+}
+#login_area {
+	width: 270px;
+	height: 372px;
+	position: relative;
+}
+#subtitle {
+	position: relative;
+	margin-bottom: 20px;
+	font-size: 50px;
+}
+#close_btn {
+	position: absolute;
+	top: -26px;
+	right: -26px;
+	width: 20px;
+	height: 25px;
+	border-radius: 3px;
+	background-color: #333;
+	cursor: pointer;
+	transition: .2s linear;
+	z-index: 9;
+	color: white;
+	text-align: center;
+}
+.idpw { /* input태그 */
+	padding: 8px 12px;
+	margin-left: 11px;
+	margin-bottom: 15px;
+	font-size: 13px;
+	font-weight: normal;
+	width: 240px;
+	height: 30px;
+	line-height: 22px;
+	/* input태그의 outline제어가 힘들어서 none해서 없애고 테두리로 옵션을 준다. */
+	outline: none;
+	border: 1px solid #e5e5e5;
+	border-radius: 5px;
+	background-color: white;
+	color: #333;
+	letter-spacing: -1px;
+	/* border-spacing: 은 표와 테두리 사이의 간격이다 */
+}
+.wrap_btn {
+	display: flex;
+	justify-content: space-evenly;
+}
+#btn_login, #btn_join {
+	display: inline-block;
+	width: 120px;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid darkgray;
+	background-color: #333;
+	padding-top: 0;
+	text-align: center;
+	line-height: 38px;
+	color: white;
+}
+#btn_join {
+	background-color: darkgray;
+}
+#login_help {
+	width: 270px;
+	position: absolute; /* .right의 기준임 */
+	bottom: 40px;
+	padding-top: 10px;
+	font-size: 12px;
+	letter-spacing: -1px;
+	border-top: 1px solid #cfcfcf;
+	display: flex;
+	justify-content: center;
+}
+#login_help a {
+	color: #333;
+	letter-spacing: -1px;
+}
+#login_help a:hover {
+	text-decoration: underline;
+}
+.right>a {
+	color: #777 !important;
+	/* !important는 남발하면 안된다. 신급권한. 최상위옵션이다. 최상위 우선순위 */
+	/* 위에서 #login_help a { color: #333;  }이게 더 깊어서 #777안먹기 때문에 최상위 옵션줌 */
+}
+.right_bar {
+	display: inline-block;
+	font-size: 11px;
+	color: #ccc;
+	margin: 0 4px;
+}
+
+/* TOP 버튼 */
+#topBtn {
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+	font-size: 22px;
+	width: 50px;
+	height: 50px;
+	background: darkgray;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 50%;
+	outline: none;
+	display: none;
+	z-index: 9;
+}
+#topBtn i {
+	transition: .3s;
+}
+#topBtn:hover {
+	background: #dadada;
+}
+#topBtn:hover i {
+	transform: scale(1.3);
+}
