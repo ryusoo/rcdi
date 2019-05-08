@@ -52,7 +52,8 @@
 				<div class="header_member">
 					<ul>
 						<li><a id="open_btn">로그인</a></li> <!-- li태그는 구조니까 ul과 li 사이에 a태그 안쓰는 것이다 -->
-						<li><a href="#">회원가입</a></li>
+						<%-- href="${path}/login.bizpoll"  --%>
+						<li><a href="${path}/constract.rcdi">회원가입</a></li>
 						<li><a href="#">고객센터</a></li>
 						<li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
 					</ul>

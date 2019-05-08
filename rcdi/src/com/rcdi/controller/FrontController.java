@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rcdi.action.Action;
 import com.rcdi.action.ActionForward;
+import com.rcdi.action.ConstractAction;
+import com.rcdi.action.IdCheckAction;
 import com.rcdi.action.IndexAction;
+import com.rcdi.action.MemberAction;
 
 
 @WebServlet("/FrontController")
@@ -39,6 +42,15 @@ public class FrontController extends HttpServlet {
 		
 		if(command.contentEquals("/index.rcdi")){
 			action = new IndexAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/constract.rcdi")){
+			action = new ConstractAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/member.rcdi")){
+			action = new MemberAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/idCheck.rcdi")){
+			action = new IdCheckAction();
 			forward = action.excute(request, response);
 		}
 		
