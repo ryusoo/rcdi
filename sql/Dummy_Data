@@ -78,3 +78,62 @@ FROM (SELECT * FROM tbl_product
      WHERE p_type = '신발'
      ORDER BY p_good DESC)
 WHERE ROWNUM <=4
+
+
+
+
+
+
+-- 회원 sequence
+DROP SEQUENCE seq_member;
+CREATE SEQUENCE seq_member
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+    
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+    id VARCHAR2(30) PRIMARY KEY,
+    pw VARCHAR2(30) NOT NULL,
+    name VARCHAR2(30) NOT NULL,
+    birth_year NUMBER(4, 0),
+    birth_month NUMBER(2, 0),
+    birth_day NUMBER(2, 0),
+    phone VARCHAR2(30) NOT NULL,
+    preceiveyn CHAR(1) DEFAULT 'n' NOT NULL,
+    email VARCHAR2(50) NOT NULL,
+    ereceiveyn CHAR(1) DEFAULT 'n' NOT NULL,
+    zipcode VARCHAR2(50) NOT NULL,
+    addr1 VARCHAR2(200) NOT NULL,
+    addr2 VARCHAR2(200) NOT NULL,
+    regdate DATE DEFAULT SYSDATE
+);
+--phone에서 NUMBER로 하면 010이 10으로 들어감.
+-- , 0은 소수점 안들어오게 해준다
+
+SELECT * FROM tbl_member;
+
+INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
+VALUES ('user1', '1234', 'user1', 1990, 10, 10, '01011112222', 'n', 'abcd1234@gmail.com', 'n', '102345', '광주광역시 북구 문흥동', '문흥아파트 101동 101호');
+
+INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
+VALUES ('user2', '1234', 'user2', 1980, 11, 11, '01012345678', 'y', 'erty1234@gmail.com', 'y', '678945', '광주광역시 동구 가양동', '가양아파트 105동 1001호');
+
+INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
+VALUES ('user3', '1234', 'user3', 1997, 5, 6, '01044445555', 'n', 'qrqr1234@gmail.com', 'n', '464679', '서울특별시 구로구 가리봉동', '달님오피스텔 4동 1003호');
+
+COMMIT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
