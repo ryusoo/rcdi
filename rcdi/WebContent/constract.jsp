@@ -36,6 +36,9 @@ body {
 .container {
 	position: relative;
 }
+section {
+	margin-top: 170px;
+}
 
 .r_logo {
 	display: block;

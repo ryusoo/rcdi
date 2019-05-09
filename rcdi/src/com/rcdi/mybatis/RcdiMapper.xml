@@ -24,5 +24,11 @@
 		WHERE ROWNUM <=4
 	]]>
 	</select>
+	
+	<!-- resultType이 DTO가 아니라 String인 이유는 id하나만 오니까 -->
+	<select id="idCheck" parameterType="String" resultType="String">
+		SELECT id FROM tbl_member
+		WHERE id = #{id}
+	</select>
 
 </mapper>

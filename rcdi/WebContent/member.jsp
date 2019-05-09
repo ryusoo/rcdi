@@ -29,6 +29,9 @@ a:link, a:visited {
 	text-decoration: none;
 	color: inherit; /* 상속받은 색 그대로 물려받겠다 */
 }
+section {
+	margin-top: 150px;
+}
 input, select {
 	width: 150px;
 	height: 30px;
@@ -152,9 +155,10 @@ th, td {
 				<td><b>아이디</b><img src="images/ico_required.gif" alt="필수"></td>
 				<td><span class="ps_box int_id"> <input type="text"
 						id="id" name="id" class="int" maxlength="20" placeholder="아이디">
-				</span> <input type="button" class="btn_normal btn_idck" value="중복확인"><br>
+				</span> 
+				<!-- <input type="button" class="btn_normal btn_idck" value="중복확인"><br> -->
 				</td>
-				<td><span class="error_next_box">필수정보입니다.</span></td>
+				<td><span id="spanid" class="error_span_box error_next_box">필수정보입니다.</span></td>
 			</tr>
 			<!-- 여기까지 -->
 
@@ -165,7 +169,7 @@ th, td {
 						placeholder="비밀번호"> <!-- 비밀번호니까 type을 text로안하고 password로 바꿈 -->
 						<!-- <span class="step_url"><i class="fas fa-unlock-alt"></i></span> -->
 				</span></td>
-				<td><span class="error_next_box">필수정보입니다.</span></td>
+				<td><span class="error_pw_box error_next_box">필수정보입니다.</span></td>
 			</tr>
 			<tr>
 				<td><b>비밀번호 재확인</b><img src="images/ico_required.gif" alt="필수"></td>
@@ -343,93 +347,105 @@ th, td {
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-
-/* 
-			var
-			form = $('#join_frm'),
-			uid = $('#id'),
-			upw = $('#pw'),
-			urepw = $('#repw'),
-			uname = $('#name'),
-			umail = $('#email'),
-			uurl = $('#url'),
-			uphone = $('#phone');
-
-			// 정규식
-			// ID: 영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자, 끝날 때 제한 없음=특정 조건이 없음.
-			var idReg = RegExp(/^[a-zA-Z0-9]{5,15}$/); 
-			// pw
-			var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/); 
-			// 이름 정규식
-			var name = $.trim($('#name').val()); 
-			// $.trim(uname.val())->$.trim($('#name').val())으로 바꿈
-			var nameReg = RegExp(/^[가-힣]{2,4}$/); 
-			// 이름 유효성 (한글이름만, 2자에서 4자까지)
-			var emailReg = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i); 
-			// email 유효성
-			var phoneReg = RegExp(/^[0-9]{8,11}$/); 
-			// 전화번호 유효성 검사
-
-
-			// 유효성체크
-
-			// ID 중복확인
-
-		if(name == '' || name.length == 0) {
-			$('.error_next_box').eq(3).css('display', 'block').text('필수입력 정보입니다.').css('color', 'tomato');
-			$('#name').val(''); // uname -> $('#name')으로 바꿈.
-				return false;
-			}  else if (!nameReg.test(name)) {
-			$('.error_next_box').eq(3).css('display', 'block').css('color', 'tomato').text('올바른 값을 입력하세요.');
-				return false;
-			} else {
-				$('.error_next_box').eq(3).css('display', 'block').css('color', 'dodgerblue').text('예쁜 이름이네요.');
-			}
-		
-			// 비밀번호 
-
-			// 이름 
-
-			// 휴대전화 
-
-			// 이메일
-
-			$('#selmail').change(function(){ // select에서 선택되었을 때 값이 변했을 때 change()함수를 쓴다.
-				var selmail = $(this).val(); // input과 select는 val로 가지고 온다. 인풋은 키보드로 입력된 값을 가져와라, select는 value라고 적힌 값을 가져온다. 나머지는 text로 가져옴
-
-				if(selmail == 'directVal'){ // 직접입력을 선택한 경우
-					$('#email_url').val(""); // val()만 쓰면 값을 가져오고, 값을 넣으면 그 값을 넣어줌.
-					$('#email_url').focus(); // 이메일 주소창에 포커스 가게 함.
+			
+			// email 관련 설정 (직접입력)
+			$('#selmail').change(function(){
+				var eUrl = $(this).val();
+				if(eUrl == "directVal"){
+					$('#email_url').val('');
+					$('#email_url').focus();
+					$('#email_url').removeAttr('readonly');
 				} else {
-					$('#email_url').val(selmail); 
+					$('#email_url').val(eUrl);
+					$('#email_url').prop('readonly', true);					
+					$("#email_url").focus(); // 선생님은 blur()를 해야한다고 하심.
 				}
+				
 			});
-			 */
 			
-			
+			// id 
+			// (1) null
+			// (2) 정규식
+			// (3) 중복체크
 			
 			// Ajax
 			$("#id").blur(function(){
-				alert('test');
+				//alert('test');
 				var id = $.trim($(this).val());
-				alert(id);
+				//alert(id);
 				
-				// id에 값이 있는 경우에만 ajax 동작!
-				if(id != "" || id.length != 0){
-					$.ajax({
-						// "idCheck.rcdi?id="+id 이렇게 쿼리스트링 처럼 보내는 것을 나눠서 적음
-						url: "idCheck.rcdi",
-						type: "POST", // 목적지로 보낼 때 방법
-						dataType: "json", // 목적지로 보낼 때 어떤 포장으로 보내는지 예를들어 캐리어가방, 백팩가방
-						data: "id=" + id, // 
-						success: function(data){
-							
-						},
-						error: function(){
-							alert:("System Error!!!");
-						}
-					});
+				var regEmpty = /\s/g; // 공백문자
+				var reg = /[^a-z0-9-_.]+/g; // 올바른 아이디 형식
+				//소문자 a~z, 0~9, _ .만 들어올 수 있음
+				
+				
+				if(id == "" || id.length == 0){
+					//alert('공백');
+					$(".error_next_box").eq(0).text("필수입력 정보입니다.")
+							   .css("display", "block")
+							   .css("color", "#FF3636");
+					return false; // 이 이벤트를 빠져나가라는 뜻. blur()
+				} else if(id.match(regEmpty)){
+					//alert('사이공백');
+					$(".error_next_box").eq(0).text("ID는 공백없이 6자 이상~50자 이하여야 합니다.").css("display", "block").css("color", "#FF3636");
+					return false;
 					
+				} else if(reg.test(id)){
+					//alert('대문자안됨, . _ 빼고 안됨');
+					$(".error_next_box").eq(0).text("올바른 ID를 입력해주세요").css("display", "block").css("color", "#FF3636");
+					return false;
+					
+				} else if(id.length < 5 || id.length > 50) {
+					//alert('최소 5자이상');
+					$(".error_next_box").eq(0).text("ID는 공백없이 5자 이상~50자 이하여야 합니다.").css("display", "block").css("color", "#FF3636");
+					return false;
+				} 
+					
+				
+				// 유효한 ID: True
+				// 중복 Check : False
+				
+				// 중복체크(Ajax)
+				ajaxCheck(id);
+				
+			});
+			
+			
+			
+			// pw 
+			
+			
+			$("#pswd1").blur(function(){
+				var pw = $.trim($(this).val());	
+				
+				
+				var regEmpty = /\s/g; // 공백문자
+				var pwReg=RegExp(/^[a-zA-Z0-9]{4,12}$/); // 비밀번호 체크 /^이면 true, false가 반대가 된다
+				
+				if(pw == "" || pw.length == 0){					
+					$(".error_next_box").eq(1).text("필수입력 정보입니다.")
+							   .css("display", "block")
+							   .css("color", "#FF3636");
+					return false;
+				} else if(pw.match(regEmpty)){					
+					$(".error_next_box").eq(1).text("공백없이 입력해주세요.").css("display", "block").css("color", "#FF3636");
+					return false;					
+				} else if(!pwReg.test(pw)){ // 위의 정규식에서 /^이기 때문에 true, false가 반대가 되어!를 써야함			
+					$(".error_next_box").eq(1).text("올바른 비밀번호(4~12자)를 입력해주세요").css("display", "block").css("color", "#FF3636");
+					return false;					
+				} else {
+					$(".error_next_box").eq(1).text("사용가능한 비밀번호입니다.").css("display", "block").css("color", "#0000FF");
+					
+					var rpw = $.trim($("#pswd2").val());
+					if(rpw != null || rpw.length != 0){
+						if(pw == rpw){
+							$(".error_next_box").eq(2).text("사용가능한 비밀번호입니다.").css("display", "block").css("color", "#0000FF");
+							
+						} else {
+							$(".error_next_box").eq(2).text("입력하신 비밀번호가 일치하지 않습니다.").css("display", "block").css("color", "#FF3636");
+							return false;	
+						}
+					}
 				}
 				
 				
@@ -437,15 +453,261 @@ th, td {
 			
 			
 			
-			
-			
-			
-			
-			
-			
+			// 비밀번호 재확인(비교)
+			$("#pswd2").blur(function(){
+				var pw = $.trim($("#pswd1").val());
+				var rpw = $.trim($("#pswd2").val());	
+				
+				
+				
+				var regEmpty = /\s/g; // 공백문자
+				var pwReg=RegExp(/^[a-zA-Z0-9]{4,12}$/); // 비밀번호 체크 /^이면 true, false가 반대가 된다
+				
+				if(rpw == "" || rpw.length == 0){					
+					$(".error_next_box").eq(2).text("필수입력 정보입니다.")
+							   .css("display", "block")
+							   .css("color", "#FF3636");
+					return false;
+				} else if(rpw.match(regEmpty)){					
+					$(".error_next_box").eq(2).text("공백없이 입력해주세요.").css("display", "block").css("color", "#FF3636");
+					return false;					
+				} else if(!pwReg.test(rpw)){ // 위의 정규식에서 /^이기 때문에 true, false가 반대가 되어!를 써야함			
+					$(".error_next_box").eq(2).text("올바른 비밀번호(4~12자)를 입력해주세요").css("display", "block").css("color", "#FF3636");
+					return false;					
+				} else if(pw != rpw) {
+					$(".error_next_box").eq(2).text("입력하신 비밀번호가 일치하지 않습니다.").css("display", "block").css("color", "#FF3636");
+					return false;					
+				} else {
+					$(".error_next_box").eq(2).text("사용가능한 비밀번호입니다.").css("display", "block").css("color", "#0000FF");
+					return false;	
+				}
+						
+				
+			});
 			
 			
 		});
+		
+		
+		
+		// 이름
+		// (1) null
+		// (2) 중간공백
+		// (3) 4자제한
+		// (4) 멋진 이름이네요
+		
+		$("#name").blur(function(){
+				//alert('test');
+				var name = $.trim($(this).val());
+				//alert(name);
+				
+				var regEmpty = /\s/g; // 공백문자
+				var regKor = /[^가-힣]/; // 올바른 이름 형식
+			
+				
+				
+				if(name == "" || name.length == 0){
+					//alert('공백');
+					$(".error_next_box").eq(3).text("필수입력 정보입니다.")
+							   .css("display", "block")
+							   .css("color", "#FF3636");
+					return false; // 이 이벤트를 빠져나가라는 뜻. blur()
+				} else if(name.match(regEmpty)){
+					//alert('사이공백');
+					$(".error_next_box").eq(3).text("공백없이 입력해주세요.").css("display", "block").css("color", "#FF3636");
+					return false;					
+				} else if(regKor.test(name)) {					
+					$(".error_next_box").eq(3).text("이름은 표준 한글만  입력가능합니다.").css("display", "block").css("color", "#FF3636");
+					return false;
+				} else if(name.length > 4 || name.length < 2) {			
+					$(".error_next_box").eq(3).text("이름은 2자이상 4자 이하여야 합니다.").css("display", "block").css("color", "#FF3636");
+					return false;
+				} else {
+					$(".error_next_box").eq(3).text("멋진 이름이네요.").css("display", "block").css("color", "#0000FF");
+				}
+				
+						
+				
+			});
+		
+		
+		
+		
+		
+		
+		
+		// 전화
+		
+		$("#phone").blur(function(){
+				
+				var phone = $.trim($(this).val());				
+				var regEmpty = /\s/g; // 공백문자
+				
+				
+				
+				if(phone == "" || phone.length == 0){					
+					$(".error_next_box").eq(4).text("필수입력 정보입니다.")
+							   .css("display", "block")
+							   .css("color", "#FF3636");
+					return false; 
+				} else if(phone.match(regEmpty)){
+					$(".error_next_box").eq(4).text("공백없이 입력해주세요.").css("display", "block").css("color", "#FF3636");
+					return false;					
+				} else if($.isNumeric(phone) == false){
+					$(".error_next_box").eq(4).text("숫자만 입력해주세요.").css("display", "block").css("color", "#FF3636");
+					return false;					
+				} else if(phone.indexOf("01") != 0){
+					
+					// indexOf를 쓰면 앞을 제어할 수 있다.
+					// lastOf를 쓰면 뒤를 제어할 수 있다.
+					// 예를들어 01012341234번호가 있을 때 "01"이 몇번지에 있는지를 센다
+					// 01이 0번지이기 때문에 0을 반환
+					// != 0 이기 때문에 조건문을 타지 않음
+					// 만약에 91012341201번호가 있을 때 "01"이 3번지와 9번지에 있어서 3과 9를 반환한다
+					// != 0 이기 때문에 조건문을 탄다
+					$(".error_next_box").eq(4).text("휴대폰 번호가 유효하지 않습니다.").css("display", "block").css("color", "#FF3636");
+					return false;
+					
+				} else if(!(phone.length == 10 || phone.length == 11)) {
+					$(".error_next_box").eq(4).text("(-)없이 10자 또는 11자로 입력해주세요.").css("display", "block").css("color", "#FF3636");
+					return false;
+				}  else {
+					$(".error_next_box").eq(4).text("등록가능한 휴대폰 번호입니다.").css("display", "block").css("color", "#0000FF");
+				}
+					
+				
+				
+			});
+		
+		
+		
+		// email 유효성 체크
+		
+		$("#email_id").blur(function(){
+			
+			var email = $.trim($(this).val());	
+			var url = $.trim($('#email_url').val());
+			var regEmpty = /\s/g; // 공백문자			
+			var regEmail = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i); // 이메일유효성검사
+			
+			
+			
+			if(email == "" || email.length == 0){	
+				
+				$(".error_next_box").eq(6).text("필수입력 정보입니다.")
+						   .css("display", "block")
+						   .css("color", "#FF3636");
+				return false; 
+			} else if(email.match(regEmpty)){
+				
+				$(".error_next_box").eq(6).text("공백없이 입력해주세요.").css("display", "block").css("color", "#FF3636");
+				return false;					
+			} else if(url != "" || url.length != 0){
+				
+				var fullMail = email+"@"+url;
+				if(!regEmail.test(fullMail)){
+					
+					$(".error_next_box").eq(6).text("올바른 email을 입력해주세요.").css("display", "block").css("color", "#FF3636");
+					return false;
+				} else {
+					
+					$(".error_next_box").eq(6).text("샤이니한 email이네요.").css("display", "block").css("color", "#0000FF");
+				}
+				
+				
+			} 
+			
+			
+		});
+		
+		
+		$("#email_url").blur(function(){
+			
+			var email = $.trim($('#email_id').val());	
+			var url = $.trim($('#email_url').val());
+			var regEmpty = /\s/g; // 공백문자			
+			var regEmail = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i); // 이메일유효성검사
+	
+			
+			
+			if(url == "" || url.length == 0){	
+				
+				$(".error_next_box").eq(6).text("필수입력 정보입니다.")
+						   .css("display", "block")
+						   .css("color", "#FF3636");
+				return false; 
+			} else if(url.match(regEmpty)){
+				alert('test');
+				$(".error_next_box").eq(6).text("공백없이 입력해주세요.").css("display", "block").css("color", "#FF3636");
+				return false;					
+			} else if(email != "" || email.length != 0){
+				
+				var fullMail = email+"@"+url;
+				if(!regEmail.test(fullMail)){
+					
+					$(".error_next_box").eq(6).text("올바른 email을 입력해주세요.").css("display", "block").css("color", "#FF3636");
+					return false;
+				} else {
+					
+					$(".error_next_box").eq(6).text("샤이니한 email이네요.").css("display", "block").css("color", "#0000FF");
+				}
+				
+				
+			} 
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		function ajaxCheck(id){
+			
+			// id에 값이 있는 경우에만 ajax 동작!
+			
+			$.ajax({
+				// "idCheck.rcdi?id="+id 이렇게 쿼리스트링 처럼 보내는 것을 나눠서 적음
+				url: "idCheck.rcdi",
+				type: "POST", // 목적지로 보낼 때 방법
+				dataType: "json", // 목적지로 보낼 때 어떤 포장으로 보내는지 예를들어 캐리어가방, 백팩가방
+				data: "id=" + id, // 
+				success: function(data){
+					// alert(data.message);
+					if(data.message == "-1"){
+						$("#spanid").text("이미 사용 중인 아이디")
+								    .css("display", "block")
+								    .css("color", "#FF3636");
+						$("#spanid").select(); // 포커스+ 블럭
+					} else {
+						$("#spanid").text("멋진 아이디네요!")
+									.css("display", "block")
+								    .css("color", "#0000FF");
+						$("#spanid").select();
+					}
+				},
+				error: function(){
+					alert:("System Error!!!");
+				}
+				
+			});
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>
 	<%@ include file="include/footer.jsp"%>
 </body>

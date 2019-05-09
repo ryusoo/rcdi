@@ -8,22 +8,30 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-public class IdCheckAction implements Action {
+import com.rcdi.dao.MemberDAO;
 
+public class IdCheckAction implements Action {
+	
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		String id = request.getParameter("id");
-		System.out.println("id>>>" + id);
+		// System.out.println("id>>>" + id);
+		
+		
+		
+		MemberDAO mDao = MemberDAO.getInstance();
+		String result = mDao.idCheck(id);
+		
 		
 		
 		//Ajax => JSON 방식 => return 할 때 보내는 값도 JSON방식
 		
 
 		JSONObject jObj = new JSONObject();
-		int message = 1;
-		jObj.put("message", message);
+		// int message = 1;
+		jObj.put("message", result);
 		jObj.put("id", id);
 		
 		// forward로 보내는 것이 목적지와 방법을 쓰는 건데
