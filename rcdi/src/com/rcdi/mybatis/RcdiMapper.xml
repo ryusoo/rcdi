@@ -25,10 +25,20 @@
 	]]>
 	</select>
 	
+	<!-- 21. 매개변수로 전달밭은 id값을 sql문에 바인딩변수로 넣고 sql문 실행(DB로 이동) -->
+	<!-- ※ 참고로 여러건을 쓸 때
+	 myBatis가 preparedStatement기반이다. pstmt.setString(1, "id"); -> #{id} 이렇게 바꿈
+	변수 하나만 보내면 하나만 들어가면 되는데 DTO로 보내면 parameterType을 DTO로 보내면 여러개의 값이 들어간다.
+	DTO로 담으면 id, pw, phone... 여러개의 값을 통으로 보낸 것이기 때문에 자동으로 getId();해서 DTO가서 똑같이 가지고 온다.
+	여기서는 String이지만 DTO이면 DTO에서 보낼 때 setId();알아서 해준다 -->
 	<!-- resultType이 DTO가 아니라 String인 이유는 id하나만 오니까 -->
 	<select id="idCheck" parameterType="String" resultType="String">
 		SELECT id FROM tbl_member
 		WHERE id = #{id}
 	</select>
-
+	
+	<insert id="memInsert" parameterType="com.rcdi.dto.MemberDTO">
+		INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
+		VALUES (#{id}, #{pw}, #{name}, #{birth_year}, #{birth_month}, #{birth_day}, #{phone}, #{preceiveyn}, #{email}, #{ereceiveyn}, #{zipcode}, #{addr1}, #{addr2})
+	</insert>
 </mapper>

@@ -10,10 +10,16 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
+  <!-- 12. url이 *.rcdi로 끝나는 경우 이동ㅇ하는 FrontController를 정의 -->
+  <!-- 결론: url이 *.rcdi으로 끝나면 "com.rcdi.controller.FrontController"로 이동 -->
   	<servlet-name>FrontController</servlet-name>
   	<servlet-class>com.rcdi.controller.FrontController</servlet-class>
   </servlet>
   <servlet-mapping>
+  <!-- 11. url의 끝부분이 .rcid로 끝나면 FrontController로 이동
+  			url: idCheck.rcdi => FrontController로 이동  
+  			FrontController가 어디있는지 몰라요...
+  			위를 보세요 ↑ -->
   <servlet-name>FrontController</servlet-name>
   	<url-pattern>*.rcdi</url-pattern>
   </servlet-mapping>

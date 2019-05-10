@@ -24,6 +24,40 @@ public class MemberDTO {
 	public MemberDTO() {
 		super();
 	}
+	
+	
+
+
+
+	
+
+
+
+
+	public MemberDTO(String id, String pw, String name, int birth_year, int birth_month, int birth_day, String phone,
+			String preceiveyn, String email, String ereceiveyn, String zipcode, String addr1, String addr2) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.birth_year = birth_year;
+		this.birth_month = birth_month;
+		this.birth_day = birth_day;
+		this.phone = phone;
+		this.preceiveyn = preceiveyn;
+		this.email = email;
+		this.ereceiveyn = ereceiveyn;
+		this.zipcode = zipcode;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
+	}
+
+
+
+
+
+
+
 
 
 
@@ -48,6 +82,22 @@ public class MemberDTO {
 		this.regdate = regdate;
 		
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
 
 
 

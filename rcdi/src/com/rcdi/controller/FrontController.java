@@ -15,6 +15,7 @@ import com.rcdi.action.ConstractAction;
 import com.rcdi.action.IdCheckAction;
 import com.rcdi.action.IndexAction;
 import com.rcdi.action.MemberAction;
+import com.rcdi.action.MemberPlayAction;
 
 
 @WebServlet("/FrontController")
@@ -35,10 +36,18 @@ public class FrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
+		// 13. uri와 ctx를 빼서 command를 생성
+		//		실행: /rcdi/idCheck.rcdi
+		//			-/rcdi
+		//-----------------------------------------
+		//			= /idCheck.rcdi    >>> command 
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
 		String command = uri.substring(ctx.length());
 		System.out.println("페이지 이동>>>"+command);
+		
+		// 14. 생성된 command와 조건에 맞는 if문 실행
+		//	   command = /idCheck.rcdi
 		
 		if(command.contentEquals("/index.rcdi")){
 			action = new IndexAction();
@@ -50,9 +59,18 @@ public class FrontController extends HttpServlet {
 			action = new MemberAction();
 			forward = action.excute(request, response);
 		} else if(command.contentEquals("/idCheck.rcdi")){
+			// 15. idCheckAction 클래스 객체 생성
+			//	    결과물: action 인스턴스
+			//	   action 인스턴스를 활용하여 excute()메서드 실행
+			//	    매개변수로 Controller의 request와 response를 전송
+			//	    이동: IdCheckAction 클래스의 excute()로 이동
 			action = new IdCheckAction();
 			forward = action.excute(request, response);
+		} else if(command.contentEquals("/memberPlay.rcdi")){
+			action = new MemberPlayAction();
+			forward = action.excute(request, response);
 		}
+		
 		
 		
 		
