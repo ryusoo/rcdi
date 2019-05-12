@@ -31,7 +31,6 @@ ul {
 
 a:link, a:visited {
 	text-decoration: none;
-	color: inherit; /* 상속받은 색 그대로 물려받겠다 */
 }
 
 section {
