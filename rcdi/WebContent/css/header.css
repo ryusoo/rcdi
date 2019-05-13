@@ -445,6 +445,13 @@ h1 {
 	color: #ccc;
 	margin: 0 4px;
 }
+.err_msg {
+	display: none;
+	text-align: center;
+	color: tomato;
+	font-size: 11px;
+	letter-spacing: -1;
+}
 
 /* TOP 버튼 */
 #topBtn {

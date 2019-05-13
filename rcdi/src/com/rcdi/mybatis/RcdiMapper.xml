@@ -41,4 +41,9 @@
 		INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
 		VALUES (#{id}, #{pw}, #{name}, #{birth_year}, #{birth_month}, #{birth_day}, #{phone}, #{preceiveyn}, #{email}, #{ereceiveyn}, #{zipcode}, #{addr1}, #{addr2})
 	</insert>
+	
+	<select id="loginCheck" parameterType="com.rcdi.dto.MemberDTO" resultType="com.rcdi.dto.MemberDTO">
+		SELECT * FROM tbl_member
+		WHERE id=#{id} AND pw=#{pw}
+	</select>
 </mapper>

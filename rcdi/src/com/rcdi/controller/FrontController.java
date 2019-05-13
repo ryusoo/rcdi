@@ -14,8 +14,11 @@ import com.rcdi.action.ActionForward;
 import com.rcdi.action.ConstractAction;
 import com.rcdi.action.IdCheckAction;
 import com.rcdi.action.IndexAction;
+import com.rcdi.action.LoginAjaxAction;
 import com.rcdi.action.MemberAction;
 import com.rcdi.action.MemberPlayAction;
+
+import loginOut.LoginOutAction;
 
 
 @WebServlet("/FrontController")
@@ -69,7 +72,14 @@ public class FrontController extends HttpServlet {
 		} else if(command.contentEquals("/memberPlay.rcdi")){
 			action = new MemberPlayAction();
 			forward = action.excute(request, response);
+		} else if(command.contentEquals("/login.rcdi")){
+			action = new LoginAjaxAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/loginOut.rcdi")){
+			action = new LoginOutAction();
+			forward = action.excute(request, response);
 		}
+		
 		
 		
 		
