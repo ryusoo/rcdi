@@ -1,407 +1,248 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="include/common.jsp"%>
+    pageEncoding="UTF-8"%>
+<%@ include file="include/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous">
-<title>member_delete.html</title>
+<title>Insert title here</title>
 <style type="text/css">
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
-
-* {
-	box-sizing: border-box;
-	font-family: 'Nanum Gothic', sans-serif;
+.section_outline {
+	height: auto;
 }
-
-body, h1, ul, p, h3 {
-	margin: 0;
-	padding: 0;
+.section_inline {
+    height: auto;
+    width: 100%;
+    margin: 0 auto;
 }
-
-body {
-	background: #f5f6f7;
+.title {
+    text-align: center;
+    padding: 50px 0;
+    font-size: 30px;
+    font-weight: 600;
+    color: #363636;
 }
-
-ul {
-	list-style: none;
+.input_box {
+    font-size: 16px;
+    line-height: 40px;
+    padding: 0 10px;
+    width: 460px;
+    margin: 0 auto;
+    letter-spacing: -1;
+    border: 1px solid #dadada;
+    outline-color: black;
 }
-
-a {
-	text-decoration: none;
+.delete_title {
+	font-size: 30px;
+	font-weight: 700;
+	margin: 35px 0;
+	color: dimgray;
+	letter-spacing: -1;
 }
-
-.member_wrap {
-	width: 960px;
-	margin: 49px auto 60px;
-	border: none;
-	padding: 0;
-}
-
-.member_header {
-	margin-left: 400px;
-	padding-bottom: 28px;
-	margin-bottom: 41px;
-	position: relative;
-}
-
-.tit {
-	font-size: 26px;
-	color: #111;
-	line-height: 28px;
-}
-
-.location {
-	position: absolute;
-	right: 0;
-	top: 12px;
-	list-style: none;
-}
-
-.location li {
-	float: left;
-	letter-spacing: -0.5px;
-	margin-left: 18px;
-	font-size: 15px;
-	margin-bottom: 15px;
-}
-
-.step {
-	color: #999;
-}
-
-#step2 {
-	color: black;
-	font-weight: bold;
-}
-
-.container {
-	width: 770px;
+.delete_content {
+	width: 800px;
+	border-radius: 5px;
+	border: 3px solid black;
 	margin: 0 auto;
-	max-width: 770px;
-	min-width: 460px;
+	height: auto;
 }
-
-.join_row {
-	margin-bottom: 25px;
+.delete_content span {
+	color: dodgerblue;
 }
-
-.withdraw_content {
-	width: 650px;
-	margin: 0 auto;
-	border-radius: 50px;
-	border: 5px solid dimgray;
-	padding: 20px;
-	margin-bottom: 50px;
-}
-
-.withdraw_content>h3 {
+.content_title {
 	text-align: center;
+	font-size: 20px;
+	font-weight: 700;
+	color: #363636;
+	margin: 40px 0;
 }
-
-.list {
-	letter-spacing: -1px;
+.content {
+	width: 720px;
+	margin: 25px auto;
+	font-size: 18px;
+	font-weight: 600;
+	text-align: left;
+	color: #5A5A5A;
 }
-
-/* 회원가입 정보 */
-.join_content {
+.error_next_box {
+    color: tomato;
+    font-size: 12px;
+    padding: 5px;
+    letter-spacing: -1;
+    display: none;
+    margin-bottom: 10px;
+}
+.space {
+	height: 50px;
+}
+.frm_wrap {
 	width: 460px;
 	margin: 0 auto;
 }
-
-.ps_box {
-	display: block;
-	position: relative; /* step_url의 기준 */
-	width: 100%;
-	height: 51px;
-	border: 1px solid #dadada;
-	padding: 10px 14px;
-	background: #fff;
-	vertical-align: top;
+.btn_update {
+    display: flex;
+    margin: 20px auto;
+    width: 100%;
+    line-height: 40px;
+    background-color: #363636;
+    font-size: 16px;
+    color: white;
+    letter-spacing: -1;
+    text-align: center;
+    margin: 10px 0 100px;
 }
-
-.msg_box {
-	position: absolute;
-	z-index: 10;
-	top: 10px;
-	right: -28px;
+.cancel_btn {
+    flex: 1;
+    color: black;
+    background-color: white;
+    font-weight: 700;
+    color: #363636;
+    cursor: pointer;
+    font-size: 18px;
+    border: 1px solid #363636;
 }
-
-.msg_pop {
-	display: none;
-	width: 340px;
-	padding: 24px;
-	border: 1px solid #333;
-	background: #fff;
-	font-size: 13px;
-	box-sizing: border-box;
+.delete_btn {
+    flex: 1;
+    color: white;
+    background-color: #363636;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
 }
-
-.int_id {
-	padding-right: 110px;
-}
-/* input박스 */
-.int {
-	display: block;
-	position: relative;
-	width: 100%;
-	/* input태그가 가질 수 있는 영역을 다 차지하라고 100%를 줬다. 근데 그 영역을 알려면 부모를 봐야한다 */
-	height: 29px;
-	padding-right: 25px;
-	line-height: 29px;
-	border: none;
-	background: #fff;
-	font-size: 15px;
-	z-index: 10;
-}
-
-.step_url {
-	position: absolute; /* 기준은 ps_box임 */
-	top: 16px; /* 위에서 안쪽으로 16px */
-	right: 13px; /* 오른쪽에서 안쪽으로 13px  */
-	font-size: 15px;
-	line-height: 18px;
-	color: #8e8e8e;
-}
-
-.error_next_box {
-	display: none; /* block이라고 해주면 나중에 유효성체크후에 "필수정보입니다"가 빨간 글씨로 뜬다 */
-	margin: 9px 0 -2px;
-	font-size: 12px;
-	line-height: 14px;
-	color: red;
-	height: 15px;
-}
-
-.int_pass {
-	padding-right: 40px;
-}
-
-.join_agree {
-	margin-top: 18px;
-}
-
-.re_list {
-	width: 320px;
-	margin: 0 auto;
-	list-style: none;
-}
-
-/* 탈퇴하기 버튼 */
-.btn_double_area {
-	margin: 30px -5px 0px;
-	overflow: hidden;
-	display: flex;
-}
-
-.btn_double_area>span {
-	flex: 1;
-}
-
-.btn_type {
-	width: auto;
-	margin: 0 5px;
-	font-size: 20px;
-	font-weight: 600;
-	line-height: 61px;
-	display: block;
-	height: 61px;
-	padding-top: 1px;
-	text-align: center;
-	color: #fff;
-	border: 1px solid #333;
-	background-color: #333;
-}
-
 /* 모달창 */
-#modal_wrap {
+#modal {
 	position: fixed;
-	z-index: 10;
+	z-index: 3;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.4);
-	align-items: center;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
 	justify-content: center;
+	align-items: center;
 	display: none;
 }
-
-#withdraw_content {
-	width: 270px;
-	margin: 0 auto;
-	position: relative;
-	margin: 10px 0px;
-	/* width가 있으면 양쪽에 여백을 반토막내서 가운데 정렬해주는것이 margin: 0 auto이다; */
-	text-align: center;
-}
-
-#withdraw_area {
-	width: 100%;
-	text-align: left;
-	display: inline-block;
-	background-color: white;
-	border-radius: 5px;
-	height: 200px;
-}
-
-.square {
-	width: 100%;
-	height: 25px;
-	background-color: #333;
+.modal_title {
+	background-color: dimgray;
 	color: white;
-	margin-bottom: 10px;
-	border-radius: 2px;
-	padding-left: 10px;
-	padding-top: 2px;
-}
-
-#subtitle {
-	position: relative;
-	margin: 30px 0;
-	font-size: 25px;
-	width: 100%;
-	padding: 6px 10px 0px 10px;
-	text-align: center;
-}
-
-#close_btn {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	width: 20px;
-	height: 25px;
-	border-radius: 5px;
-	background-color: #333;
-	cursor: pointer;
-	transition: .2s linear;
-	z-index: 9;
-	color: white;
-	text-align: center;
-	padding-top: 4px;
-}
-
-.wrap_btn {
-	width: 270px;
-	margin: 0 auto;
-	display: flex;
-}
-
-.wrap_btn>a>span {
-	width: 50px;
+	border-radius: 5px 5px 0px 0px;
+	font-size: 13px;
+	width: 350px;
+	font-weight: 600;
 	height: 30px;
-	background-color: #333;
-	color: white;
-	border: 1px solid #333;
-	flex: 1;
-	margin-left: 3px;
-	justify-content: center;
-	align-items: center;
-	display: inline-block;
-	border-radius: 3px;
-	text-align: center;
 	line-height: 30px;
+	padding-left: 10px;
+}
+.modal_content {
+	width: 350px;
+	text-align: center;
+	color: #363636;
+	font-size: 18px;
+	font-weight: 600;
+	background-color: white;
+	height: 150px;
+	border-radius: 0px 0px 5px 5px;
+	padding: 35px 10px;
+}
+.modal_content span{
+	color: dodgerblue;
+}
+.no_btn {
+	text-decoration: none;
+	color: white;
+	border-radius: 5px;
+	border: 1px solid #363636;
+	width: 100px;
+	margin: 0px auto;
+	display: inline-block;
+	font-size: 25px;
+	font-weight: 600;
+	line-height: 38px;
+	background-color: #363636;
+}
+.yes_btn {
+	text-decoration: none;
+	color: #363636;
+	border-radius: 5px;
+	border: 1px solid #363636;
+	width: 100px;
+	margin: 0px auto;
+	display: inline-block;
+	font-size: 25px;
+	font-weight: 600;
+	line-height: 38px;
 }
 </style>
 </head>
 <body>
-	<div class="member_wrap">
-		<header class="member_header">
-			<h1 class="tit">
-				<a href="#" class="rcdi_logo">RCDI</a> <span>회원탈퇴</span>
-			</h1>
-		</header>
-		<section>
-			<form action="memberPlay.rcdi" class="member_form" id="frm_mem"
-				method="POST" name="frm_mem">
-				<div class="container">
-					<div class="withdraw_content">
-						<h3>"님" 회원탈퇴시 아래의 조취가 취해집니다.</h3>
-						<ol class="list">
-							<li>계정정보는 '개인 정보 보호 정책'에 따라 60일간 보관(잠김)되며, 60일이 경과된 후에는 모든
-								개인정보는 완전히 삭제되어 더 이상 복구할 수 없게 됩니다.</li>
-							<li>작성된 게시물은 삭제되지 않으며, 익명처리 후 RCDI로 소유권이 귀속됩니다.</li>
-							<li>게시물 삭제가 필요한 경우에는 관리자(ryusoo0610@rcdi.co.kr)로 문의해 주시기
-								바랍니다.</li>
-						</ol>
-
-
-					</div>
-
-					<div class="join_content">
-
-
-
-
-						<div class="join_row">
-							<span class="ps_box int_pass"> <input type="password"
-								id="pswd1" name="pswd1" class="int" maxlength="20"
-								placeholder="비밀번호"> <!-- 비밀번호니까 type을 text로안하고 password로 바꿈 -->
-								<span class="step_url"> </span>
-							</span> <span class="error_next_box">필수정보입니다.</span>
-						</div>
-
-
-						<div class="btn_double_area">
-							<span>
-								<div id="c_btn" class="btn_type btn_default">취소</div>
-							</span> <span>
-								<div id="j_btn" class="btn_type btn_agree">예,탈퇴하겠습니다.</div>
-							</span>
-						</div>
-					</div>
-				</div>
-			</form>
-			<!-- 모달창 -->
-			<div id="modal_wrap">
-				<div id="withdraw_content">
-					<div id="withdraw_area">
-						<div class="square">RCDI</div>
-						<div id="subtitle">
-							정말 RCDI를 <br>탈퇴하시겠습니까?
-						</div>
-						<div id="close_btn">
-							<i class="fas fa-times"></i>
-						</div>
-						<div id="modal_container">
-							<div class="wrap_btn">
-								<a href="index.rcdi" id="btn_cancel"> <span>아니오</span>
-								</a> <a href="#" id="btn_withdraw"> <span>네</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+	<div id="modal">
+		<div class="modal_page">
+			<div class="modal_title">RCDI</div>
+			<div class="modal_content">정말 <span>RCDI</span>를 탈퇴하시겠습니까?<br><br>
+				<a href="#" class="no_btn">아니오</a>
+				<a href="#" class="yes_btn">네</a>
 			</div>
-		</section>
+		</div>
 	</div>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<script type="text/javascript">
+	<section>
+		<div class="section_outline">
+			<div class="section_inline">
+				<div class="title">회원탈퇴</div>
+				<div class="delete_content">
+					<div class="content_title"><span>"님"</span> 회원 탈퇴 시 아래의 조치가 취해집니다.</div>
+					<div class="content">1. 계정 정보는 <span>'개인 정보 보호 정책'에 따라 60일간 보관(잠김) 되며,</span> 60일이 경과된 후 모든 개인 정보는 완전히 삭제되며 더 이상 복구할 수 없게 됩니다.</div>
+					<div class="content">2. 작성된 게시물은 삭제되지 않으며, 익명 처리 후 <span>RCDI로 소유권이 귀속</span>됩니다.</div>
+					<div class="content">3. 게시물 삭제가 필요한 경우에는 <span>관리자(ryusoo0610@rcdi.co.kr)</span>로 문의해 주시기 바랍니다.</div>
+				</div>
+				<div class="space"></div>
+				<form action="memberPlay.rcdi" id="frm_mem" class="frm_wrap" method="POST" name="frm_mem">
+					
+					<input type="password" id="pw" name="pw" class="input_box" maxlength="20" placeholder="비밀번호">
+					<span class="error_next_box">필수입력 정보입니다.</span>
+						
+					<div class="btn_update">
+						<div class="cancel_btn">취소</div>
+						<div class="delete_btn">예,탈퇴하겠습니다</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+<%@ include file="include/footer.jsp"%>
+<script type="text/javascript" src="js/validation.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
 	$(document).ready(function(){
-
-
-		// 회원탈퇴 모달창
-		$('#j_btn').click(function(){
-			$('#modal_wrap').css('display','block');
+		$('.delete_btn').click(function(){
+			$('#modal').css('display', 'flex');
 		});
-		$('#close_btn').click(function(){
-			$('#modal_wrap').css('display','none');
+		$('.no_btn').click(function(){
+			$('#modal').css('display', 'none');
 		});
 		
-	
-
-
-
-
+		$("#pw").blur(function() {
+			var pw = $.trim($("#pw").val());
+                                
+			var regEmpty = /\s/g; // 공백문자
+			var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/); // 비밀번호 체크 /^이면 true, false가 반대가 된다
+                
+			 if (pw == "" || pw.length == 0) {
+				$(".error_next_box").eq(0).text("필수입력 정보입니다.").css("display","block").css("color", "#FF3636");
+				return false;
+			} else if (pw.match(regEmpty)) {
+				$(".error_next_box").eq(0).text("공백없이 입력해주세요.").css("display","block").css("color", "#FF3636");
+				return false;
+			} else if (!pwReg.test(pw)) { // 위의 정규식에서 /^이기 때문에 true, false가 반대가 되어!를 써야함			
+				$(".error_next_box").eq(0).text("올바른 비밀번호(4~12자)를 입력해주세요").css(	"display", "block").css("color","#FF3636");
+				return false;
+			} else {
+				$(".error_next_box").eq(0).text("사용가능한 비밀번호입니다.").css("display","block").css("color", "#0000FF");
+			} 
+		});
+            
 	});
-
-
 </script>
 </body>
 </html>

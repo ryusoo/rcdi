@@ -190,21 +190,6 @@
 		<!-- 로그인 modal창 -->
 
 		<div id="wrap">
-
-			<!-- <div id="rcdy_header"> 
-			<h1>
-				<a id="rcdy_logo" href="">
-					<img src="images/logo2.png" alt="로고 이미지">
-					
-				</a>
-			</h1>
-			<div id="rcdy_help">
-				<ul class="list_help">
-					<li><a href="#">도움말</a></li>
-					<li><a href="#">문의하기</a></li>
-				</ul>
-			</div>
-		</div> -->
 			<div id="rcdy_content">
 				<div id="login_content">
 					<div id="login_area">

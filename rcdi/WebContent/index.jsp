@@ -8,10 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	
 	<section>
-
 		<article>
 			<div id="main_video">
 				<div class="inner">
@@ -22,14 +19,10 @@
 				<video autoplay loop muted> <!-- autoplay 자동재생, loop 무한반복 -->
 					<source src="${path}/images/Running_Motivation_2018.mp4" type="video/mp4" /> <!-- / 가 있어야함 -->
 				</video>
-		
 			</div>
-			
-
 			<div class="main_img">
 				<img src="${path}/images/190315_hp_p3_bg.jpg">
 			</div>
-
 			<div class="men_shoes_product">
 				<div class="men_shoes_wrap">
 					<span id="best_men_shoes">BEST SHOES</span><p>
@@ -44,7 +37,6 @@
 					</div>
 				</c:forEach>
 					
-					
 				</div>
 			</div>
 
@@ -52,28 +44,17 @@
 				<div class="men_shoes_wrap">
 					<span id="best_men_shoes">NEW CLOTHING</span><p>
 					
-				<c:forEach items="${arrivalList}" var="arrivalDTO"> 
-					<div class="shoes_product">
-						<a href=" "><img src="images/item/${arrivalDTO.p_img}" alt="의류 이미지" width="200"></a><p>
-						<span>${arrivalDTO.p_name}</span><br>
-						
-						<span>${arrivalDTO.p_price}원</span>
-					</div>
-					
-				</c:forEach>
-					
-					
-					
-					
+					<c:forEach items="${arrivalList}" var="arrivalDTO"> 
+						<div class="shoes_product">
+							<a href=" "><img src="images/item/${arrivalDTO.p_img}" alt="의류 이미지" width="200"></a><p>
+							<span>${arrivalDTO.p_name}</span><br>
+							<span>${arrivalDTO.p_price}원</span>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
-
 		</article>
-	
 	</section>
-	
-	<%@ include file="include/footer.jsp" %>
-
-	
+<%@ include file="include/footer.jsp" %>
 </body>
 </html>
