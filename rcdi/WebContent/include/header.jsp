@@ -78,9 +78,19 @@
 						<!-- 아래의 코드를 쓰는 경우에는 referer을 사용하는 방법이다. ajax이전의 방법 -->
 						<%-- 	<li><a href="${path}/loginOut.rcdi">로그아웃</a></li> --%>
 
-						<li><a href="#">마이페이지</a></li>
+						<li><a href="#" id="mypage">마이페이지</a>
+							<div class="mypage_dropdown">
+								<ul>
+									<li><div class="mypage_check">주문/배송 조회</div></li>
+									<li><div class="mypage_wishlist">위시리스트</div></li>
+									<li><div class="mypage_mem_update">내정보 수정</div></li>
+									<li><div class="mypage_pw_update">비밀번호 재설정</div></li>
+									<li><div class="mypage_mem_delete">회원탈퇴</div></li>
+								</ul>
+							</div>
+						</li>
 						<li><a href="#">고객센터</a></li>
-						<li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+						<li id="cart_icon"><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -229,6 +239,17 @@
 	
 	
 	$(function(){
+		
+		var flag = 0;
+		$('#mypage').click(function(){
+			if(flag == 0){
+				$('.mypage_dropdown').css('display','block');
+				flag = 1;
+			} else {
+				$('.mypage_dropdown').css('display','none');
+				flag = 0;
+			}
+		});
 
 		// 로그인 모달창 열고, 닫기
 		$('#open_btn').click(function(){
@@ -316,7 +337,27 @@
 					}
 				});
 			}
+			
+			
+			
+			
+			
+			
 		});
+		
+		
+		// 내정보 수정
+		$('.mypage_mem_update').click(function(){
+			location.href="infoUpdate.rcdi";
+		});
+		
+		// 비밀번호 재설정
+		$('.mypage_pw_update').click(function(){
+			alert('test');
+			location.href="pwUpdate.rcdi";
+		});
+		
+		
 
 		// 스크롤 끝에서 탑으로 올라가는 버튼이 생김 & 스크롤 내리면 헤더에 숨겨진 로고가 뜸
 		$(window).scroll(function(){
@@ -353,22 +394,28 @@
 			$(this).prev().css('border-bottom', 'none');
 		});
 
-
-
 		// 마우스 올렸을 때 아이콘 이동
 		/*$('.btn_mouseenter').mouseenter(function(){
 				$('.content').text("마우스 올렸음");
 			});*/
 
 
-
-
-
-
-
 	});
 	
-	
+	// 로그아웃
+	$(document).on('click', '.logout_btn', function(){
+		$.ajax({
+			url: "logoutAjax.rcdi",
+			type: "POST",
+			dataType: "json",
+			success: function(data){
+				location.reload(); // 새로고침
+			},
+			error: function(){
+				alert("System Error(♨_♨)/")
+			}
+		});
+	});
 	
 	
 	

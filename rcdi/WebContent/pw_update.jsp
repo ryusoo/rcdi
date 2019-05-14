@@ -82,7 +82,7 @@
 		<div class="section_outline">
 			<div class="section_inline">
 				<div class="title">비밀번호 수정</div>
-				<form action="memberPlay.rcdi" id="frm_mem" method="POST" name="frm_mem">
+				<form action="pwUpdatePlay.rcdi" id="frm_mem" method="POST" name="frm_mem">
 					
 					<input type="password" id="pw" name="pw" class="input_box" maxlength="20" placeholder="비밀번호">
 					<span class="error_next_box">필수입력 정보입니다.</span>
@@ -109,23 +109,28 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#pw").blur(function() {
-			var pw = $.trim($("#pw").val());
-                                
-			var regEmpty = /\s/g; // 공백문자
-			var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/); // 비밀번호 체크 /^이면 true, false가 반대가 된다
-                
-			 if (pw == "" || pw.length == 0) {
-				$(".error_next_box").eq(0).text("필수입력 정보입니다.").css("display","block").css("color", "#FF3636");
-				return false;
-			} else if (pw.match(regEmpty)) {
-				$(".error_next_box").eq(0).text("공백없이 입력해주세요.").css("display","block").css("color", "#FF3636");
-				return false;
-			} else if (!pwReg.test(pw)) { // 위의 정규식에서 /^이기 때문에 true, false가 반대가 되어!를 써야함			
-				$(".error_next_box").eq(0).text("올바른 비밀번호(4~12자)를 입력해주세요").css(	"display", "block").css("color","#FF3636");
-				return false;
-			} else {
-				$(".error_next_box").eq(0).text("사용가능한 비밀번호입니다.").css("display","block").css("color", "#0000FF");
-			} 
+			//Ajax를 활용하여 입력한 비밀번호와 현재 유저의 비밀번호가 일치하는지 확인
+			
+			var nowPw = $("#pw").val(); // 입력한 비밀번호
+			var nowId = "${sessionScope.loginUser.id}"; // 비밀번호가 중복이 있을 수 있기 때문에 세션에서 ID가져옴
+			if(nowPw != null || nowPw.length != 0){
+				$.ajax({
+					url: 'pwCheck.rcdi',
+					type: 'POST',
+					dataType: 'json',
+					data: 'id='+nowId+'&pw='+nowPw,
+					success: function(data){
+						if(data.flag) {
+							$(".error_next_box").eq(0).text("입력하신 비밀번호와 현재 비밀번호가 일치합니다.").css("display","block").css("color", "#0000FF");
+						} else {
+							$(".error_next_box").eq(0).text("입력하신 비밀번호와 현재 비밀번호가 일치하지 않습니다.").css("display","block").css("color", "#FF3636");
+						}
+					},
+					error: function(){
+						alert("System Error!!!");
+					}
+				});
+			}
 		});
                         
 		$("#npw").blur(function() {
@@ -177,7 +182,12 @@
                 $(".error_next_box").eq(2).text("사용가능한 비밀번호입니다.").css("display","block").css("color", "#0000FF");
 			}
 		});
+		
+		$('.update_btn').click(function(){
+			$('#frm_mem').submit();
+		});
 	});
+	
 </script>
 </body>
 </html>

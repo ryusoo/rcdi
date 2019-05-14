@@ -161,11 +161,13 @@ function ajaxCheck(memId) {// memId 에 값이 있는 경우에만 ajax 동작!
 			// 29. Action단에서 전송한 message, id를 data 매개변수로 담음
 			// 30. data.message의 값이 -1이면 => 중복메시지 출력
 			//     data.message의 값이 1이면 => 사용가능메시지 출력
+			alert(data.message);
 			if (data.message == "-1") {
-				$("#spanid").text("이미 사용 중인 아이디").css("display", "block").css("color", "#FF3636");
+				$('.error_next_box').eq(0).text('중복된 아이디입니다.').css('display', 'block').css('color', '#FF3636');
 				return "-1";
 			} else {
-				$("#spanid").text("멋진 아이디네요!").css("display", "block").css("color", "#0000FF");
+				$('.error_next_box').eq(0).text('사용가능한 아이디입니다.').css('display', 'block').css('color', '#0000FF');
+				return "1";
 			}
 		},
 		error : function() { // success나 error 둘중에 하나만 경로를 탄다.

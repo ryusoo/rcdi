@@ -38,12 +38,40 @@
 	</select>
 	
 	<insert id="memInsert" parameterType="com.rcdi.dto.MemberDTO">
-		INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
-		VALUES (#{id}, #{pw}, #{name}, #{birth_year}, #{birth_month}, #{birth_day}, #{phone}, #{preceiveyn}, #{email}, #{ereceiveyn}, #{zipcode}, #{addr1}, #{addr2})
+		INSERT INTO tbl_member(id, pw, name, phone, email, zipcode, addr1, addr2)
+		VALUES (#{id}, #{pw}, #{name}, #{phone}, #{email}, #{zipcode}, #{addr1}, #{addr2})
 	</insert>
 	
 	<select id="loginCheck" parameterType="com.rcdi.dto.MemberDTO" resultType="com.rcdi.dto.MemberDTO">
 		SELECT * FROM tbl_member
 		WHERE id=#{id} AND pw=#{pw}
 	</select>
+	
+	<update id="memUpdate" parameterType="com.rcdi.dto.MemberDTO">
+		UPDATE tbl_member SET
+			name = #{name},
+			phone = #{phone},
+			email = #{email},
+			zipcode = #{zipcode},
+			addr1 = #{addr1},
+			addr2 = #{addr2}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="memOne" parameterType="String" resultType="com.rcdi.dto.MemberDTO">
+		SELECT * FROM tbl_member
+		WHERE id = #{id}
+	</select>
+	
+	<!-- HashMap id, pw값을 둘 다 만족하는 1건의 결과를 숫자로 (true, false)받기위해 COUNT로 검색한다. -->
+	<select id="pwCheck" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM tbl_member
+		WHERE id = #{id} AND pw = #{pw}
+	</select>
+	
+	<update id="memPwUpdate" parameterType="com.rcdi.dto.MemberDTO">
+		UPDATE tbl_member
+		SET pw = #{pw}
+		WHERE id = #{id}
+	</update>
 </mapper>

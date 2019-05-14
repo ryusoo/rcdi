@@ -28,6 +28,8 @@ public class IdCheckAction implements Action {
 		String result = mDao.idCheck(id);
 		// 25. "-1" or "1"값을 result 변수에 담음
 		
+		System.out.println("result >>>>>>>>>>>" + result);
+		
 		//Ajax => JSON 방식 => return 할 때 보내는 값도 JSON방식
 		
 		// 26. Ajax 페이지로 결과값을 JSON 방식으로 전달하기 위해 Google Json-Simple 라이브러리를 사용핟여 JSONObject 생성
@@ -40,7 +42,6 @@ public class IdCheckAction implements Action {
 		//     - message 변수에 result담음
 		//	   - id변수에 id담음
 		jObj.put("message", result);
-		jObj.put("id", id);
 		
 		// forward로 보내는 것이 목적지와 방법을 쓰는 건데
 		// 여기는 나에게 다시 돌아가는것이기 때문에 

@@ -1,4 +1,4 @@
-package loginOut;
+package com.rcdi.action;
 
 import java.io.IOException;
 

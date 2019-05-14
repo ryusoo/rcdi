@@ -129,14 +129,14 @@
 		<div class="section_outline">
 			<div class="section_inline">
 				<div class="title">회원정보 수정</div>
-				<form action="memberPlay.rcdi" id="frm_mem" method="POST" name="frm_mem">
+				<form action="infoUpdatePlay.rcdi" id="frm_mem" method="POST" name="frm_mem">
 				
-					<input type="text" id="id" name="id" class="input_box" maxlength="20" readonly="readonly" placeholder="아이디">
+					<input type="text" id="id" name="id" class="input_box" maxlength="20" readonly="readonly" placeholder="아이디" value="${sessionScope.loginUser.id}">
 					
-					<input type="text" id="name" name="name" class="input_box" maxlength="4" placeholder="이름">
+					<input type="text" id="name" name="name" class="input_box" maxlength="4" placeholder="이름" value="${sessionScope.loginUser.name}">
 					<span class="error_next_box">필수입력 정보입니다.</span>
 					
-					<input type="text" id="phone" name="phone" class="input_box" maxlength="11" placeholder="핸드폰번호">
+					<input type="text" id="phone" name="phone" class="input_box" maxlength="11" placeholder="핸드폰번호" value="${sessionScope.loginUser.phone}">
 					<span class="error_next_box">필수입력 정보입니다.</span>
 					
 					<div class="email_box">
@@ -154,16 +154,16 @@
 					</div>
 					<span class="error_next_box">필수입력 정보입니다.</span>
 					<div class="addr_box">
-						<input type="text" name="postcode" id="sample6_postcode" class="addr_btn" readonly="readonly" placeholder="우편번호"> 
+						<input type="text" name="postcode" id="sample6_postcode" class="addr_btn" readonly="readonly" value="${sessionScope.loginUser.zipcode}" placeholder="우편번호"> 
 						<input type="button" id="addr_btn" onclick="sample6_execDaumPostcode()" class="btn_normal" value="우편번호 찾기"><br>
 					</div> 
-					<input type="text" name="addr1" id="sample6_address" placeholder="주소" class="addr_btn addr_style" readonly="readonly"><br> 
-					<input type="text" id="sample6_detailAddress" class="addr_btn addr_style" placeholder="상세항목">
+					<input type="text" name="addr1" id="sample6_address" placeholder="주소" value="${sessionScope.loginUser.addr1}" class="addr_btn addr_style" readonly="readonly"><br> 
+					<input type="text" name="addr2" id="sample6_detailAddress" class="addr_btn addr_style" value="${sessionScope.loginUser.addr2}" placeholder="상세항목">
 					<span class="error_next_box">필수입력 정보입니다.</span>
 					
 					<div class="btn_update">
 						<div class="cancel_btn">취소</div>
-						<div class="update_btn">회원수정</div>
+						<div id="update_btn" class="update_btn">회원수정</div>
 					</div>
 				</form>
 			</div>
@@ -238,6 +238,28 @@
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+
+			
+			// 회원수정 버튼 클릭 때
+			$("#update_btn").click(function(){
+				// 유효성 체크 값이 유효한 값 확인 끝
+				$("#frm_mem").submit();
+				
+			});
+			
+			// 나누어진 email을 합쳐서 input박스의 value로 넣는 방법
+			var email = "${sessionScope.loginUser.email}";
+			//alert(email);
+			var index = email.indexOf('@');
+			var emailid = email.substring(0, index);
+			var emailurl = email.substring(index + 1); 
+			// 인덱스부터 뒤로 하나. 통으로 다음 모두 하나라고 하려고 +1 한다. 그럼 @(index)뒤를 통으로 본다.
+			
+			$("#email_id").val(emailid);
+			$("#email_url").val(emailurl);
+			
+			
+			
 			// 수정 버튼을 누르면 
 			$('.update_btn').click(function(){
 				$('#frm_mem').submit();

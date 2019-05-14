@@ -87,7 +87,7 @@ header {
 	padding: 0 20px;
 	line-height: 65px;
 }
-.inner_header li { /* 자손으로 줌 = .header_member > ul > li 직접 자식으로 타도 됨*/
+.header_member > ul > li { /* 자손으로 줌 = .inner_header li 직접 자식으로 타도 됨*/
 	height: 65px;
 }
 .header_member ul>li>a { /* = header_member a  */
@@ -103,6 +103,22 @@ header {
 	display: inline-block;
 	cursor: pointer;
 }
+#loginInfo {
+	color: white;
+	text-decoration: none;
+	line-height: 35px;
+	padding: 0 10px;
+	font-size: 1.2em;
+	height: 35px;
+	display: inline-block;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+#cart_icon {
+	margin-top: 12px;
+}
+
 .header_member>ul>li>a:hover {
 	background-color: lightgray;
 	border-bottom: 2px solid white;
@@ -165,6 +181,34 @@ header {
 	color: dimgray;
 	transition: color 0.4s linear;
 }
+#mypage {
+	position: relative;
+}
+.mypage_dropdown {
+	display: none;
+	width: 110px;
+	height: auto;
+	background-color: #363636;
+	color: white;
+	border: 1px solid #363636;
+	cursor: pointer;
+	font-size: 10px;
+	text-align: center;
+	padding-top: 5px;
+	position: absolute;
+	z-index: 1000;
+}
+.mypage_dropdown > ul > li > div {
+	display: inline-block;
+	height: 20px;
+	width: 100%;
+}
+#mypage:hover .mypage_dropdown {
+	display: block;
+	z-index: 1000;
+}
+
+
 
 .men_dropdown {
 	display: none;

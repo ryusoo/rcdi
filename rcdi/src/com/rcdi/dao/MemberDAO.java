@@ -1,5 +1,7 @@
 package com.rcdi.dao;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -10,14 +12,19 @@ public class MemberDAO {
 	SqlSessionFactory sqlSessionFactory = SqlMapConfig.getSqlSession(); // SqlMapConfig 에 있는 getSqlSession()를 호출함
 	SqlSession sqlSession;
 	int result;
-
+	MemberDTO mDto = new MemberDTO();
+	boolean flag = false;
+	
 	private MemberDAO(){}
-
+	
 	private static MemberDAO instance = new MemberDAO();
+
 
 	public static MemberDAO getInstance() {
 		return instance;
 	}
+	
+	
 	
 	// 회원가입 ID중복체크(Ajax)
 	public String idCheck(String id) {
@@ -46,9 +53,9 @@ public class MemberDAO {
 		return result;
 	}
 	
+	// 회원가입
 	public int memInsert(MemberDTO mDto) {
 		sqlSession = sqlSessionFactory.openSession(true);
-		
 		try {
 			result = sqlSession.insert("memInsert", mDto);
 		} catch (Exception e) {
@@ -57,7 +64,88 @@ public class MemberDAO {
 			sqlSession.close();
 		}
 		return result;
+		
 	}
+	
+	
+	
+	
+	
+	// 회원정보 수정(PW 제외)
+	public int memUpdate(MemberDTO mDto) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		
+		try {
+			result = sqlSession.update("memUpdate", mDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+	
+	// 회원 1명의 정보를 가져옴
+	public MemberDTO memOne(String id) {
+		sqlSession = sqlSessionFactory.openSession();
+	
+		try {
+			mDto = sqlSession.selectOne("memOne", id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return mDto;
+	}
+	
+	//비밀번호 재설정: 현재비밀번호와 입력한 비밀번호가 일치하는지 확인
+	public boolean pwCheck(String id, String pw) {
+		sqlSession = sqlSessionFactory.openSession();
+		HashMap<String, String> map = new HashMap<>();
+		// 키값으로 데이터를 꺼내온다.
+		try {
+			map.put("id", id);
+			map.put("pw", pw);
+			result = sqlSession.selectOne("pwCheck", map);
+			
+			if(result ==1) {
+				flag = true;
+			} else {
+				flag= false;
+			}
+			
+			System.out.println("flag>>>"+flag);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return flag;
+	}
+	
+	public int memPwUpdate(String id, String pw) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		
+		mDto.setId(id);
+		mDto.setPw(pw);
+		
+		try {
+			result = sqlSession.update("memPwUpdate", mDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		
+		
+		return result;
+		
+	}
+	
+	
+	
+	
 	
 	
 }

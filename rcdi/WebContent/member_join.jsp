@@ -147,11 +147,11 @@
 					</div>
 					<span class="error_next_box">필수입력 정보입니다.</span>
 					<div class="addr_box">
-						<input type="text" name="postcode" id="sample6_postcode" class="addr_btn" readonly="readonly" placeholder="우편번호"> 
+						<input type="text" name="zipcode" id="sample6_postcode" class="addr_btn" readonly="readonly" placeholder="우편번호"> 
 						<input type="button" id="addr_btn" onclick="sample6_execDaumPostcode()" class="btn_normal" value="우편번호 찾기"><br>
 					</div> 
 					<input type="text" name="addr1" id="sample6_address" placeholder="주소" class="addr_btn addr_style" readonly="readonly"><br> 
-					<input type="text" id="sample6_detailAddress" class="addr_btn addr_style" placeholder="상세항목">
+					<input type="text" name="addr2" id="sample6_detailAddress" class="addr_btn addr_style" placeholder="상세항목">
 					<span class="error_next_box">필수입력 정보입니다.</span>
 					
 					<div class="btn_member_join">가입하기</div>
