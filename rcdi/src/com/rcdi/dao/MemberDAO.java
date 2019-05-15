@@ -124,24 +124,39 @@ public class MemberDAO {
 		return flag;
 	}
 	
-	public int memPwUpdate(String id, String pw) {
+	// 비밀번호 재설정
+	public int pwUpdate(String id, String pw) {
 		sqlSession = sqlSessionFactory.openSession(true);
 		
-		mDto.setId(id);
-		mDto.setPw(pw);
+		HashMap<String, String> map = new HashMap<>(); 
+		map.put("id", id);
+		map.put("pw", pw);
 		
+		// mDto.setId(id);
+		// mDto.setPw(pw);
 		try {
-			result = sqlSession.update("memPwUpdate", mDto);
+			result = sqlSession.update("pwUpdate", map); // mDto
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			sqlSession.close();
 		}
-		
-		
 		return result;
-		
 	}
+	
+	// 회원정보 삭제, 회원 탈퇴
+	public int memDelete(String id) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.delete("memDelete", id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+	
 	
 	
 	

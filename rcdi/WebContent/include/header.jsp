@@ -254,6 +254,7 @@
 		// 로그인 모달창 열고, 닫기
 		$('#open_btn').click(function(){
 			$('#wrap').css('display', 'flex');
+			$('#login_id').focus();
 		});
 		$('#close_btn').click(function(){
 			$('#login_id').val("");
@@ -353,8 +354,11 @@
 		
 		// 비밀번호 재설정
 		$('.mypage_pw_update').click(function(){
-			alert('test');
 			location.href="pwUpdate.rcdi";
+		});
+		// 회원탈퇴
+		$('.mypage_mem_delete').click(function(){
+			location.href="dropMember.rcdi";
 		});
 		
 		

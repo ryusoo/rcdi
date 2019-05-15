@@ -125,18 +125,25 @@ var joinValidate = {
 		} else if (!pwReg.test(memPw)) { // 위의 정규식에서 /^이기 때문에 true, false가 반대가 되어!를 써야함			
 			return this.resultCode.invalid_pw;
 		} else {			
-			if (memRpw != null || memRpw.length != 0) {
-				if (memPw == memRpw) {
-					$('.error_next_box').eq(2).text(this.resultCode.success_pw.desc).css("display", "block").css("color", "#0000FF");
-				} else {
-					$('.error_next_box').eq(2).text(this.resultCode.other_pw.desc).css("display", "block").css("color", "#FF3636");
-					return false;
-				}
-			} // if끝
-			return this.resultCode.success_pw.desc;
+			return this.resultCode.success_pw;
 		} // else끝
-	} // checkPw 끝
+	}, // checkPw 끝
 	
+	checkRpw : function(memPw, memRpw){
+		var regEmpty = /\s/g; // 공백문자
+		var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/); // 비밀번호 체크 /^이면 true, false가 반대가 된다
+		
+		if (memRpw == "" || memRpw.length == 0) {
+			return this.resultCode.empty_val;
+		} else if (memRpw.match(regEmpty)) {
+			return this.resultCode.space_length_val;
+		} else if (!pwReg.test(memRpw)) { // 위의 정규식에서 /^이기 때문에 true, false가 반대가 되어!를 써야함			
+			return this.resultCode.invalid_pw;
+		} else {			
+			return this.resultCode.success_pw;
+		} // else끝
+		
+	}
 	
 
 } // joinValidation 끝
@@ -176,4 +183,32 @@ function ajaxCheck(memId) {// memId 에 값이 있는 경우에만 ajax 동작!
 
 	}); // Ajax를 호출했던 곳으로 돌아간다.
 
+}
+
+
+
+function ajaxPwCheck(nowId, nowPw){
+	var return_val = false;
+	$.ajax({
+		url: 'pwCheck.rcdi',
+		type: 'POST',
+		dataType: 'json',
+		async: false,
+		data: 'id='+nowId+'&pw='+nowPw,
+		success: function(data){
+			if(data.flag) {
+				$(".pwAjax").text("입력하신 비밀번호와 현재 비밀번호가 일치합니다.").css("display","block").css("color", "#0000FF");
+				return_val = true;
+			} else {
+				
+				$(".pwAjax").text("입력하신 비밀번호와 현재 비밀번호가 일치하지 않습니다.").css("display","block").css("color", "#FF3636");
+				return_val = false;
+			}
+		},
+		error: function(){
+			alert("System Error!!!");
+		}
+	});
+	return return_val;
+	
 }

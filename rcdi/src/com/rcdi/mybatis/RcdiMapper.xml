@@ -69,9 +69,15 @@
 		WHERE id = #{id} AND pw = #{pw}
 	</select>
 	
-	<update id="memPwUpdate" parameterType="com.rcdi.dto.MemberDTO">
+	 <!-- parameterType="com.rcdi.dto.MemberDTO" -->
+	<update id="pwUpdate" parameterType="hashmap">
 		UPDATE tbl_member
 		SET pw = #{pw}
 		WHERE id = #{id}
 	</update>
+	
+	<delete id="memDelete" parameterType="String">
+		DELETE FROM tbl_member
+		WHERE id = #{id}
+	</delete>
 </mapper>

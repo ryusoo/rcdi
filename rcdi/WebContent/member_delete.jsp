@@ -51,7 +51,7 @@
 }
 .content_title {
 	text-align: center;
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 700;
 	color: #363636;
 	margin: 40px 0;
@@ -59,7 +59,7 @@
 .content {
 	width: 720px;
 	margin: 25px auto;
-	font-size: 18px;
+	font-size: 13px;
 	font-weight: 600;
 	text-align: left;
 	color: #5A5A5A;
@@ -191,7 +191,7 @@
 			<div class="section_inline">
 				<div class="title">회원탈퇴</div>
 				<div class="delete_content">
-					<div class="content_title"><span>"님"</span> 회원 탈퇴 시 아래의 조치가 취해집니다.</div>
+					<div class="content_title"><span>"${sessionScope.loginUser.name}님"</span> 회원 탈퇴 시 아래의 조치가 취해집니다.</div>
 					<div class="content">1. 계정 정보는 <span>'개인 정보 보호 정책'에 따라 60일간 보관(잠김) 되며,</span> 60일이 경과된 후 모든 개인 정보는 완전히 삭제되며 더 이상 복구할 수 없게 됩니다.</div>
 					<div class="content">2. 작성된 게시물은 삭제되지 않으며, 익명 처리 후 <span>RCDI로 소유권이 귀속</span>됩니다.</div>
 					<div class="content">3. 게시물 삭제가 필요한 경우에는 <span>관리자(ryusoo0610@rcdi.co.kr)</span>로 문의해 주시기 바랍니다.</div>
@@ -200,7 +200,7 @@
 				<form action="memberPlay.rcdi" id="frm_mem" class="frm_wrap" method="POST" name="frm_mem">
 					
 					<input type="password" id="pw" name="pw" class="input_box" maxlength="20" placeholder="비밀번호">
-					<span class="error_next_box">필수입력 정보입니다.</span>
+					<span class="error_next_box pwAjax">필수입력 정보입니다.</span>
 						
 					<div class="btn_update">
 						<div class="cancel_btn">취소</div>
@@ -215,33 +215,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var state = false;
+		$('#pw').blur(function(){
+			var nowId = "${sessionScope.loginUser.id}";
+			var nowPw = $(this).val();
+			state = ajaxPwCheck(nowId, nowPw);
+		});
 		$('.delete_btn').click(function(){
-			$('#modal').css('display', 'flex');
+			if(state){
+				$('#modal').css('display', 'flex');
+			} else {
+				$('#pw').focus();
+			}
+		});
+		$('.yes_btn').click(function(){
+			// 이렇게도 할 수 있다.
+			/* var id = "${sessionScope.loginUser.id}";
+			location.href="dropMemberPlay.rcdi?id="+id; */
+			
+			location.href="dropMemberPlay.rcdi";
 		});
 		$('.no_btn').click(function(){
 			$('#modal').css('display', 'none');
 		});
-		
-		$("#pw").blur(function() {
-			var pw = $.trim($("#pw").val());
-                                
-			var regEmpty = /\s/g; // 공백문자
-			var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/); // 비밀번호 체크 /^이면 true, false가 반대가 된다
-                
-			 if (pw == "" || pw.length == 0) {
-				$(".error_next_box").eq(0).text("필수입력 정보입니다.").css("display","block").css("color", "#FF3636");
-				return false;
-			} else if (pw.match(regEmpty)) {
-				$(".error_next_box").eq(0).text("공백없이 입력해주세요.").css("display","block").css("color", "#FF3636");
-				return false;
-			} else if (!pwReg.test(pw)) { // 위의 정규식에서 /^이기 때문에 true, false가 반대가 되어!를 써야함			
-				$(".error_next_box").eq(0).text("올바른 비밀번호(4~12자)를 입력해주세요").css(	"display", "block").css("color","#FF3636");
-				return false;
-			} else {
-				$(".error_next_box").eq(0).text("사용가능한 비밀번호입니다.").css("display","block").css("color", "#0000FF");
-			} 
-		});
-            
 	});
 </script>
 </body>

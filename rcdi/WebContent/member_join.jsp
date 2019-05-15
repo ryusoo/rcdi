@@ -304,6 +304,14 @@
 					return false;
 				} else {
 					$('.error_next_box').eq(1).text(checkResult.desc).css('display', 'block').css('color', '#0000FF');
+					if (memRpw != null || memRpw.length != 0) {
+						if (memPw == memRpw) {
+							$('.error_next_box').eq(2).text('사용가능한 비밀번호입니다.').css("display", "block").css("color", "#0000FF");
+						} else {
+							$('.error_next_box').eq(2).text('입력하신 비밀번호가 일치하지 않습니다.').css("display", "block").css("color", "#FF3636");
+							return false;
+						}
+					} // if끝
 					return true;
 				}
 				return false;
@@ -311,29 +319,30 @@
 
 			// 비밀번호 재확인(비교)
 			$("#rpw").blur(function() {
-				var pw = $.trim($("#pw").val());
-				var rpw = $.trim($("#rpw").val());
+				var memPw = $.trim($('#pw').val());
+				var memRpw = $.trim($("#rpw").val());
+				// checkRpw한 결과값
+				var checkResult = joinValidate.checkRpw(memPw, memRpw);
+				// code와 desc를 가져옴
+				//alert(checkResult.code);
+				// alert(checkResult.desc);
 
-				var regEmpty = /\s/g; // 공백문자
-				var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/); // 비밀번호 체크 /^이면 true, false가 반대가 된다
-
-				if (rpw == "" || rpw.length == 0) {
-					$(".error_next_box").eq(2).text("필수입력 정보입니다.").css("display","block").css("color", "#FF3636");
-					return false;
-				} else if (rpw.match(regEmpty)) {
-					$(".error_next_box").eq(2).text("공백없이 입력해주세요.").css("display","block").css("color", "#FF3636");
-					return false;
-				} else if (!pwReg.test(rpw)) { // 위의 정규식에서 /^이기 때문에 true, false가 반대가 되어!를 써야함			
-					$(".error_next_box").eq(2).text("올바른 비밀번호(4~12자)를 입력해주세요").css("display", "block").css("color","#FF3636");
-					return false;
-				} else if (pw != rpw) {
-					$(".error_next_box").eq(2).text("입력하신 비밀번호가 일치하지 않습니다.").css("display", "block").css("color","#FF3636");
+				if(checkResult.code != 0) {
+					$('.error_next_box').eq(2).text(checkResult.desc).css('display', 'block').css('color', '#FF3636');
 					return false;
 				} else {
-					$(".error_next_box").eq(2).text("사용가능한 비밀번호입니다.").css("display","block").css("color", "#0000FF");
-					$(".error_next_box").eq(1).text("사용가능한 비밀번호입니다.").css("display","block").css("color", "#0000FF");
-					return false;
+					$('.error_next_box').eq(2).text(checkResult.desc).css('display', 'block').css('color', '#0000FF');
+					if (memPw != null || memPw.length != 0) {
+						if (memPw == memRpw) {
+							$('.error_next_box').eq(2).text('비밀번호가 일치합니다.').css("display", "block").css("color", "#0000FF");
+						} else {
+							$('.error_next_box').eq(2).text('입력하신 비밀번호가 일치하지 않습니다.').css("display", "block").css("color", "#FF3636");
+							return false;
+						}
+					} // if끝
+					return true;
 				}
+				return false;
 			});
 			
 			// 이름
