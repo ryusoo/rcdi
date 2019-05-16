@@ -12,7 +12,7 @@ public class InfoUpdateAction implements Action {
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "info_update.jsp";
+		String url = "member/info_update.jsp";
 		System.out.println("action탔음.");
 		
 		// 로그인 된 유저만 회원수정 가능

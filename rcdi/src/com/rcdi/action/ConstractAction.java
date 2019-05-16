@@ -13,7 +13,7 @@ public class ConstractAction implements Action {
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "constract.jsp";
+		String url = "member/constract.jsp";
 		
 		ActionForward forward = new ActionForward(); 
 		forward.setPath(url);

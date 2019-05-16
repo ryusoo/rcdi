@@ -13,7 +13,7 @@ public class DropMemberAction implements Action {
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String url ="member_delete.jsp";
+		String url ="member/member_delete.jsp";
 		
 		HttpSession session = request.getSession();
 		
