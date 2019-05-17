@@ -39,12 +39,16 @@ h3 {
 	float: right;
 	margin-right: 20px;
 	margin-top: 5px;
-	border-radius: 10px;
+	border-radius: 20px;
 	color: white;
 	background-color: #333;
 	border: 1px solid dimgray;
-	padding: 5px;
+	padding: 0 10px;
 	outline: none;
+	font-weight: bold;
+	height: 35px;
+	line-height: 35px;
+	font-size: 18px;
 }
 /* 게시글 영역 */
 table {
