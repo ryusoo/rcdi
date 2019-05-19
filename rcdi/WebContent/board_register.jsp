@@ -61,6 +61,12 @@ h3 {
 .file_space {
 	display: inline-block;
 }
+.file_input {
+	
+}
+.btn_file {
+	
+}
 
 
 </style>
@@ -84,8 +90,9 @@ h3 {
 		</div>
 		<div class="bottom">
 			<div class="file_up">
+				<input type="file" id="file_input">
 				<button class="btn btn_file">파일 등록</button>
-				<div class="file_space">첨부파일 없음</div>
+				<!-- <div class="file_space">첨부파일 없음</div> -->
 			</div>
 			<button class="btn btn_up">게시글 등록</button>
 		</div>	

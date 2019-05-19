@@ -171,14 +171,6 @@ i.fa-heart {
 .writer_comment {
 	width: 100%;
 }
-.writer_emo {
-	width: 90px;
-	height: 80px;
-	margin: 10px 0;
-	border: 1px solid #eaeaea;
-	border-radius: 100px;
-	overflow: hidden;
-}
 .writer_emo img {
 	width: 100%;
 }
@@ -401,7 +393,6 @@ i.fa-heart {
 					<span>Comments</span>
 				</div>
 				<div class="comment_box">
-					<div class="writer_emo"><img src="images/444.jpg"></div>
 					<div class="writer_comment">
 						<div class="comment_head">
 							<span>유저1</span>
@@ -414,7 +405,6 @@ i.fa-heart {
 					</div>					
 				</div>
 				<div class="comment_box">
-					<div class="writer_emo"><img src="images/111.jpg"></div>
 					<div class="writer_comment">
 						<div class="comment_head">
 							<span>유저2</span>
