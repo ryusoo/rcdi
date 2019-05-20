@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="include/header.jsp" %>    
+<%@ include file="../include/header.jsp" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +61,12 @@ h3 {
 .file_space {
 	display: inline-block;
 }
+.file_input {
+	
+}
+.btn_file {
+	
+}
 
 
 </style>
@@ -79,15 +85,16 @@ h3 {
 			</textarea>
 		</div>
 		<div>
-			<span class="name">작성자</span> 
-			<input type="text" id="id" class="input_box" name="id" readonly="readonly" value="작성자">
+			<span class="name">작성자</span>
+			<input type="text" id="id" class="input_box" name="id">
 		</div>
 		<div class="bottom">
 			<div class="file_up">
+				<input type="file" id="file_input">
 				<button class="btn btn_file">파일 등록</button>
-				<div class="file_space">첨부파일 없음</div>
+				<!-- <div class="file_space">첨부파일 없음</div> -->
 			</div>
-			<button class="btn btn_up">게시글 수정</button>
+			<button class="btn btn_up">게시글 등록</button>
 		</div>	
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
