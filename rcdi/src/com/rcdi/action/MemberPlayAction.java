@@ -1,7 +1,6 @@
 package com.rcdi.action;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

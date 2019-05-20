@@ -90,6 +90,7 @@
 							</div>
 						</li>
 						<li><a href="#">고객센터</a></li>
+						<li><a href="${path}/boardList.rcdi">질문게시판</a></li>
 						<li id="cart_icon"><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
 					</ul>
 				</div>

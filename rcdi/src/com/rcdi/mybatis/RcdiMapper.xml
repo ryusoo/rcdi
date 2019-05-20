@@ -80,4 +80,21 @@
 		DELETE FROM tbl_member
 		WHERE id = #{id}
 	</delete>
+	
+	<!-- 게시판 -->
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(bno)
+		FROM tbl_board
+		WHERE bno > 0
+	</select>
+	<select id="listAll" resultType="com.rcdi.dto.BoardDTO">
+		SELECT * 
+		FROM (SELECT rownum rnum, a.*
+      		  FROM (SELECT *
+            		FROM tbl_board
+            		WHERE bno > 0
+            		ORDER BY bno DESC
+        			) a
+   		 ) WHERE rnum BETWEEN #{pageStart} AND #{perPageNum}
+	</select>	
 </mapper>

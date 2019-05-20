@@ -19,6 +19,9 @@ h3 {
 	font-size: 35px;
 	margin-left: 20px;
 }
+li {
+	list-style: none;
+}
 
 .post_array {
 	display: inline-block;
@@ -77,6 +80,28 @@ tr:nth-child(1){
 }
 .like i {
 	color: red;
+}
+.new_time {
+	background-color: tomato;/* #FF8224 */
+	font-size: 11px;
+	color:white;
+	border-radius: 25px;
+	padding: 2px 5px;
+	animation-name: twinkle;
+	animation-duration: 1.2s;
+	animation-iteration-count:infinite;
+}
+@keyframes twinkle {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+.replyCnt_Color {
+	background-color: white;/* rgb(231, 29, 54) */
+	font-size: 15px; /* 11px */
+	color: rgb(231, 29, 54); /* white */
+	border-radius: 25px;
+	padding: 2px 5px;
+	font-weight: bold;
 }
 
 /* 검색영역 */
@@ -145,6 +170,11 @@ select {
 	display: block;
 	line-height: 30px;
 }
+#active a {
+	background-color: #2C3E50;
+	color: white;
+	
+}
 </style>
 </head>
 <body>
@@ -174,96 +204,39 @@ select {
 							<th class="hit">조회수</th>
 							<th class="attach">첨부</th>
 						</tr>
-						<tr>
-							<td class="idx">10</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">9</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">8</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">7</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">6</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">5</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">4</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">3</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">2</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
-						<tr>
-							<td class="idx">1</td>
-							<td class="obj">안녕하세요</td>
-							<td class="writer">유저1</td>
-							<td class="date">2019.05.16</td>
-							<td class="like"><i class="fas fa-heart"></i>10</td>
-							<td class="hit">11</td>
-							<td class="attach"><i class="far fa-file-alt"></i></td>
-						</tr>
+						<c:forEach items="${list}" var="bDto">
+							<!-- 현재시간 구하기 now에 현재 시간을 시분초로 나타내준다. now는 방금가져온 값을 년월일 형식으로 바꿔서 today변수에 담음.-->
+							<jsp:useBean id="now" class="java.util.Date"/>
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+							<fmt:formatDate value="${bDto.regdate}" pattern="yyyy-MM-dd" var="regdate" />
+							<tr>
+								<td class="idx">${bDto.bno}</td>
+								<td class="obj"><a href="#">${bDto.title}
+								<c:if test="${bDto.replycnt > 0}">
+									<span class="replyCnt_Color">(${bDto.replycnt})</span>
+								</c:if>
+								<!-- if 단건으로 쓸 때, choose는 이거아니면 저거 이렇게 여러조건일 때 사용한다 --> 
+								<c:if test="${today == regdate }">
+									<span class="new_time">N</span>
+								</c:if>
+								</a></td>
+								<td class="writer">${bDto.writer}</td>
+								<td class="date">
+								<c:choose>
+									<c:when test="${today == regdate }">
+										<fmt:formatDate pattern="hh:mm:ss" value="${bDto.regdate}" />
+									</c:when>
+									<c:otherwise>
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${bDto.regdate}" />
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td class="like"><i class="fas fa-heart"></i>${bDto.goodcnt}</td>
+								<td class="hit">${bDto.viewcnt}</td>
+								<td class="attach"><i class="far fa-file-alt"></i></td>
+							</tr>
+						</c:forEach>
+						  <%-- value="${bDto.regdate} => 이 형식으로 뜨게 해준다. 년월일, 시분초pattern="yyy-MM-dd hh:mm:ss" --%>
 					</tbody>
 				</table>
 			</div>
@@ -286,22 +259,40 @@ select {
 			</div>
 			<!-- 페이지 네이션 -->
 			<div class="board_pagination">
-				<a href="#" class="bp_icon"><i class="fas fa-angle-double-left"></i></a>
-				<a href="#" class="bp_icon"><i class="fas fa-angle-left"></i></a>
-				<a href="#">1</a>
-				<a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-				<a href="#">6</a>
-				<a href="#">7</a>
-				<a href="#">8</a>
-				<a href="#">9</a>
-				<a href="#">10</a>
-				<a href="#">...</a>
-				<a href="#">27</a>
-				<a href="#" class="bp_icon"><i class="fas fa-angle-right"></i></a>
-				<a href="#" class="bp_icon"><i class="fas fa-angle-double-right"></i></a>
+				<ul>
+					<c:if test="${pageMaker.prev}">
+						<li>
+							<a href="boardList.rcdi?page=${pageMaker.startPage -1}">&laquo;</a>
+						</li>
+						<li>
+							<a href="${path}/boardList.rcdi?page=1">1</a>
+						</li>
+						<li>
+							<a>...</a>
+						</li>
+					</c:if>
+					
+					<!-- idx는 for문의 i++같음 -->
+					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+					<!-- syso = c:out 출력 -->
+						<li <c:out value="${pageMaker.criDto.page == idx ? 'id=active':'' }"/>>
+							<a href="${path}/boardList.rcdi?page=${idx}&flag=${flag}&keyword=${keyword}&key=${code}">${idx}</a>
+						</li>
+					</c:forEach>
+					
+					
+					<c:if test="${pageMaker.next}">
+						<li>
+							<a>...</a>
+						</li>
+						<li>
+							<a href="${path}/boardList.rcdi?page=${pageMaker.finalPage}">${pageMaker.finalPage}</a>
+						</li>
+						<li>
+							<a href="${path}/boardList.rcdi?page=${pageMaker.endPage +1}">&raquo;</a>
+						</li>
+					</c:if>
+				</ul>
 			</div>
 		</form>
 	</div>

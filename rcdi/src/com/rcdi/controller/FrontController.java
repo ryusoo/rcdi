@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rcdi.action.Action;
 import com.rcdi.action.ActionForward;
+import com.rcdi.action.BoardListAction;
 import com.rcdi.action.ConstractAction;
 import com.rcdi.action.DropMemberAction;
 import com.rcdi.action.DropMemberPlayAction;
@@ -109,7 +110,13 @@ public class FrontController extends HttpServlet {
 		} else if(command.contentEquals("/dropMemberPlay.rcdi")){ 
 			action = new DropMemberPlayAction();
 			forward = action.excute(request, response);
+		} else if(command.contentEquals("/boardList.rcdi")){ 
+			action = new BoardListAction();
+			forward = action.excute(request, response);
 		} 
+		
+		
+		
 		
 		
 		
