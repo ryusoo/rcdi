@@ -166,10 +166,10 @@ VALUES(seq_board.NEXTVAL, '테스트페이지입니다6', '테스트예요', 'us
 INSERT INTO tbl_board(bno, title, content, writer)
 VALUES(seq_board.NEXTVAL, '테스트페이지입니다7', '테스트예요', 'user06');
 
+COMMIT;
+
 SELECT * FROM tbl_board
 ORDER BY bno DESC;
-
-
 
 
 
