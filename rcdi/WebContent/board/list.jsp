@@ -29,6 +29,10 @@ li {
 	padding-left: 15px;
 	height: 50px;
 }
+.post_array span:nth-child(1) {
+	background-color: #333;
+	color: white;s
+}
 .array1 {
 	display: inline-block;
 	margin-left: 3px;
@@ -52,14 +56,18 @@ li {
 	height: 35px;
 	line-height: 35px;
 	font-size: 18px;
+	cursor: pointer;
 }
 /* 게시글 영역 */
 table {
 	border-collapse: collapse;
 	width: 100%;
+	box-sizing: border-box;
 }
 th, td {
 	text-align: center;
+	height: 30px;
+	line-height: 30px;
 }
 .obj {
 	text-align: left;
@@ -77,6 +85,8 @@ tr:nth-child(1){
 .tbl_list {
 	width: 958px;
 	margin: 0 auto;
+	box-sizing: border-box;
+	height: auto;
 }
 .like i {
 	color: red;
@@ -102,6 +112,18 @@ tr:nth-child(1){
 	border-radius: 25px;
 	padding: 2px 5px;
 	font-weight: bold;
+}
+.idx, .hit, .attach {
+	width: 60px;
+}
+.tb_title {
+	width: 500px;
+}
+.writer, .like {
+	width: 80px;
+}
+.date {
+	width: 120px;
 }
 
 /* 검색영역 */
@@ -148,23 +170,33 @@ select {
 }
 
 /* pagination */
-.board_pagination {
-    width: 528px;
-	margin: 20px auto 0;
+.pagination {
 	text-align: center;
-	height: 30px;
+	width: 100%;
+	height: 50px;
 }
-.board_pagination a {
+.pagination_flex {
+	width: 500px;
+	margin: 0 auto;
+	text-align: center;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.pagination_flex li {
+	float:left;
+}
+.pagination a {
 	border: 1px solid #333;
 	display: inline-block;
 	width: 30px;
 	height: 30px;
 	line-height: 29px;
 	border-radius: 5px;
-	float: left;
 	margin-right: 3px;
 }
-.board_pagination i {
+.pagination i {
 	width: 30px;
 	height: 30px;
 	display: block;
@@ -231,12 +263,12 @@ select {
 									</c:otherwise>
 								</c:choose>
 								</td>
-								<td class="like"><i class="fas fa-heart"></i>${bDto.goodcnt}</td>
+								<td class="like"><i class="fas fa-heart"></i> ${bDto.goodcnt}</td>
 								<td class="hit">${bDto.viewcnt}</td>
 								<td class="attach"><i class="far fa-file-alt"></i></td>
 							</tr>
 						</c:forEach>
-						  <%-- value="${bDto.regdate} => 이 형식으로 뜨게 해준다. 년월일, 시분초pattern="yyy-MM-dd hh:mm:ss" --%>
+						  <%-- value="${bDto.regdate} => 이 형식으로 뜨게 해준다. 년월일, 시분초pattern="yyyy-MM-dd hh:mm:ss" --%>
 					</tbody>
 				</table>
 			</div>
@@ -258,11 +290,12 @@ select {
 				</div>
 			</div>
 			<!-- 페이지 네이션 -->
-			<div class="board_pagination">
-				<ul>
+			
+			<div class="pagination">
+				<ul class="pagination_flex">
 					<c:if test="${pageMaker.prev}">
 						<li>
-							<a href="boardList.rcdi?page=${pageMaker.startPage -1}">&laquo;</a>
+							<a href="boardList.rcdi?page=${pageMaker.criDto.page -5}">&laquo;</a>
 						</li>
 						<li>
 							<a href="${path}/boardList.rcdi?page=1">1</a>
@@ -289,30 +322,21 @@ select {
 							<a href="${path}/boardList.rcdi?page=${pageMaker.finalPage}">${pageMaker.finalPage}</a>
 						</li>
 						<li>
-							<a href="${path}/boardList.rcdi?page=${pageMaker.endPage +1}">&raquo;</a>
+							<a href="${path}/boardList.rcdi?page=${pageMaker.criDto.page +5}">&raquo;</a>
 						</li>
 					</c:if>
 				</ul>
 			</div>
+			
 		</form>
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	$('.array1').hover(function(){
+$(document).ready(function(){	
+	$('.array1').click(function(){
+		$('.array1').css('background-color', "white").css('color', '#333');
 		$(this).css('background-color', "#333").css('color','white');
-	},
-	function(){
-		$(this).css('background-color', "white").css('color','#333');
-
-	});
-	
-	$('.btn_up').click(function(){
-		$(this).css('background-color', "#333").css('color','white');
-	}, 
-	function(){
-		$(this).css('background-color', "white").css('color','#333');
-	});
+	});	
 });
 </script>	
 </body>

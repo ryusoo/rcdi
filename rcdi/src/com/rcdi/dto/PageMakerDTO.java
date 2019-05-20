@@ -9,6 +9,7 @@ public class PageMakerDTO { // 페이지 네이션
 	private int displayPageNum = 10; // 화면에 보여지는 블럭 수
  	private int finalPage;
 	private CriteriaDTO criDto;
+	int displayPagehalf = 4; // page 중앙일 때 왼쪽 오른쪽 몇개를 띄워줄 것인지 정해줌.
 	//page(), pagestart(), perPageNum()
 	
 	
@@ -21,6 +22,31 @@ public class PageMakerDTO { // 페이지 네이션
 		calcData();
 	}
 	
+	private void calcData() {
+		int temp;
+		finalPage = (int)Math.ceil(totalCount/(double)(displayPageNum));
+		if(criDto.getPage()-displayPagehalf<=0) {
+			temp = criDto.getPage()-1;
+			endPage = ((displayPagehalf*2)-temp)+criDto.getPage();
+			startPage = 1;
+			if(criDto.getPage()<1) {
+				criDto.setPage(1);
+			}
+		}else if(criDto.getPage()+displayPagehalf > finalPage) {
+			temp = finalPage - criDto.getPage();
+			startPage = criDto.getPage()-((displayPagehalf*2)-temp);
+			endPage = finalPage;
+			if(criDto.getPage()>finalPage) {
+				criDto.setPage(finalPage);
+			}
+		}else {
+			startPage = criDto.getPage()-displayPagehalf;
+			endPage = criDto.getPage()+displayPagehalf;
+		}
+		prev = startPage==1?false:true;
+		next = endPage == finalPage? false:true;
+	}
+	/*
 	private void calcData() {
 		// Math 클래스의 ceil 메서드는 무조건 소수점을 올림함
 		endPage = (int)Math.ceil(criDto.getPage() / (double)displayPageNum) * displayPageNum;
@@ -39,7 +65,7 @@ public class PageMakerDTO { // 페이지 네이션
 		finalPage = (int)Math.ceil(totalCount / (double)(displayPageNum));
 		// 31
 	}
-	
+	*/
 	
 	public int getStartPage() {
 		return startPage;
