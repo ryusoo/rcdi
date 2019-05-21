@@ -29,11 +29,7 @@ li {
 	padding-left: 15px;
 	height: 50px;
 }
-.post_array span:nth-child(1) {
-	background-color: #333;
-	color: white;s
-}
-.array1 {
+.post_array a {
 	display: inline-block;
 	margin-left: 3px;
 	cursor: pointer;
@@ -125,6 +121,16 @@ tr:nth-child(1){
 .date {
 	width: 120px;
 }
+.search_result {
+	float: right;
+	font-weight: bold;
+	color: #333;
+	margin: 10px;
+	margin-right: 30px;
+}
+.search_span {
+	color: tomato;
+}
 
 /* 검색영역 */
 .srch_group {
@@ -133,7 +139,7 @@ tr:nth-child(1){
 	background: #ffffff;
 	height: 56px;
 	display: flex;
-	margin: 30px auto;
+	margin: 60px auto;
 	border-radius: 5px;
 }
 select {
@@ -211,15 +217,15 @@ select {
 </head>
 <body>
 	<div class="wrap">
-		<form name="bForm" id="nForm" method="POST">
 			<!-- 제목과 게시글 정렬 영역 -->
 			<div class="top_group">
 				<h3 class="tit">질문 게시판</h3>
 				<div class="post_array">
-					<span class="array1">최신순</span>
-					<span class="array1">추천순</span>
-					<span class="array1">댓글순</span>
-					<span class="array1">조회순</span>
+					<!-- sort_type: 최신순 new(default), 추천순 good, 댓글순 reply, 조회순 view // 주로 a 태그를 사용해서 만든다 -->
+					<span class="array1"><a href="${path}/boardList.rcdi?sort_type=new&keyword=${keyword}&search_option=${search_option}" id="orderNew">최신순</a></span>
+					<span class="array1"><a href="${path}/boardList.rcdi?sort_type=good&keyword=${keyword}&search_option=${search_option}" id="orderGood">추천순</a></span>
+					<span class="array1"><a href="${path}/boardList.rcdi?sort_type=reply&keyword=${keyword}&search_option=${search_option}" id="orderReply">댓글순</a></span>
+					<span class="array1"><a href="${path}/boardList.rcdi?sort_type=view&keyword=${keyword}&search_option=${search_option}" id="orderCnt">조회순</a></span>
 				</div>
 				<button class="btn btn_up">게시글 등록</button>
 			</div>
@@ -272,21 +278,31 @@ select {
 					</tbody>
 				</table>
 			</div>
+			
+			
+			<c:if test="${!empty keyword}">			
+				<div class="search_result">
+					<span class="search_span">"${keyword}"</span>로 검색한 결과는 총
+					<span class="search_span">${totalCount}</span>건입니다.
+					</div>
+			</c:if>
+			
+			
 			<!-- 검색영역 -->
 			<div class="srch_group">
 				<div class="slt_box">
-					<select name="srch_key" class="slt_style">
+					<select name="srch_key" class="slt_style" id="selsearch">
 						<div class="chevron-down"><i class="fas fa-chevron-down"></i></div>
-						<option value selected>조건 검색</option>
-						<option value="cont_nm">제목</option>
-						<option value="cont_contents">내용</option>
-						<option value="cont_nm_con">제목+내용</option>
-						<option value="cont_mem">작성자</option>
+						<option value="1" selected="selected">제목+내용</option>
+						<option value="2">제목</option>
+						<option value="3">내용</option>
+						<option value="4">작성자</option>
 					</select>
 				</div>
 				<div class="ipt_box">
 					<input type="text" id="srchWord" name="srchWord" class="ipt ipt_style" placeholder="검색어를 입력해 주세요.">
 					<div class="icon_srch"><i class="fas fa-search"></i></div>
+					<button class="search_btn" id="search_btn">검색</button>
 				</div>
 			</div>
 			<!-- 페이지 네이션 -->
@@ -295,10 +311,10 @@ select {
 				<ul class="pagination_flex">
 					<c:if test="${pageMaker.prev}">
 						<li>
-							<a href="boardList.rcdi?page=${pageMaker.criDto.page -5}">&laquo;</a>
+							<a href="boardList.rcdi?page=${pageMaker.criDto.page -5}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}">&laquo;</a>
 						</li>
 						<li>
-							<a href="${path}/boardList.rcdi?page=1">1</a>
+							<a href="${path}/boardList.rcdi?page=1&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}">1</a>
 						</li>
 						<li>
 							<a>...</a>
@@ -307,9 +323,9 @@ select {
 					
 					<!-- idx는 for문의 i++같음 -->
 					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-					<!-- syso = c:out 출력 -->
+					<!-- syso = c:out 출력문 -->
 						<li <c:out value="${pageMaker.criDto.page == idx ? 'id=active':'' }"/>>
-							<a href="${path}/boardList.rcdi?page=${idx}&flag=${flag}&keyword=${keyword}&key=${code}">${idx}</a>
+							<a href="${path}/boardList.rcdi?page=${idx}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}">${idx}</a>
 						</li>
 					</c:forEach>
 					
@@ -319,24 +335,47 @@ select {
 							<a>...</a>
 						</li>
 						<li>
-							<a href="${path}/boardList.rcdi?page=${pageMaker.finalPage}">${pageMaker.finalPage}</a>
+							<a href="${path}/boardList.rcdi?page=${pageMaker.finalPage}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}">${pageMaker.finalPage}</a>
 						</li>
 						<li>
-							<a href="${path}/boardList.rcdi?page=${pageMaker.criDto.page +5}">&raquo;</a>
+							<a href="${path}/boardList.rcdi?page=${pageMaker.criDto.page +5}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}">&raquo;</a>
 						</li>
 					</c:if>
 				</ul>
 			</div>
 			
-		</form>
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){	
-	$('.array1').click(function(){
+	var sort_type = "${sort_type}";
+	if(sort_type =="new"){
+		$('#orderNew').css('color', 'white').css('font-weight', 'bold').css('background-color', '#333');
+	} else if(sort_type == "good"){
+		$('#orderGood').css('color', 'white').css('font-weight', 'bold').css('background-color', '#333');
+	} else if(sort_type == "reply"){
+		$('#orderReply').css('color', 'white').css('font-weight', 'bold').css('background-color', '#333');
+	} else if(sort_type == "view"){
+		$('#orderCnt').css('color', 'white').css('font-weight', 'bold').css('background-color', '#333');
+	}
+	
+	$('#search_btn').click(function(){
+		var search_option = $('#selsearch').val();
+		var keyword = $.trim($('#srchWord').val());
+		// alert(search_option + ", "+ keyword);
+		if(keyword == null || keyword.length == 0){
+			$('#srchWord').focus();
+			$('#srchWord').css('border-bottom', '1px solid rgb(231, 29, 54)');
+			return false;
+		}
+		// alert('location');
+		location.href="${path}/boardList.rcdi?search_option="+search_option+"&keyword="+keyword;
+	});
+	
+	/* $('.array1').click(function(){
 		$('.array1').css('background-color', "white").css('color', '#333');
 		$(this).css('background-color', "#333").css('color','white');
-	});	
+	});	 */
 });
 </script>	
 </body>

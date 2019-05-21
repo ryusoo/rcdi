@@ -20,6 +20,8 @@ public class BoardListAction implements Action {
 		String url = "board/list.jsp";
 		
 		CriteriaDTO criDto = new CriteriaDTO();
+		
+		// ▷페이지 번호 설정		
 		int page = 1; // default 페이지. 기본 페이지는 1page. 일반 변수에 담음. CriteriaDTO에 넣지 않음.
 		// 화면단에서는 1을 입력하지 않기 때문에 없어서 null이 온다. 그래서 아래를 타지 않음.
 		// 사용자가 입력한 페이지로 가는 경우, 쿼리스트링으로 값을 주는 경우 ?page=5 이렇게 있는 경우 아래를 탄다.
@@ -29,11 +31,30 @@ public class BoardListAction implements Action {
 		System.out.println("페이지번호:" + page);
 		criDto.setPage(page); 
 		
+		// ▷페이지 정렬 설정
 		String sort_type = "new";
 		if(request.getParameter("sort_type") != null) {
 			sort_type = request.getParameter("sort_type");
 		}
+		criDto.setSort_type(sort_type);
 		System.out.println("정렬타입:" + sort_type);
+		
+		// ▷검색 설정(검색타입, 키워드)
+		String search_option = null;
+		String keyword = null;
+		if(request.getParameter("keyword") != null) {
+			search_option = request.getParameter("search_option");
+			keyword = request.getParameter("keyword");
+			criDto.setSearch_option(search_option);
+			criDto.setKeyword(keyword);
+			// 이 값들도 view에 보내줘야하는데 맨날 보내지 않고 값이 있을 때만 보내준다 그래서 if문 안에 써준다.
+			request.setAttribute("search_option", search_option);
+			request.setAttribute("keyword", keyword);
+			System.out.println("검색타입: "+ search_option);
+			System.out.println("검색키워드: "+ keyword);
+		} 
+		System.out.println(criDto.toString());
+		
 		
 		// DB에서 게시글 목록 호출
 		BoardDAO bDao = BoardDAO.getInstance();
@@ -49,7 +70,7 @@ public class BoardListAction implements Action {
 		request.setAttribute("list", list);
 		request.setAttribute("pageMaker", pageMaker);
 		request.setAttribute("totalCount", totalCount);
-		request.setAttribute("sort_type", sort_type);
+		request.setAttribute("sort_type", sort_type); // 반드시 sort_type보내줘야 정렬 정보를 가지고 다닌다. 페이지가 이동할 대 계속 가지고 다녀야 페이지 이동해도 계속 정렬 결과를 적용하기 때문이다
 		
 		ActionForward forward = new ActionForward(); 
 		forward.setPath(url);

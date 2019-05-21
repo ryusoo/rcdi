@@ -28,9 +28,9 @@ public class BoardDAO {
 	
 	// 게시글 목록
 	public List<BoardDTO> listAll(CriteriaDTO criDto){
-		sqlSession = sqlSessionFactory.openSession();
+		sqlSession = sqlSessionFactory.openSession();// mybatis사용하기위해 worker생성
 		try {
-			list = sqlSession.selectList("listAll", criDto);
+			list = sqlSession.selectList("listAll", criDto); // rcdiMapper.xml에서 listAll이름표가진 sql찾아감
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -85,15 +85,59 @@
 	<select id="totalCount" resultType="int">
 		SELECT COUNT(bno)
 		FROM tbl_board
-		WHERE bno > 0
+		WHERE bno > 0		
+		<if test="search_option == 1">
+   			AND title LIKE '%'||#{keyword}||'%' OR content LIKE '%'||#{keyword}||'%'
+   		</if>
+   		<if test="search_option == 2">
+     		AND title LIKE '%'||#{keyword}||'%'
+   		</if>	 
+   		<if test="search_option == 3">	  
+   			AND content LIKE '%'||#{keyword}||'%'
+   		</if>
+   		<if test="search_option == 4">	 
+   			AND writer LIKE '%'||#{keyword}||'%'
+   		</if>
 	</select>
+	
+	 <!-- 변수 단건으로 보내면 그 수를 알아서 꺼내는데 
+	 CriteriaDTO criDto 를 보내면 #{pageStart} => getPageStart() AND  setPageStart() 게터세터를 사용해서 가져옴 -->
+	<!--  criDto.getSort_type(); == new => ORDER BY bno DESC
+	 criDto.getSort_type(); == view => ORDER BY viewcnt DESC
+	 criDto.getSort_type(); == reply => ORDER BY replycnt DESC
+	 criDto.getSort_type(); == good => ORDER BY goodcnt DESC -->
+	 <!-- 각각쓰면 너무 비효율적이라서 여기서 동적쿼리를 이용한다!! 동적으로 그때그때의 조건에 맞는 값을 꺼낸다-->
 	<select id="listAll" resultType="com.rcdi.dto.BoardDTO">
 		SELECT * 
 		FROM (SELECT rownum rnum, a.*
       		  FROM (SELECT *
             		FROM tbl_board
-            		WHERE bno > 0
-            		ORDER BY bno DESC
+            		WHERE bno > 0 
+            		<if test="search_option == 1">
+            			AND title LIKE '%'||#{keyword}||'%' OR content LIKE '%'||#{keyword}||'%'
+            		</if>
+            		<if test="search_option == 2">
+            			AND title LIKE '%'||#{keyword}||'%'
+            		</if>	 
+            		<if test="search_option == 3">	  
+            			AND content LIKE '%'||#{keyword}||'%'
+            		</if>
+            		<if test="search_option == 4">	 
+            			AND writer LIKE '%'||#{keyword}||'%'
+            		</if>
+            			  
+            		<if test="sort_type == 'new'">
+            			ORDER BY bno DESC
+            		</if>
+            		<if test="sort_type == 'reply'">
+            			ORDER BY replycnt DESC, bno DESC
+            		</if>
+            		<if test="sort_type == 'view'">
+            			ORDER BY viewcnt DESC, bno DESC
+            		</if>
+            		<if test="sort_type == 'good'">
+            			ORDER BY goodcnt DESC, bno DESC
+            		</if>            		
         			) a
    		 ) WHERE rnum BETWEEN #{pageStart} AND #{perPageNum}
 	</select>	
