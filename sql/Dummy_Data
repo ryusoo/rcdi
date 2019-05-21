@@ -193,6 +193,9 @@ WHERE bno > 0
             ORDER BY bno DESC;
 
 
-
+            
+-- 1. 가장 안쪽에 있는 subquery: 전체게시글을 최신순으로 조회
+-- 2. 2번째 subquery: 전체게시글 조회결과 + rownum
+-- 3. 가장 바깥쪽에 있는 select문: 조회된 결과에서 page에 출력할 10건에 게시글만 조회
 
 
