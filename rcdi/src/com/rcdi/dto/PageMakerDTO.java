@@ -28,9 +28,14 @@ public class PageMakerDTO { // 페이지 네이션
 		if(criDto.getPage()-displayPagehalf<=0) {
 			temp = criDto.getPage()-1;
 			endPage = ((displayPagehalf*2)-temp)+criDto.getPage();
+			if(endPage>finalPage) {
+				endPage = finalPage;
+			}
 			startPage = 1;
 			if(criDto.getPage()<1) {
 				criDto.setPage(1);
+			}else if(criDto.getPage()>finalPage) {
+				criDto.setPage(finalPage);
 			}
 		}else if(criDto.getPage()+displayPagehalf > finalPage) {
 			temp = finalPage - criDto.getPage();
