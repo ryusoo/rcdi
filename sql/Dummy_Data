@@ -199,3 +199,37 @@ WHERE bno > 0
 -- 3. 가장 바깥쪽에 있는 select문: 조회된 결과에서 page에 출력할 10건에 게시글만 조회
 
 
+-- rcdi 댓글 테이블 생성
+DROP SEQUENCE seq_reply;
+CREATE SEQUENCE seq_reply
+START WITH 1
+INCREMENT BY 1;
+
+DROP TABLE tbl_reply;
+CREATE TABLE tbl_reply(
+    rno NUMBER PRIMARY KEY,
+    content VARCHAR2(2000) NOT NULL,
+    writer VARCHAR2(30) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    bno NUMBER NOT NULL
+    
+);
+
+ALTER TABLE tbl_reply
+ADD CONSTRAINT tbl_reply_fk_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno);
+COMMIT;
+
+DELETE FROM tbl_reply;
+INSERT INTO tbl_reply(rno, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, '댓글1', 'user01', 10);
+INSERT INTO tbl_reply(rno, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, '댓글2', 'user02', 10);
+INSERT INTO tbl_reply(rno, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, '댓글3', 'user03', 9);
+INSERT INTO tbl_reply(rno, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, '댓글4', 'user04', 9);
+INSERT INTO tbl_reply(rno, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, '댓글1', 'user01', 7);
+COMMIT;
+SELECT * FROM tbl_reply;
