@@ -82,8 +82,6 @@ WHERE ROWNUM <=4
 
 
 
-
-
 -- 회원 sequence
 DROP SEQUENCE seq_member;
 CREATE SEQUENCE seq_member
@@ -96,13 +94,8 @@ CREATE TABLE tbl_member(
     id VARCHAR2(30) PRIMARY KEY,
     pw VARCHAR2(30) NOT NULL,
     name VARCHAR2(30) NOT NULL,
-    birth_year NUMBER(4, 0),
-    birth_month NUMBER(2, 0),
-    birth_day NUMBER(2, 0),
     phone VARCHAR2(30) NOT NULL,
-    preceiveyn CHAR(1) DEFAULT 'n' NOT NULL,
     email VARCHAR2(50) NOT NULL,
-    ereceiveyn CHAR(1) DEFAULT 'n' NOT NULL,
     zipcode VARCHAR2(50) NOT NULL,
     addr1 VARCHAR2(200) NOT NULL,
     addr2 VARCHAR2(200) NOT NULL,
@@ -113,19 +106,17 @@ CREATE TABLE tbl_member(
 
 SELECT * FROM tbl_member;
 
-INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
-VALUES ('user1', '1234', 'user1', 1990, 10, 10, '01011112222', 'n', 'abcd1234@gmail.com', 'n', '102345', '광주광역시 북구 문흥동', '문흥아파트 101동 101호');
+INSERT INTO tbl_member(id, pw, name, phone, email, zipcode, addr1, addr2)
+VALUES ('user01', '1234', '유저1', '01011112222', 'abcd1234@gmail.com', '02345', '광주광역시 북구 문흥동', '문흥아파트 101동 101호');
+INSERT INTO tbl_member(id, pw, name, phone, email, zipcode, addr1, addr2)
+VALUES ('user02', '1234', '유저2', '01022222222', 'abcd5678@gmail.com', '02345', '광주광역시 북구 문흥동', '문흥아파트 101동 102호');
+INSERT INTO tbl_member(id, pw, name, phone, email, zipcode, addr1, addr2)
+VALUES ('user03', '1234', '유저3', '01033333333', 'abcd2323@gmail.com', '02345', '광주광역시 북구 문흥동', '문흥아파트 101동 201호');
 
-INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
-VALUES ('user2', '1234', 'user2', 1980, 11, 11, '01012345678', 'y', 'erty1234@gmail.com', 'y', '678945', '광주광역시 동구 가양동', '가양아파트 105동 1001호');
-
-INSERT INTO tbl_member(id, pw, name, birth_year, birth_month, birth_day, phone, preceiveyn, email, ereceiveyn, zipcode, addr1, addr2)
-VALUES ('user3', '1234', 'user3', 1997, 5, 6, '01044445555', 'n', 'qrqr1234@gmail.com', 'n', '464679', '서울특별시 구로구 가리봉동', '달님오피스텔 4동 1003호');
 
 COMMIT;
 
-
-
+DESC tbl_member;
 
 
 
@@ -171,11 +162,12 @@ INSERT INTO tbl_board(bno, title, content, writer)
 VALUES(seq_board.NEXTVAL, '테스트페이지입니다9', '테스트예요', 'user02');
 INSERT INTO tbl_board(bno, title, content, writer)
 VALUES(seq_board.NEXTVAL, '테스트페이지입니다10', '테스트예요', 'user03');
-
 COMMIT;
 
 SELECT * FROM tbl_board
 ORDER BY bno DESC;
+
+SELECT COUNT(*) FROM tbl_board;
 
 SELECT * 
 FROM (SELECT rownum rnum, a.*
@@ -191,8 +183,6 @@ SELECT *
 FROM tbl_board
 WHERE bno > 0
             ORDER BY bno DESC;
-
-
             
 -- 1. 가장 안쪽에 있는 subquery: 전체게시글을 최신순으로 조회
 -- 2. 2번째 subquery: 전체게시글 조회결과 + rownum
@@ -204,6 +194,8 @@ DROP SEQUENCE seq_reply;
 CREATE SEQUENCE seq_reply
 START WITH 1
 INCREMENT BY 1;
+
+
 
 DROP TABLE tbl_reply;
 CREATE TABLE tbl_reply(
