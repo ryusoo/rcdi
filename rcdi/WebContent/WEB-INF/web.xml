@@ -18,7 +18,7 @@
   <servlet-mapping>
   <!-- 11. url의 끝부분이 .rcid로 끝나면 FrontController로 이동
   			url: idCheck.rcdi => FrontController로 이동  
-  			FrontController가 어디있는지 몰라요...
+  			FrontController가 어디있는지 몰라요... map은 지도를 그려준다.
   			위를 보세요 ↑ -->
   <servlet-name>FrontController</servlet-name>
   	<url-pattern>*.rcdi</url-pattern>

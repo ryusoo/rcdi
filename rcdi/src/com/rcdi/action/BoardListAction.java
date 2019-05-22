@@ -17,7 +17,7 @@ public class BoardListAction implements Action {
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "board/list.jsp";
+		String url = "board/list.jsp"; // 단지 변수에 담은 상태
 		
 		CriteriaDTO criDto = new CriteriaDTO();
 		
@@ -25,7 +25,9 @@ public class BoardListAction implements Action {
 		int page = 1; // default 페이지. 기본 페이지는 1page. 일반 변수에 담음. CriteriaDTO에 넣지 않음.
 		// 화면단에서는 1을 입력하지 않기 때문에 없어서 null이 온다. 그래서 아래를 타지 않음.
 		// 사용자가 입력한 페이지로 가는 경우, 쿼리스트링으로 값을 주는 경우 ?page=5 이렇게 있는 경우 아래를 탄다.
-		if(request.getParameter("page") != null) { // 이부분 체크해주는 것이 중요하다.
+		if(request.getParameter("page") != null) { 
+			// 이부분 체크해주는 것이 중요하다.getParameter("page") 전 페이지(header.jsp에서 질문게시판 ${path}/boardList.rcdi}에게 page 달라고 하는 것
+			// header.jsp에서 쿼리스트링, 폼태그, Ajax 아무것도 사용안해서 주는 데이터가 없다. 즉 null보낸다.
 			page = Integer.parseInt(request.getParameter("page")); // 쿼리스트링으로 페이지를 선택할 때 page를 받는 과정임
 		} 
 		System.out.println("페이지번호:" + page);
@@ -67,9 +69,10 @@ public class BoardListAction implements Action {
 		pageMaker.setTotalCount(totalCount);
 		
 		// View단으로 게시글목록 전송
-		request.setAttribute("list", list);
-		request.setAttribute("pageMaker", pageMaker);
-		request.setAttribute("totalCount", totalCount);
+		// list.jsp에 request.setAtrribute();를 준다
+		request.setAttribute("list", list); // 게시물 목록
+		request.setAttribute("pageMaker", pageMaker); // 페이지네이션 생성정보
+		request.setAttribute("totalCount", totalCount); // 게시물 총 개수
 		request.setAttribute("sort_type", sort_type); // 반드시 sort_type보내줘야 정렬 정보를 가지고 다닌다. 페이지가 이동할 대 계속 가지고 다녀야 페이지 이동해도 계속 정렬 결과를 적용하기 때문이다
 		
 		ActionForward forward = new ActionForward(); 

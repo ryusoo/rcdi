@@ -88,11 +88,12 @@ tr:nth-child(1){
 	color: red;
 }
 .new_time {
-	background-color: tomato;/* #FF8224 */
+	background-color: white;/* #FF8224 */
+	border: 1px solid red;
 	font-size: 11px;
-	color:white;
-	border-radius: 25px;
-	padding: 2px 5px;
+	color: red;
+	/* border-radius: 25px; */
+	padding: 1px 3px;
 	animation-name: twinkle;
 	animation-duration: 1.2s;
 	animation-iteration-count:infinite;
@@ -241,7 +242,9 @@ select {
 							<th class="like">좋아요</th>
 							<th class="hit">조회수</th>
 							<th class="attach">첨부</th>
-						</tr>
+						</tr> 
+						<%-- ${list}에 리스트가 담겨있는데 var=bDto에 한건씩 넣어서 forEach로 해서 리스트를 하나씩 목록을 뽑는다 반복하면서 --%>
+						<!-- 제어문과 포맷팅은 jstl태그, 변수담는 것은 el태그 혼용해서 같이 사용하고 있다 -->
 						<c:forEach items="${list}" var="bDto">
 							<!-- 현재시간 구하기 now에 현재 시간을 시분초로 나타내준다. now는 방금가져온 값을 년월일 형식으로 바꿔서 today변수에 담음.-->
 							<jsp:useBean id="now" class="java.util.Date"/>
@@ -249,7 +252,8 @@ select {
 							<fmt:formatDate value="${bDto.regdate}" pattern="yyyy-MM-dd" var="regdate" />
 							<tr>
 								<td class="idx">${bDto.bno}</td>
-								<td class="obj"><a href="#">${bDto.title}
+								<td class="obj">
+									<a href="${path}/boardView.rcdi?bno=${bDto.bno}">${bDto.title}</a>
 								<c:if test="${bDto.replycnt > 0}">
 									<span class="replyCnt_Color">(${bDto.replycnt})</span>
 								</c:if>
@@ -257,7 +261,7 @@ select {
 								<c:if test="${today == regdate }">
 									<span class="new_time">N</span>
 								</c:if>
-								</a></td>
+								</td>
 								<td class="writer">${bDto.writer}</td>
 								<td class="date">
 								<c:choose>
@@ -269,7 +273,7 @@ select {
 									</c:otherwise>
 								</c:choose>
 								</td>
-								<td class="like"><i class="fas fa-heart"></i> ${bDto.goodcnt}</td>
+								<td class="like"><i class="fas fa-heart"></i><span> ${bDto.goodcnt}</span></td>
 								<td class="hit">${bDto.viewcnt}</td>
 								<td class="attach"><i class="far fa-file-alt"></i></td>
 							</tr>

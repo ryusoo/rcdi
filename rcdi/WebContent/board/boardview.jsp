@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
+<!-- 뒤로가기 했을 때 그 처음으로 돌아가지 않고 바로 전 페이지를 띄우는 코드 -->
+<% 
+	String referer = request.getHeader("referer");	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,7 +110,7 @@ td:nth-child(1), td:nth-child(3) {
 	overflow: hidden;
 	font-size: 0;
 	line-height: 0;
-	background: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/img_emoti.png?v=20180410) no-repeat;
+	background: url(images/img_emoti.png) no-repeat;
 	text-indent: -9999px;
 	vertical-align: top;
 	width: 20px;
@@ -129,13 +133,13 @@ td:nth-child(1), td:nth-child(3) {
 	pointer-events: none;
 }
 .ani_heart_m.hi {
-	background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_on_m.png);
+	background-image: url(images/zzim_on_m.png);
 	-webkit-background-size: 9000px 125px;
 	background-size: 9000px 125px;
 	animation: on_m 1.06s steps(72);
 }
 .ani_heart_m.bye {
-	background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_off_m.png);
+	background-image: url(images/zzim_off_m.png);
 	-webkit-background-size: 8250px 125px;
 	background-size: 8250px 125px;
 	animation: off_m 1.06s steps(66);
@@ -330,120 +334,70 @@ i.fa-heart {
 		<h3>질문 게시판</h3>
 		<table>
 			<tbody>
+			<jsp:useBean id="now" class="java.util.Date"/>
+			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+			<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd" var="regdate" />
 				<tr>
 					<td class="title"><span>제목</span></td>
-					<td><span>안녕하세요</span></td>
+					<td><span>${one.title}</span></td>
 					<td class="date"><span>작성일</span></td>
-					<td><span>2019-05-17</span></td>
+					<td>
+						<span>
+							<c:choose>
+								<c:when test="${today == regdate }">
+									<fmt:formatDate pattern="hh:mm:ss" value="${one.regdate}" />
+								</c:when>
+								<c:otherwise>
+									<fmt:formatDate pattern="yyyy-MM-dd" value="${one.regdate}" />
+								</c:otherwise>
+							</c:choose>	
+						</span>
+						
+					</td>
 				</tr>
 				<tr>
 					<td class="writer"><span>작성자</span></td>
-					<td><span>유저1</span></td>
+					<td><span>${one.writer}</span></td>
 					<td class="idx"><span>글번호</span></td>
-					<td><span>10</span></td>
+					<td><span>${one.bno}</span></td>
 				</tr>
 				<tr>
 					<td class="file"><span>첨부파일</span></td>
-					<td><span>없음</span></td>
+					<td><span>${one.filename}</span></td>
 					<td class="hit"><span>조회수</span></td>
-					<td><span>11</span></td>
+					<td><span>${one.viewcnt}</span></td>
 				</tr>
 			</tbody>
 		</table>
 		<div id="content">
-			내용없음
+			${one.content}
 		</div>
 		<!--버튼 영역 -->
 		<div class="bottom_btn">
 			<div class="btn_left">
-				<button class="btn btn_list">게시글 목록</button>
+				<button class="btn btn_list" id="return_go">게시글 목록</button>
 				<button class="btn btn_reply">답변</button>
 			</div>
+			
 			<div class="btn_right">
-				<button class="btn btn_delete">삭제</button>
-				<button class="btn btn_update">수정</button>
+				<c:if test="${sessionScope.loginUser.id == one.writer}">
+					<button class="btn btn_delete">삭제</button>
+					<button class="btn btn_update">수정</button>
+				</c:if>
 			</div>
 		</div>
 		<!-- 좋아요 영역 -->
 		<div id="wrap_like">
-			<button type="button" class="btn_like btn_unlike" id="btn_good">
+			<button type="button" class="btn_like" id="btn_good">
 				<span class="img_emoti">좋아요</span>
 				<span class="ani_heart_m"></span>
 			</button>		
 		</div>		
 		<!-- 댓글 영역 -->
 		<div class="comment_area">
-		<!-- 댓글 리스트 영역 -->						
-			<!-- 댓글이 없을 때 디자인 -->
-			<div class="noncomment_list_wrap each_space">
-				<div class="top_comment"> 
-					<i class="far fa-comment"></i>
-					<span class="comment_cnt">0</span>
-					<span>Comments</span>
-				</div>
-			</div>						
-			<div class="empty_box">
-				등록된 댓글이 없습니다. 첫번째 댓글을 남겨주세요:)
+			<div id="commentList">
+				
 			</div>
-			<!-- 댓글이 있을 때 디자인 -->
-			<div class="comment_list_wrap each_space">
-				<div class="top_comment"> 
-					<i class="fas fa-comment-dots"></i>
-					<span class="comment_cnt">2</span>
-					<span>Comments</span>
-				</div>
-				<div class="comment_box">
-					<div class="writer_comment">
-						<div class="comment_head">
-							<span>유저1</span>
-							<div class="reg_date"><i class="far fa-clock"></i>19.05.17 02:21</div>
-							<span class="comment_delete_btn">삭제</span>
-						</div>
-						<div class="comment_body">
-							내용 없음
-						</div>
-					</div>					
-				</div>
-				<div class="comment_box">
-					<div class="writer_comment">
-						<div class="comment_head">
-							<span>유저2</span>
-							<div class="reg_date"><i class="far fa-clock"></i>19.05.17 02:56</div>
-							<span class="comment_delete_btn">삭제</span>
-						</div>
-						<div class="comment_body">
-							내용 없음
-						</div>
-					</div>					
-				</div>				
-			</div>
-			<!-- 비로그인 시, 로그인 시 댓글 작성 영역-->
-			<!--비로그인 시 로그인 하라는 경고창 -->
-			<div class="writing_logout_wrap each_space">
-				<div class="top_comment"> 
-					<i class="fas fa-pencil-alt"></i>				
-					<span>로그인이 필요합니다</span>
-				</div>						
-				<div class="empty_box">
-					<span id="login_txt">로그인</span>을 하시면 댓글을 등록할 수 있습니다.
-				</div>
-			</div>
-			<!--로그인 시 댓글 작성 창 -->
-			<div class="writing_logout_wrap each_space">
-				<div class="top_comment"> 
-					<i class="fas fa-pencil-alt"></i>				
-					<span>댓글 쓰기</span>
-				</div>						
-				<div class="writing_box">
-					<div class="writer_top">
-						<span id="writer">작성자: </span><span id="user">유저1</span>
-					</div>				
-					<div class="writing_area">
-						내용없음
-					</div>
-				</div>
-				<button type="button" class="btn_comment">댓글 등록</button>
-			</div>					
 		</div>
 	</div>
 	<!-- 삭제버튼 클릭시 모달창 -->
@@ -459,6 +413,21 @@ i.fa-heart {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	// 문서가 준비되면 댓글 목록을 조회하는 AJAX실행
+	comment_list();
+	// 댓글 띄우는 함수
+	function comment_list(){		
+		$.ajax({
+			type:"post",
+			url: "commentlist.rcdi",
+			data: "bno=${one.bno}",
+			success: function(result){
+				$('#commentList').html(result);
+			}
+		});
+	}
+	
+	
 	$('.btn').hover(function(){
 		$(this).css('background-color', 'white').css('color','#333');
 	},
@@ -495,9 +464,12 @@ $(document).ready(function(){
 	function(){
 		$(this).css('background-color', '#333').css('color','white');
 	});
-	
-	
 });
+	// 뒤로가기 했을 때 그 처음으로 돌아가지 않고 바로 전 페이지를 띄우는 코드(이전페이지 url을 그대로 갖고옴)
+	$(document).on("click", "#return_go", function(){
+		location.href="<%=referer%>";
+	});
+
 </script>	
 	
 </body>
