@@ -28,6 +28,8 @@ import com.rcdi.action.MemberPlayAction;
 import com.rcdi.action.PwCheckAction;
 import com.rcdi.action.PwUpdateAction;
 import com.rcdi.action.PwUpdatePlayAction;
+import com.rcdi.action.ReplyAddAction;
+import com.rcdi.action.ReplyRemoveAction;
 import com.rcdi.action.LoginOutAction;
 
 
@@ -121,7 +123,16 @@ public class FrontController extends HttpServlet {
 		} else if(command.contentEquals("/commentlist.rcdi")){ 
 			action = new CommentListAction();
 			forward = action.excute(request, response);
+		} else if(command.contentEquals("/replyAdd.rcdi")){ 
+			action = new ReplyAddAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/replyRemove.rcdi")){ 
+			action = new ReplyRemoveAction();
+			forward = action.excute(request, response);
 		} 
+		
+		
+		
 		
 		
 		

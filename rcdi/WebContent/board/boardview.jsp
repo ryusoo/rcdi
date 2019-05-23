@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="${path}/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <style type="text/css">
 .wrap {
@@ -255,9 +256,12 @@ i.fa-heart {
 	font-size: 13px;
 	font-weight: bold;
 }
-
-
-
+#txt_box {
+	color: tomato;
+	font-size: 13px;
+	display: none;
+	margin: 6px 5px;
+}
 
 
 /* 모달창 */
@@ -364,8 +368,8 @@ i.fa-heart {
 				<tr>
 					<td class="file"><span>첨부파일</span></td>
 					<td><span>${one.filename}</span></td>
-					<td class="hit"><span>조회수</span></td>
-					<td><span>${one.viewcnt}</span></td>
+					<td class="hit"><span>조회수/좋아요</span></td>
+					<td><span>${one.viewcnt}/${one.goodcnt}</span></td>
 				</tr>
 			</tbody>
 		</table>
@@ -396,7 +400,7 @@ i.fa-heart {
 		<!-- 댓글 영역 -->
 		<div class="comment_area">
 			<div id="commentList">
-				
+				<!-- 여기에 commentlist.jsp를 띄운다 -->
 			</div>
 		</div>
 	</div>
@@ -415,18 +419,9 @@ i.fa-heart {
 $(document).ready(function(){
 	// 문서가 준비되면 댓글 목록을 조회하는 AJAX실행
 	comment_list();
-	// 댓글 띄우는 함수
-	function comment_list(){		
-		$.ajax({
-			type:"post",
-			url: "commentlist.rcdi",
-			data: "bno=${one.bno}",
-			success: function(result){
-				$('#commentList').html(result);
-			}
-		});
-	}
 	
+	// result =commentlist.jsp 통으로 리턴됨
+	// 선택자가 commentList인것을 찾아서 commentlist.jsp를 html로 실행해라라는 뜻
 	
 	$('.btn').hover(function(){
 		$(this).css('background-color', 'white').css('color','#333');
@@ -468,6 +463,73 @@ $(document).ready(function(){
 	// 뒤로가기 했을 때 그 처음으로 돌아가지 않고 바로 전 페이지를 띄우는 코드(이전페이지 url을 그대로 갖고옴)
 	$(document).on("click", "#return_go", function(){
 		location.href="<%=referer%>";
+	});
+	
+	
+	// 댓글 등록
+	$(document).on("click", "#reply_btn", function(){
+		oEditors.getById["replyInsert"].exec("UPDATE_CONTENTS_FIELD", []);
+		
+		var content = $("#replyInsert").val();
+		
+		if(content == "<p><br></p>") { 
+			// content == null || content.length == 0 => <p><br></p> 스마트에디터는 내용이 없을 때 이 태그를 가지고있기 때문에 바꿔야함
+			// 유효성체크(Null 체크)
+			$("#replyInsert").focus();
+			$("#txt_box").css("display", "inline-block");
+			return false;
+		} else {
+			// 게시글번호 담아서 보냄
+			var bno = '${one.bno}';
+			$('#re_bno').val(bno);
+			// ajax로 form태그 안의 데이터 보내는 방법
+			// 직렬화 데이터가 많으니까 byte코드로 바꿔서 쪼개서 보내고 다시 받을 때 합쳐서 받는다. 데이터가 단건이 아니고 한번에 데이터를 싹보내니까 한번에 싹받기 힘드니까 직렬화시켜서 바이트화코드화시켜서 이걸로 전송을 한다
+			// comment_list(); // 댓글목록 최신화하려고 재실행 해줌
+			//$('#replyInsert').val(""); // 댓글 최신화 하고나서 작성창을 공백값으로 초기화 시켜줌
+			$.ajax({ 
+				type:"POST",
+				url: "replyAdd.rcdi",
+				data: $("#frm_reply").serialize(),  
+				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+				success: function(){ 
+					comment_list(); 
+					$('#replyInsert').val(""); 
+				},
+				error: function(){
+					alert("System Error!!!");
+				}
+			});
+		}
+		
+	});
+	
+	// 댓글 띄우는 함수
+	// 단독으로 밖에 빠져있어야 함. document안에있으면 메서드안에 메서드가 있는 모양이다.
+	function comment_list(){		
+		$.ajax({
+			type:"post",
+			url: "commentlist.rcdi",
+			data: "bno=${one.bno}",
+			success: function(result){ 
+				$('#commentList').html(result); 
+			}
+		});
+	}
+	
+	$(document).on("click", ".reply_del", function(){
+		var rno = $(this).attr("data_num");
+		var bno = '${one.bno}';
+		
+		$.ajax({
+			url: "replyRemove.rcdi",
+			data: "rno=" + rno + "&bno=" + bno,
+			success: function(result){
+				comment_list();
+			},
+			error: function(){
+				alert("System Error!!!");
+			}
+		});
 	});
 
 </script>	

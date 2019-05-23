@@ -96,17 +96,37 @@ public class BoardDAO {
 				
 				// ex) 30번 게시글을 조회하는 경우
 				// read_time_30변수를 하나 만들고 현재시간을 담음
-				
 			}
-			
-			
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			sqlSession.close();
 		}
+	}
+	
+	
+	public int replycntAdd(int bno) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.update("replycntUpdate", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+	
+	
+	public int replycntMinus(int bno) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			sqlSession.update("replycntRemove", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
 	}
 }
