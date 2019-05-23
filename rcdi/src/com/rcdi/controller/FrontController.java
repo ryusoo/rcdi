@@ -17,6 +17,7 @@ import com.rcdi.action.CommentListAction;
 import com.rcdi.action.ConstractAction;
 import com.rcdi.action.DropMemberAction;
 import com.rcdi.action.DropMemberPlayAction;
+import com.rcdi.action.GoodPlusAction;
 import com.rcdi.action.IdCheckAction;
 import com.rcdi.action.IndexAction;
 import com.rcdi.action.InfoUpdateAction;
@@ -128,6 +129,9 @@ public class FrontController extends HttpServlet {
 			forward = action.excute(request, response);
 		} else if(command.contentEquals("/replyRemove.rcdi")){ 
 			action = new ReplyRemoveAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/goodPlus.rcdi")){ 
+			action = new GoodPlusAction();
 			forward = action.excute(request, response);
 		} 
 		

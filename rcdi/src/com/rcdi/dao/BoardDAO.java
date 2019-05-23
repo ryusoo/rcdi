@@ -129,4 +129,17 @@ public class BoardDAO {
 		}
 		return result;
 	}
+	
+	
+	public int goodPlus(int bno) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.update("goodcntPlus", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
 }

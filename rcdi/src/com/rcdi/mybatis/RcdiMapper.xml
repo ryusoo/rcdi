@@ -172,4 +172,13 @@
 		SET replycnt=replycnt -1
 		WHERE bno = #{bno}
 	</update>
+	<update id="goodcntPlus" parameterType="int">
+		UPDATE tbl_board
+		SET goodcnt=goodcnt +1
+		WHERE bno = #{bno}
+	</update>
+	<select id="goodCnt" parameterType="int" resultType="com.rcdi.dto.BoardDTO">
+		SELECT COUNT(*) FROM tbl_board
+		WHERE bno = #{bno}
+	</select>
 </mapper>

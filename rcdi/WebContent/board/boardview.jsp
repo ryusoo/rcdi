@@ -391,12 +391,14 @@ i.fa-heart {
 			</div>
 		</div>
 		<!-- 좋아요 영역 -->
-		<div id="wrap_like">
-			<button type="button" class="btn_like" id="btn_good">
-				<span class="img_emoti">좋아요</span>
-				<span class="ani_heart_m"></span>
-			</button>		
-		</div>		
+		<c:if test="${!empty sessionScope.loginUser.id}">
+			<div id="wrap_like">
+				<button type="button" class="btn_like" id="btn_good">
+					<span class="img_emoti">좋아요</span>
+					<span class="ani_heart_m"></span>
+				</button>		
+			</div>
+		</c:if>
 		<!-- 댓글 영역 -->
 		<div class="comment_area">
 			<div id="commentList">
@@ -525,6 +527,26 @@ $(document).ready(function(){
 			data: "rno=" + rno + "&bno=" + bno,
 			success: function(result){
 				comment_list();
+			},
+			error: function(){
+				alert("System Error!!!");
+			}
+		});
+	});
+	
+	
+	// 좋아요	
+	$(document).on("click", "#btn_good", function(){
+		var id = "${sessionScope.loginUser.id}";
+		var bno = "${one.bno}";
+		$.ajax({
+			type:"post",
+			url: "goodPlus.rcdi",
+			data: "id=" + id + "&bno=" + bno,
+			success: function(){
+				alert("성공");
+				
+				
 			},
 			error: function(){
 				alert("System Error!!!");
