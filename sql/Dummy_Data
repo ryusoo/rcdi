@@ -225,3 +225,21 @@ INSERT INTO tbl_reply(rno, content, writer, bno)
 VALUES(seq_reply.NEXTVAL, '댓글1', 'user01', 7);
 COMMIT;
 SELECT * FROM tbl_reply;
+
+-- 좋아요 테이블
+DROP TABLE tbl_goodbtn;
+CREATE TABLE tbl_goodbtn(
+    gno NUMBER PRIMARY KEY,
+    bno NUMBER NOT NULL,
+    id VARCHAR2(30) NOT NULL
+);
+
+ALTER TABLE tbl_goodbtn
+ADD CONSTRAINT tbl_goodbtn_fk_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno);
+COMMIT;
+
+SELECT * FROM tbl_goodbtn;
+DESC tbl_goodbtn;
+
+
