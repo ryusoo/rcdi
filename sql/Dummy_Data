@@ -1,3 +1,6 @@
+
+
+
 --RCDY 프로젝트 Dummy 데이터 생성
 
 -- 상품테이블
@@ -165,6 +168,9 @@ COMMIT;
 SELECT * FROM tbl_board
 ORDER BY bno DESC;
 
+UPDATE tbl_board
+SET goodcnt = 0;
+
 SELECT COUNT(*) FROM tbl_board;
 
 SELECT * 
@@ -231,6 +237,20 @@ CREATE TABLE tbl_goodcnt(
     bno NUMBER NOT NULL,
     id VARCHAR2(30) NOT NULL
 );
+
+DROP SEQUENCE seq_goodcnt;
+CREATE SEQUENCE seq_goodcnt
+START WITH 1
+INCREMENT BY 1
+NOCYCLE;
+
+INSERT INTO tbl_goodcnt(gno, bno, id)
+VALUES(seq_goodcnt.NEXTVAL, 10, 'user01');
+
+DELETE FROM tbl_goodcnt;
+
+SELECT * FROM tbl_goodcnt;
+SELECT * FROM tbl_board;
 
 ALTER TABLE tbl_goodcnt
 ADD CONSTRAINT tbl_goodcnt_fk_bno
