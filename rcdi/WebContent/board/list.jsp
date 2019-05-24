@@ -228,7 +228,7 @@ select {
 					<span class="array1"><a href="${path}/boardList.rcdi?sort_type=reply&keyword=${keyword}&search_option=${search_option}" id="orderReply">댓글순</a></span>
 					<span class="array1"><a href="${path}/boardList.rcdi?sort_type=view&keyword=${keyword}&search_option=${search_option}" id="orderCnt">조회순</a></span>
 				</div>
-				<button class="btn btn_up">게시글 등록</button>
+				<button class="btn btn_up" id="boardAdd">게시글 등록</button>
 			</div>
 			<!-- 게시글 영역 -->
 			<div class="tbl_list">
@@ -380,6 +380,25 @@ $(document).ready(function(){
 		$('.array1').css('background-color', "white").css('color', '#333');
 		$(this).css('background-color', "#333").css('color','white');
 	});	 */
+	
+	// 게시글 등록 버튼 클릭시 이벤트 처리
+	$("#boardAdd").on("click", function(){
+		$.ajax({
+			type:"post",
+			dataType: "json",
+			url: "registerAjax.rcdi",
+			success: function(data){
+				if(data.message == "login"){
+					location.href = "registerView.rcdi";
+				} else if(data.message == "nologin") {
+					$('#wrap').css('display', 'flex');
+					$('#login_id').focus();
+					$('.err_msg').text('로그인이 필요한 시스템입니다.').css('display', 'block');
+				}				
+			}
+		});
+	});
+	
 });
 </script>	
 </body>

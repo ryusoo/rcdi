@@ -29,6 +29,9 @@ import com.rcdi.action.MemberPlayAction;
 import com.rcdi.action.PwCheckAction;
 import com.rcdi.action.PwUpdateAction;
 import com.rcdi.action.PwUpdatePlayAction;
+import com.rcdi.action.RegisterAjaxAction;
+import com.rcdi.action.RegisterPlayAction;
+import com.rcdi.action.RegisterViewAction;
 import com.rcdi.action.ReplyAddAction;
 import com.rcdi.action.ReplyRemoveAction;
 import com.rcdi.action.LoginOutAction;
@@ -132,6 +135,15 @@ public class FrontController extends HttpServlet {
 			forward = action.excute(request, response);
 		} else if(command.contentEquals("/goodPlus.rcdi")){ 
 			action = new GoodPlusAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/registerAjax.rcdi")){ 
+			action = new RegisterAjaxAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/registerView.rcdi")){ 
+			action = new RegisterViewAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/registerPlay.rcdi")){ 
+			action = new RegisterPlayAction();
 			forward = action.excute(request, response);
 		} 
 		

@@ -15,7 +15,8 @@ public class ReplyAddAction implements Action {
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("re_bno"));
+		String strBno = request.getParameter("re_bno");
+		int bno = Integer.parseInt(strBno);
 		String writer = request.getParameter("re_writer");
 		String content = request.getParameter("re_textarea");
 	
@@ -26,14 +27,9 @@ public class ReplyAddAction implements Action {
 		int result = rDao.replyAdd(rDto);
 		if(result > 0) {
 			System.out.println("댓글등록 성공");
-			
 			BoardDAO bDao = BoardDAO.getInstance();
-			int result1 = bDao.replycntAdd(bno);
-			if(result1 > 0) {
-				System.out.println("replycnt+1성공");
-			} else {
-				System.out.println("replycnt+1 실패");
-			}
+			String flag = "plus";
+			bDao.replyCntUpdate(strBno, flag);
 		} else {
 			System.out.println("댓글등록 실패");
 		}

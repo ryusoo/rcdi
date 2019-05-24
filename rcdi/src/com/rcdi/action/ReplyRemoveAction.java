@@ -15,8 +15,9 @@ public class ReplyRemoveAction implements Action {
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String strBno = request.getParameter("bno");
 		int rno = Integer.parseInt(request.getParameter("rno"));
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int bno = Integer.parseInt(strBno);
 		
 		ReplyDAO rDao = ReplyDAO.getInstance();
 		int result = rDao.replyRemove(rno);
@@ -25,13 +26,8 @@ public class ReplyRemoveAction implements Action {
 			System.out.println("성공");
 			
 			BoardDAO bDao = BoardDAO.getInstance();
-			int result1 = bDao.replycntMinus(bno);
-			if(result1 > 0) {
-				System.out.println("댓글카운트 -1 성공");
-			} else {
-				System.out.println("댓글카운트 -1 실패");
-			}
-			
+			String flag = "minus";
+			bDao.replyCntUpdate(strBno, flag);
 			
 		} else {
 			System.out.println("실패");

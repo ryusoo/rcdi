@@ -115,10 +115,6 @@ header {
 	font-weight: bold;
 }
 
-#cart_icon {
-	margin-top: 12px;
-}
-
 .header_member>ul>li>a:hover {
 	background-color: lightgray;
 	border-bottom: 2px solid white;
@@ -131,6 +127,7 @@ header {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	height: 0px;
 }
 .header_logo {
 	width: 100%;

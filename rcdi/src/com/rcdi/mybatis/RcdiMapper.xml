@@ -150,6 +150,9 @@
 		   SET viewcnt = viewcnt + 1
 		 WHERE bno = #{bno}
 	</update>
+	
+	
+	<!-- 댓글 영역 -->
 	<select id="replyList" parameterType="String" resultType="com.rcdi.dto.ReplyDTO">
 		SELECT * FROM tbl_reply
 		WHERE bno = #{bno}
@@ -164,14 +167,15 @@
 	</delete>
 	<update id="replycntUpdate" parameterType="int">
 		UPDATE tbl_board
-		SET replycnt=replycnt +1
+			<if test="flag == 'plus'">
+				SET replycnt=replycnt +1
+			</if>
+			<if test="flag == 'minus'">
+				SET replycnt=replycnt -1
+			</if>
 		WHERE bno = #{bno}
 	</update>
-	<update id="replycntRemove" parameterType="int">
-		UPDATE tbl_board
-		SET replycnt=replycnt -1
-		WHERE bno = #{bno}
-	</update>
+	
 	<update id="goodcntPlus" parameterType="int">
 		UPDATE tbl_board
 		SET goodcnt=goodcnt +1
@@ -181,4 +185,12 @@
 		SELECT COUNT(*) FROM tbl_board
 		WHERE bno = #{bno}
 	</select>
+	
+	<insert id="boardRegister" parameterType="hashmap">
+		INSERT INTO tbl_board(bno, title, content, writer)
+		VALUES(seq_board.NEXTVAL, #{title}, #{content}, #{writer})		
+	</insert>
+	<select id="lastBno" resultType="int">
+		select seq_board.currval from dual
+	</select>	
 </mapper>

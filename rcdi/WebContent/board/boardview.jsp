@@ -462,9 +462,11 @@ $(document).ready(function(){
 		$(this).css('background-color', '#333').css('color','white');
 	});
 });
-	// 뒤로가기 했을 때 그 처음으로 돌아가지 않고 바로 전 페이지를 띄우는 코드(이전페이지 url을 그대로 갖고옴)
+	// 뒤로가기 했을 때 그 처음으로 돌아가지 않고 바로 전 페이지를 띄우는 코드(이전페이지 url을 그대로 갖고옴) 
+	// location.href="<%=referer%>"; 
+	
 	$(document).on("click", "#return_go", function(){
-		location.href="<%=referer%>";
+		location.href="boardList.rcdi"; <%-- <%=referer%> --%>
 	});
 	
 	

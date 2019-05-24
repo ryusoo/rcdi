@@ -1,5 +1,6 @@
 package com.rcdi.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -104,11 +105,30 @@ public class BoardDAO {
 		}
 	}
 	
-	
-	public int replycntAdd(int bno) {
+	// 댓글 등록 또는 삭제시 해당게시글 replycnt+1 or -1
+	public void replyCntUpdate(String bno, String flag) {
 		sqlSession = sqlSessionFactory.openSession(true);
 		try {
-			result = sqlSession.update("replycntUpdate", bno);
+			HashMap<String, String> map = new HashMap<>();
+			map.put("bno", bno);
+			map.put("flag", flag);
+			result = sqlSession.update("replycntUpdate", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public int boardRegister(String title, String content, String writer) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			HashMap<String, String> map = new HashMap<>();
+			map.put("title", title);
+			map.put("content", content);
+			map.put("writer", writer);
+			result = sqlSession.insert("boardRegister", map);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -116,25 +136,23 @@ public class BoardDAO {
 		}
 		return result;
 	}
-	
-	
-	public int replycntMinus(int bno) {
-		sqlSession = sqlSessionFactory.openSession(true);
-		try {
-			sqlSession.update("replycntRemove", bno);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			sqlSession.close();
-		}
-		return result;
-	}
-	
 	
 	public int goodPlus(int bno) {
 		sqlSession = sqlSessionFactory.openSession(true);
 		try {
 			result = sqlSession.update("goodcntPlus", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+
+	public int boardLastBno() {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.selectOne("lastBno");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
