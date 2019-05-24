@@ -1,4 +1,3 @@
-
 --RCDY 프로젝트 Dummy 데이터 생성
 
 -- 상품테이블
@@ -127,7 +126,6 @@ CREATE SEQUENCE seq_board
     START WITH 1
     INCREMENT BY 1;
 
-
 DROP TABLE tbl_board;
 CREATE TABLE tbl_board(
     bno NUMBER PRIMARY KEY,
@@ -227,19 +225,19 @@ COMMIT;
 SELECT * FROM tbl_reply;
 
 -- 좋아요 테이블
-DROP TABLE tbl_goodbtn;
-CREATE TABLE tbl_goodbtn(
+DROP TABLE tbl_goodcnt;
+CREATE TABLE tbl_goodcnt(
     gno NUMBER PRIMARY KEY,
     bno NUMBER NOT NULL,
     id VARCHAR2(30) NOT NULL
 );
 
-ALTER TABLE tbl_goodbtn
-ADD CONSTRAINT tbl_goodbtn_fk_bno
+ALTER TABLE tbl_goodcnt
+ADD CONSTRAINT tbl_goodcnt_fk_bno
 FOREIGN KEY(bno) REFERENCES tbl_board(bno);
 COMMIT;
 
-SELECT * FROM tbl_goodbtn;
-DESC tbl_goodbtn;
+SELECT * FROM tbl_goodcnt;
+DESC tbl_goodcnt;
 
 
