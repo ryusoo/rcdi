@@ -176,15 +176,11 @@
 		WHERE bno = #{bno}
 	</update>
 	
-	<update id="goodcntPlus" parameterType="int">
+	<update id="goodcntPlus">
 		UPDATE tbl_board
-		SET goodcnt=goodcnt +1
+		SET goodcnt = goodcnt +1
 		WHERE bno = #{bno}
 	</update>
-	<select id="goodCnt" parameterType="int" resultType="com.rcdi.dto.BoardDTO">
-		SELECT COUNT(*) FROM tbl_board
-		WHERE bno = #{bno}
-	</select>
 	
 	<insert id="boardRegister" parameterType="hashmap">
 		INSERT INTO tbl_board(bno, title, content, writer)
@@ -193,4 +189,19 @@
 	<select id="lastBno" resultType="int">
 		select seq_board.currval from dual
 	</select>	
+	
+	<insert id="goodInsert" parameterType="com.rcdi.dto.GoodDTO">
+		INSERT INTO tbl_goodcnt(gno, bno, id)
+		VALUES(seq_goodcnt.NEXTVAL, #{bno}, #{id})
+	</insert>
+	
+	<select id="goodSelect" parameterType="int" resultType="int">
+		SELECT goodcnt FROM tbl_board
+		WHERE bno = #{bno}
+	</select>
+	
+	<select id="goodCheck" parameterType="com.rcdi.dto.GoodDTO" resultType="com.rcdi.dto.GoodDTO">
+		SELECT * FROM tbl_goodcnt
+		WHERE bno = #{bno} AND id = #{id}
+	</select>
 </mapper>

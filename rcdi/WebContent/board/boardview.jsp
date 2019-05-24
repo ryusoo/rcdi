@@ -369,7 +369,7 @@ i.fa-heart {
 					<td class="file"><span>첨부파일</span></td>
 					<td><span>${one.filename}</span></td>
 					<td class="hit"><span>조회수/좋아요</span></td>
-					<td><span>${one.viewcnt}/${one.goodcnt}</span></td>
+					<td><span>${one.viewcnt}/<span id="goodcnt">${one.goodcnt}</span></span></td>
 				</tr>
 			</tbody>
 		</table>
@@ -421,6 +421,46 @@ i.fa-heart {
 $(document).ready(function(){
 	// 문서가 준비되면 댓글 목록을 조회하는 AJAX실행
 	comment_list();
+	var flag = 0;
+	var heart_check = "${gDto.toString()}";
+	if(heart_check == "" ) {
+		$('#btn_good').removeClass('btn_unlike');
+		flag = 0;
+	} else {
+		$('#btn_good').addClass('btn_unlike');
+		flag = 1;
+	}
+	
+	// 좋아요
+	$('#btn_good').click(function(){
+		var id = "${sessionScope.loginUser.id}";
+		var bno = "${one.bno}";
+		if (flag == 0) {
+			$.ajax({
+				type:"post",
+				url: "goodPlus.rcdi",
+				dataType: "json",
+				data: "id=" + id + "&bno=" + bno,
+				async: false,
+				success: function(data){
+					$('#goodcnt').text(data.goodcnt);
+				},
+				error: function(){
+				}
+			});
+			$(this).addClass('btn_unlike');
+			$('.ani_heart_m').addClass('hi');
+			$('.ani_heart_m').removeClass('bye');
+			flag = 1;
+		} else if(flag == 1) {
+			alert("좋아요 -1 시켜야 함");
+			$(this).removeClass('btn_unlike');
+			$('.ani_heart_m').removeClass('hi');
+			$('.ani_heart_m').addClass('bye');
+			flag = 0;
+		}
+		
+	});
 	
 	// result =commentlist.jsp 통으로 리턴됨
 	// 선택자가 commentList인것을 찾아서 commentlist.jsp를 html로 실행해라라는 뜻
@@ -441,7 +481,7 @@ $(document).ready(function(){
 	$('.no_btn').click(function(){
 		$('#modal').css('display', 'none');
 	});
-	// 좋아요 버튼
+	/* // 좋아요 버튼
 	$('#btn_good').click(function(){
 		if($(this).hasClass('btn_unlike')) {
 			$(this).removeClass('btn_unlike');
@@ -453,7 +493,7 @@ $(document).ready(function(){
 			$('.ani_heart_m').addClass('hi');
 			$('.ani_heart_m').removeClass('bye');
 		}
-	});
+	}); */
 	// 댓글 등록 버튼
 	$('.btn_comment').hover(function(){
 		$(this).css('background-color', 'white').css('color','#333');
@@ -537,24 +577,7 @@ $(document).ready(function(){
 	});
 	
 	
-	// 좋아요	
-	$(document).on("click", "#btn_good", function(){
-		var id = "${sessionScope.loginUser.id}";
-		var bno = "${one.bno}";
-		$.ajax({
-			type:"post",
-			url: "goodPlus.rcdi",
-			data: "id=" + id + "&bno=" + bno,
-			success: function(){
-				alert("성공");
-				
-				
-			},
-			error: function(){
-				alert("System Error!!!");
-			}
-		});
-	});
+
 
 </script>	
 	

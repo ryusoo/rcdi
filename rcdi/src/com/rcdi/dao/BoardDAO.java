@@ -16,6 +16,7 @@ public class BoardDAO {
 	SqlSessionFactory sqlSessionFactory = SqlMapConfig.getSqlSession(); // SqlMapConfig 에 있는 getSqlSession()를 호출함
 	SqlSession sqlSession;
 	int result;
+	int goodcnt;
 	BoardDTO bDto = new BoardDTO();
 	List<BoardDTO> list = null;
 	boolean flag = false;
@@ -137,10 +138,14 @@ public class BoardDAO {
 		return result;
 	}
 	
-	public int goodPlus(int bno) {
+	public int goodPlus(int bno, String writer) {
 		sqlSession = sqlSessionFactory.openSession(true);
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("bno", bno+"");
+		map.put("writer", writer);
 		try {
-			result = sqlSession.update("goodcntPlus", bno);
+			result = sqlSession.update("goodcntPlus", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -159,5 +164,17 @@ public class BoardDAO {
 			sqlSession.close();
 		}
 		return result;
+	}
+	
+	public int goodSelect(int bno) {
+		sqlSession = sqlSessionFactory.openSession();
+		try {
+			goodcnt = sqlSession.selectOne("goodSelect", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return goodcnt;
 	}
 }
