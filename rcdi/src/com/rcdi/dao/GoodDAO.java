@@ -36,6 +36,20 @@ public class GoodDAO {
 			sqlSession.close();
 		}
 		return result2;
+	}
+	public int goodDelete(String id, int bno) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		gDto = new GoodDTO();
+		gDto.setBno(bno);
+		gDto.setId(id);
+		try {
+			result = sqlSession.delete("goodDelete", gDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
 		
 	}
 
@@ -53,6 +67,23 @@ public class GoodDAO {
 		}
 		return gDto;
 	}
+
+	public int goodCurrent(int bno) {
+		sqlSession = sqlSessionFactory.openSession();
+		int goodcnt=0;
+		try {
+			goodcnt = sqlSession.selectOne("goodCurrent", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return goodcnt;
+
+		
+	}
+
+	
 	
 	
 }

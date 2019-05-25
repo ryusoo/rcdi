@@ -22,7 +22,6 @@ public class BoardViewAction implements Action {
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url ="board/boardview.jsp";
-		GoodDTO gDto = new GoodDTO();
 		
 		
 		String bno = request.getParameter("bno");
@@ -42,14 +41,13 @@ public class BoardViewAction implements Action {
 		request.setAttribute("one", bDto); 
 		
 		// tbl_goodcnt 테이블에 정보가 있으면 good_btn을 체크해놓기 위한 select;
-		MemberDTO mDto = (MemberDTO) session.getAttribute("loginUser");
+		/* MemberDTO mDto = (MemberDTO) session.getAttribute("loginUser");
 		if(mDto != null) {
 			String id = mDto.getId();
 			GoodDAO gDao = GoodDAO.getInstance();
 			gDto = gDao.goodCheck(id, intBno);	
-		}
+		} */
 		
-		request.setAttribute("gDto", gDto);
 		
 		ActionForward forward = new ActionForward(); 
 		forward.setPath(url);

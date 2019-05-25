@@ -419,46 +419,29 @@ i.fa-heart {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	// 좋아요 실시간 현황
+	good_check(0);
 	// 문서가 준비되면 댓글 목록을 조회하는 AJAX실행
 	comment_list();
-	var flag = 0;
-	var heart_check = "${gDto.toString()}";
-	if(heart_check == "" ) {
-		$('#btn_good').removeClass('btn_unlike');
-		flag = 0;
-	} else {
-		$('#btn_good').addClass('btn_unlike');
-		flag = 1;
-	}
 	
 	// 좋아요
 	$('#btn_good').click(function(){
 		var id = "${sessionScope.loginUser.id}";
-		var bno = "${one.bno}";
-		if (flag == 0) {
+		var bno = "${one.bno}"; // forward방식에서 setattribute
 			$.ajax({
 				type:"post",
-				url: "goodPlus.rcdi",
+				url: "goodSwitch.rcdi",
 				dataType: "json",
 				data: "id=" + id + "&bno=" + bno,
 				async: false,
 				success: function(data){
-					$('#goodcnt').text(data.goodcnt);
+					good_check(1);
 				},
 				error: function(){
+					
 				}
 			});
-			$(this).addClass('btn_unlike');
-			$('.ani_heart_m').addClass('hi');
-			$('.ani_heart_m').removeClass('bye');
-			flag = 1;
-		} else if(flag == 1) {
-			alert("좋아요 -1 시켜야 함");
-			$(this).removeClass('btn_unlike');
-			$('.ani_heart_m').removeClass('hi');
-			$('.ani_heart_m').addClass('bye');
-			flag = 0;
-		}
+		
 		
 	});
 	
@@ -481,19 +464,7 @@ $(document).ready(function(){
 	$('.no_btn').click(function(){
 		$('#modal').css('display', 'none');
 	});
-	/* // 좋아요 버튼
-	$('#btn_good').click(function(){
-		if($(this).hasClass('btn_unlike')) {
-			$(this).removeClass('btn_unlike');
-			$('.ani_heart_m').removeClass('hi');
-			$('.ani_heart_m').addClass('bye');
-		}
-		else {
-			$(this).addClass('btn_unlike');
-			$('.ani_heart_m').addClass('hi');
-			$('.ani_heart_m').removeClass('bye');
-		}
-	}); */
+
 	// 댓글 등록 버튼
 	$('.btn_comment').hover(function(){
 		$(this).css('background-color', 'white').css('color','#333');
@@ -558,6 +529,35 @@ $(document).ready(function(){
 				$('#commentList').html(result); 
 			}
 		});
+	}
+	
+	// 좋아요 확인 함수
+	function good_check(ani){
+		var id = "${sessionScope.loginUser.id}";
+		var bno = "${one.bno}";
+		$.ajax({
+			type:"post",
+			url: "goodCheck.rcdi",
+			dataType: "json",
+			data: "bno=" + bno + "&id="+ id,
+			success: function(result){ 
+				if(result.goodcheck == "0"){
+					$("#btn_good").removeClass('btn_unlike');
+					 if (ani == 1){
+					$('.ani_heart_m').removeClass('hi');
+					$('.ani_heart_m').addClass('bye');
+					 }
+				} else {
+					$("#btn_good").addClass('btn_unlike');
+					if(ani == 1){
+					$('.ani_heart_m').addClass('hi');
+					$('.ani_heart_m').removeClass('bye');
+					}
+				}
+				$("#goodcnt").text(result.goodcurrent);
+			}
+		});
+		
 	}
 	
 	$(document).on("click", ".reply_del", function(){
