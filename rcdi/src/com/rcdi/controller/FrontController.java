@@ -15,6 +15,7 @@ import com.rcdi.action.BoardListAction;
 import com.rcdi.action.BoardViewAction;
 import com.rcdi.action.CommentListAction;
 import com.rcdi.action.ConstractAction;
+import com.rcdi.action.DownloadAction;
 import com.rcdi.action.DropMemberAction;
 import com.rcdi.action.DropMemberPlayAction;
 import com.rcdi.action.GoodCheckAjaxAction;
@@ -34,6 +35,7 @@ import com.rcdi.action.PwUpdatePlayAction;
 import com.rcdi.action.RegisterAjaxAction;
 import com.rcdi.action.RegisterPlayAction;
 import com.rcdi.action.RegisterViewAction;
+import com.rcdi.action.RemovePlayAction;
 import com.rcdi.action.ReplyAddAction;
 import com.rcdi.action.ReplyRemoveAction;
 import com.rcdi.action.LoginOutAction;
@@ -150,7 +152,13 @@ public class FrontController extends HttpServlet {
 		} else if(command.contentEquals("/goodCheck.rcdi")){ 
 			action = new GoodCheckAjaxAction();
 			forward = action.excute(request, response);
-		} 
+		} else if(command.contentEquals("/download.rcdi")){ 
+			action = new DownloadAction();
+			forward = action.excute(request, response);
+		}   else if(command.contentEquals("/removePlay.rcdi")){ 
+			action = new RemovePlayAction();
+			forward = action.excute(request, response);
+		}
 		
 		
 		

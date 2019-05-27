@@ -89,8 +89,8 @@ h3 {
 </head>
 <body>
 	<div class="wrap">
-		<h3>질문 게시판</h3>
-		<form name="frm_register" method="POST" action="registerPlay.rcdi" id="frm_register">
+		<h3>질문 게시판</h3> <!--  form태그로 보낸값을 requset로 못받고 전부다 multipart로 받아야함 + POST방식만 가능-->
+		<form name="frm_register" method="POST" action="registerPlay.rcdi" id="frm_register" enctype="multipart/form-data">
 			<div class="tit">
 				<span class="name">제목</span>
 				<input type="text" id="title" class="input_box" name="title">

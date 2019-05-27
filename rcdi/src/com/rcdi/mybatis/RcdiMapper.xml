@@ -189,9 +189,9 @@
 	</update>
 
 	
-	<insert id="boardRegister" parameterType="hashmap">
-		INSERT INTO tbl_board(bno, title, content, writer)
-		VALUES(seq_board.NEXTVAL, #{title}, #{content}, #{writer})		
+	<insert id="boardRegister" parameterType="com.rcdi.dto.BoardDTO">
+		INSERT INTO tbl_board(bno, title, content, writer, filename, filesize)
+		VALUES(seq_board.NEXTVAL, #{title}, #{content}, #{writer}, #{filename}, #{filesize})		
 	</insert>
 	<select id="lastBno" resultType="int">
 		select seq_board.currval from dual
@@ -220,4 +220,12 @@
 		SELECT COUNT(*) FROM tbl_goodcnt
 		WHERE bno = #{bno}
 	</select>
+	
+	<!-- delete는 resultType안쓴다 -->
+	<delete id="removeBoard" parameterType="String">
+		DELETE FROM tbl_board
+		WHERE bno = #{bno}
+	</delete>
+	
+	
 </mapper>

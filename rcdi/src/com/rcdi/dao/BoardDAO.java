@@ -121,14 +121,16 @@ public class BoardDAO {
 		}
 	}
 	
-	public int boardRegister(String title, String content, String writer) {
+	public int boardRegister(BoardDTO bDto) {
 		sqlSession = sqlSessionFactory.openSession(true);
 		try {
-			HashMap<String, String> map = new HashMap<>();
+			/* HashMap<String, String> map = new HashMap<>();
 			map.put("title", title);
 			map.put("content", content);
-			map.put("writer", writer);
-			result = sqlSession.insert("boardRegister", map);
+			map.put("writer", writer); */
+			
+			
+			result = sqlSession.insert("boardRegister", bDto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -205,5 +207,19 @@ public class BoardDAO {
 			sqlSession.close();
 		}
 		return result;
+	}
+
+	public int removeBoard(String bno) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		
+		try {
+			result = sqlSession.delete("removeBoard", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+		
 	}
 }

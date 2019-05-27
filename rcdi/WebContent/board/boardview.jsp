@@ -280,7 +280,7 @@ i.fa-heart {
 	display: none;
 }
 .modal_title {
-	background-color: dimgray;
+	background-color: #333;
 	color: white;
 	border-radius: 5px 5px 0px 0px;
 	font-size: 13px;
@@ -367,7 +367,18 @@ i.fa-heart {
 				</tr>
 				<tr>
 					<td class="file"><span>첨부파일</span></td>
-					<td><span>${one.filename}</span></td>
+					<td>
+						<c:if test="${one.filesize > 0 }">
+							<div id="download">
+								<a href="download.rcdi?file=${one.filename}">
+								${one.filename}(<fmt:formatNumber type="number" pattern="0.00" value="${one.filesize / 1024 / 1024}"></fmt:formatNumber>mb)
+								
+								</a>
+							</div>
+						</c:if>
+						<!--choose : when, otherwise filesize > 1mb
+								<  1mb : kb --> 
+					</td>
 					<td class="hit"><span>조회수/좋아요</span></td>
 					<td><span>${one.viewcnt}/<span id="goodcnt">${one.goodcnt}</span></span></td>
 				</tr>
@@ -459,7 +470,7 @@ $(document).ready(function(){
 		$('#modal').css('display', 'flex');
 	});
 	$('.yes_btn').click(function(){
-		location.href="#";
+		location.href="removePlay.rcdi?bno=${one.bno}&filename=${one.filename}";
 	});
 	$('.no_btn').click(function(){
 		$('#modal').css('display', 'none');

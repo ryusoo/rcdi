@@ -275,7 +275,11 @@ select {
 								</td>
 								<td class="like"><i class="fas fa-heart"></i><span> ${bDto.goodcnt}</span></td>
 								<td class="hit">${bDto.viewcnt}</td>
-								<td class="attach"><i class="far fa-file-alt"></i></td>
+								<td class="attach">
+								<c:if test="${bDto.filesize > 0}">
+									<i class="far fa-file-alt"></i>
+								</c:if>
+								</td>
 							</tr>
 						</c:forEach>
 						  <%-- value="${bDto.regdate} => 이 형식으로 뜨게 해준다. 년월일, 시분초pattern="yyyy-MM-dd hh:mm:ss" --%>
