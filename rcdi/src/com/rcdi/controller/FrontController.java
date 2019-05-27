@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.rcdi.action.Action;
 import com.rcdi.action.ActionForward;
 import com.rcdi.action.BoardListAction;
+import com.rcdi.action.BoardModifyAction;
 import com.rcdi.action.BoardViewAction;
 import com.rcdi.action.CommentListAction;
 import com.rcdi.action.ConstractAction;
@@ -155,8 +156,11 @@ public class FrontController extends HttpServlet {
 		} else if(command.contentEquals("/download.rcdi")){ 
 			action = new DownloadAction();
 			forward = action.excute(request, response);
-		}   else if(command.contentEquals("/removePlay.rcdi")){ 
+		} else if(command.contentEquals("/removePlay.rcdi")){ 
 			action = new RemovePlayAction();
+			forward = action.excute(request, response);
+		} else if(command.contentEquals("/boardModify.rcdi")){ 
+			action = new BoardModifyAction();
 			forward = action.excute(request, response);
 		}
 		

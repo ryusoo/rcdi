@@ -475,6 +475,12 @@ $(document).ready(function(){
 	$('.no_btn').click(function(){
 		$('#modal').css('display', 'none');
 	});
+	
+	// 수정 버튼
+	$('.btn_update').click(function(){
+		var bno = "${one.bno}";
+		location.href="${path}/boardModify.rcdi?bno="+bno;
+	});
 
 	// 댓글 등록 버튼
 	$('.btn_comment').hover(function(){

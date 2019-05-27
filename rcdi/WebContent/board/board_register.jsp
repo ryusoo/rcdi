@@ -64,7 +64,7 @@ h3 {
 }
 .bottom {
 	display: flex;
-	justify-content: space-between
+	justify-content: space-between;
 }
 .file_space {
 	display: inline-block;
