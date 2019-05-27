@@ -1,6 +1,8 @@
 
 
 
+
+
 --RCDY 프로젝트 Dummy 데이터 생성
 
 -- 상품테이블
@@ -165,6 +167,8 @@ INSERT INTO tbl_board(bno, title, content, writer)
 VALUES(seq_board.NEXTVAL, '테스트페이지입니다10', '테스트예요', 'user03');
 COMMIT;
 
+DELETE FROM tbl_board;
+
 SELECT * FROM tbl_board
 ORDER BY bno DESC;
 
@@ -213,8 +217,12 @@ CREATE TABLE tbl_reply(
 
 ALTER TABLE tbl_reply
 ADD CONSTRAINT tbl_reply_fk_bno
-FOREIGN KEY(bno) REFERENCES tbl_board(bno);
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
 COMMIT;
+
+-- CASCADE 는 연쇄삭제할 때 사용하는 것
+-- 외래키로 묶일 때 사용할 수 있는 것이다
 
 DELETE FROM tbl_reply;
 INSERT INTO tbl_reply(rno, content, writer, bno)
@@ -254,7 +262,8 @@ SELECT * FROM tbl_board;
 
 ALTER TABLE tbl_goodcnt
 ADD CONSTRAINT tbl_goodcnt_fk_bno
-FOREIGN KEY(bno) REFERENCES tbl_board(bno);
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
 COMMIT;
 
 SELECT * FROM tbl_goodcnt;
