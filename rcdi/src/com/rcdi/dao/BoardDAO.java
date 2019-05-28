@@ -222,4 +222,24 @@ public class BoardDAO {
 		return result;
 		
 	}
+
+	public int modify(BoardDTO bDto) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		
+		try {
+			result= sqlSession.update("modifyBoard", bDto);
+			
+			if(result > 0) {
+				System.out.println("성공");
+			} else {
+				System.out.println("실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+		
+	}
 }

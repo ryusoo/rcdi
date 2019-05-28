@@ -77,9 +77,6 @@ h3 {
 	font-size: 18px;
 	text-align: center;
 }
-.close_basic_btn {
-	cursor: pointer;
-}
 .bottom {
 	display: flex;
 	justify-content: space-between;
@@ -103,6 +100,14 @@ h3 {
 	margin-left: 8px;
 	display: none;
 }
+.open_file_btn {
+	color: yellowgreen;
+	display:none;
+	cursor: pointer;
+}
+.close_file_btn {
+	cursor: pointer;
+}
 
 
 </style>
@@ -110,7 +115,7 @@ h3 {
 <body>
 	<div class="wrap">
 		<h3>질문 게시판</h3> <!--  form태그로 보낸값을 requset로 못받고 전부다 multipart로 받아야함 + POST방식만 가능-->
-		<form name="frm_register" method="POST" action="registerPlay.rcdi" id="frm_register" enctype="multipart/form-data">
+		<form name="frm_modify" method="POST" action="modifyPlay.rcdi" id="frm_modify" enctype="multipart/form-data">
 			<div class="tit">
 				<span class="name">제목</span>
 				<input type="text" id="title" class="input_box" name="title" value="${one.title}">
@@ -141,19 +146,23 @@ h3 {
 						<div id="download">
 							<div class="btn_basic">첨부 파일</div>
 							<span class="basic_files">${one.filename}</span>
-							<i class="fas fa-times close_file_btn close_basic_btn"></i> 
 							<span class="file_msg">[첨부파일 삭제됨]</span>
+							<i class="fas fa-check open_file_btn"></i>
+							<i class="fas fa-times close_file_btn close_basic_btn"></i> 
 						</div>
 					</c:if>
 					<input type="file" name="uploadfile" id="uploadfile" style="display:none;" >
 					<input type="button" class="btn btn_file" value="파일 선택">
 					<span class="files" id="file_name" style="height: 29px; border:none;">선택된 파일 없음</span>
 					<span id="now_file_size"></span>
-					<i class="fas fa-times" id="close_file_btn" style="display: none;"></i>
 					<!-- <div class="file_space">첨부파일 없음</div> -->
 				</div>
 				<button id="sbm_btn"class="btn btn_up">게시글 수정</button>
 			</div>
+			<input type="hidden" name="basic_filename" id="basic_filename" value="${one.filename}">
+			<input type="hidden" name="basic_filesize" id="basic_filesize" value="${one.filesize}">
+			<input type="hidden" name="basic_check" id="basic_check" value="">
+			<input type="hidden" name="bno" id="bno" value="${one.bno}">
 		</form>	
 	</div>
 	
@@ -225,8 +234,20 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.close_basic_btn', function(){
 		$('.file_msg').css('display','inline-block');
+		$(".open_file_btn").css("display", "inline-block");
 		$('.basic_files').css('color','#aaa').css('text-decoration', 'line-through');
+		$(".close_basic_btn").css("display","none");
+		$("#basic_check").val("no");
 	});
+	$(document).on('click', '.open_file_btn', function(){
+		$('.file_msg').css('display','none');
+		$(".open_file_btn").css("display", "none");
+		$('.basic_files').css('color','#333').css('text-decoration', 'none');
+		$(".close_basic_btn").css("display","inline-block");
+		$("#basic_check").val("yes");
+	});
+	
+	
 
 
 </script>	

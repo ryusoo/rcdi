@@ -30,6 +30,7 @@ import com.rcdi.action.LoginAjaxAction;
 import com.rcdi.action.LogoutAjaxAction;
 import com.rcdi.action.MemberAction;
 import com.rcdi.action.MemberPlayAction;
+import com.rcdi.action.ModifyPlayAction;
 import com.rcdi.action.PwCheckAction;
 import com.rcdi.action.PwUpdateAction;
 import com.rcdi.action.PwUpdatePlayAction;
@@ -162,8 +163,10 @@ public class FrontController extends HttpServlet {
 		} else if(command.contentEquals("/boardModify.rcdi")){ 
 			action = new BoardModifyAction();
 			forward = action.excute(request, response);
+		} else if(command.contentEquals("/modifyPlay.rcdi")){ 
+			action = new ModifyPlayAction();
+			forward = action.excute(request, response);
 		}
-		
 		
 		
 		
