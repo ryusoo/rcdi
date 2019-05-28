@@ -29,6 +29,7 @@ div.header_menu {
 
 a {
 	color: black;
+	cursor: pointer;
 }
 
 header {

@@ -214,6 +214,11 @@ public class BoardDAO {
 		
 		try {
 			result = sqlSession.delete("removeBoard", bno);
+			if(result > 0) {
+				System.out.println("게시글삭제성공");
+			} else {
+				System.out.println("게시글삭제 실패");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

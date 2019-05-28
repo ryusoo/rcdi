@@ -61,6 +61,7 @@ h3 {
 	width: 120px;
 	height: 40px;
 	font-size: 18px;
+	cursor: pointer;
 }
 .bottom {
 	display: flex;

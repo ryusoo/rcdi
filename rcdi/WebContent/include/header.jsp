@@ -71,14 +71,14 @@
 							<c:otherwise>
 								<li id="loginInfo"><span>${sessionScope.loginUser.name}</span>
 									(${sessionScope.loginUser.id})</li>
-								<li><a href="#" class="logout_btn">로그아웃</a></li>
+								<li><a class="logout_btn">로그아웃</a></li>
 							</c:otherwise>
 						</c:choose>
 
 						<!-- 아래의 코드를 쓰는 경우에는 referer을 사용하는 방법이다. ajax이전의 방법 -->
 						<%-- 	<li><a href="${path}/loginOut.rcdi">로그아웃</a></li> --%>
 
-						<li><a href="#" id="mypage">마이페이지</a>
+						<li><a id="mypage">마이페이지</a>
 							<div class="mypage_dropdown">
 								<ul>
 									<li><div class="mypage_check">주문/배송 조회</div></li>
@@ -89,10 +89,10 @@
 								</ul>
 							</div>
 						</li>
-						<li><a href="#">고객센터</a></li>
+						<li><a>고객센터</a></li>
 						<%-- ${path }: rcdi프로젝트(=${path})의 어디로 가라라는 뜻 --%>
 						<li><a href="${path}/boardList.rcdi">질문게시판</a></li>
-						<li id="cart_icon"><a href="#" style="display: flex; align-items: center;"><i class="fas fa-shopping-cart"></i></a></li>
+						<li id="cart_icon"><a style="display: flex; align-items: center;"><i class="fas fa-shopping-cart"></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -219,7 +219,7 @@
 								<a href="#" id="btn_join"> 
 									<span>회원가입</span> <!-- <img alt="로그인" src="img/login.png"> -->
 								</a> 
-								<a href="#" id="btn_login"> 
+								<a id="btn_login"> 
 									<span>로그인</span> <!-- <img alt="로그인" src="img/login.png"> -->
 								</a>
 							</div>

@@ -55,7 +55,7 @@ td:nth-child(1), td:nth-child(3) {
 	font-weight: bold;
 	line-height: 37px;
 	
-}	
+}
 #content {
 	height: auto;
 	min-height: 150px;
@@ -79,6 +79,7 @@ td:nth-child(1), td:nth-child(3) {
 	line-height: 35px;
 	font-size: 18px;
 	font-weight: bold;
+	cursor: pointer;
 }
 /* 좋아요 영역 */
 .btn_like {
@@ -422,13 +423,28 @@ i.fa-heart {
 		<div class="modal_page">
 			<div class="modal_title">RCDI</div>
 			<div class="modal_content">정말 <span>게시물</span>을 삭제하시겠습니까?<br><br>
-				<a href="#" class="no_btn">아니오</a>
-				<a href="#" class="yes_btn">네</a>
+				<a class="no_btn">아니오</a>
+				<a class="yes_btn">네</a>
 			</div>
 		</div>
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+	// 뒤로가기 막기(아예 동작을 안하게함)
+	/* history.pushState(null, null, location.href);
+	window.onpopstate = function(){
+		history.go(1);
+	}; */
+
+	// 뒤로가기 눌렀을 때 새로 리프레쉬 (내가 원하는 페이지로 이동하게 함)
+	history.pushState(null, document.title, location.href);
+	window.addEventListener('popstate', function(event){
+		history.pushState(null, document.title, '<%=referer%>');
+		location.reload(); // 리프레쉬
+	});
+
+
 $(document).ready(function(){
 	// 좋아요 실시간 현황
 	good_check(0);
