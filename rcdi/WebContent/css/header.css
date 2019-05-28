@@ -122,7 +122,7 @@ header {
 }
 .inner_header {
 	/* 너비를 1440 이상으로는 못 만든다는 뜻. 요즘 모니터가 엄청 넓어서 최대길이를 넘어가는 경우가 있다. 그러면 사이트가 다 깨지니까 최대로 나오는 화면.. 1440이 넘으면 깨지고 그래서 1440가 최대로 나오는 길이를 지정함. 1440를 넘어가는 길이는 여백으로 채워준다. 화면이 작아지는 경우는 맞춰서 같이 작아지니까 문제가 없다.*/
-	max-width: 1440px;
+	width: 1440px;
 	margin: 0 auto;
 	width: 100%;
 	display: flex;
@@ -419,6 +419,9 @@ h1 {
 	z-index: 9;
 	color: white;
 	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .idpw { /* input태그 */
 	padding: 8px 12px;

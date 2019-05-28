@@ -36,10 +36,10 @@
 		<div class="header_menu">
 			<div class="inner_header inner_header_menu">
 				<div class="header_sns">
-					<a href="#"><i class="fab fa-instagram"></i></a> <a href="#"><i
-						class="fab fa-facebook"></i></a> <a href="#"><i
-						class="fab fa-twitter-square"></i></a> <a href="#"><i
-						class="fab fa-google"></i></a> <a href="#"><i class="fab fa-line"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a> 
+					<a href="#"><i class="fab fa-facebook-square"></i></a> 
+					<a href="#"><i class="fab fa-twitter-square"></i></a> 
+					<a href="#"><i class="fab fa-google"></i></a> <a href="#"><i class="fab fa-line"></i></a>
 				</div>
 				<div class="header_i">
 					<div class="header_i1">
@@ -207,7 +207,7 @@
 					<div id="login_area">
 						<div id="subtitle">Login</div>
 						<div id="close_btn">
-							<i class="fas fa-times"></i>
+							<i class="fas fa-times" id="x_icon"></i>
 						</div>
 						<div id="container">
 							<form name="" action="" method="POST" id="login_form">

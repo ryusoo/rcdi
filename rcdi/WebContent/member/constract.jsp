@@ -21,12 +21,14 @@ body {
 	font-size: 2em;
 }
 
-.header, .container, .footer {
+.header, .container {
 	width: 768px;
 	margin: auto;
 	box-sizing: border-box;
 }
-
+.footer {
+	margin-top: 30px;
+}
 .header {
 	height: 169px;
 	padding-top: 62px;
@@ -67,7 +69,7 @@ section {
 }
 
 .lang>select {
-	background: url('img/sel_arr.gif') 100% 50% no-repeat;
+	background: url('images/sel_arr.gif') 100% 50% no-repeat;
 	-webkit-appearance: none; /* checkbox 기본적으로 화살표나오는 화살표를 없애는 CSS */
 	width: 98px;
 	height: 30px;
@@ -103,7 +105,7 @@ section {
 }
 
 .terms_span>label {
-	background: url('img/check_off.gif') 100% 50% no-repeat;
+	background: url('images/check_off.gif') 100% 50% no-repeat;
 	display: block;
 	line-height: 20px;
 	height: 58px;
@@ -119,7 +121,7 @@ section {
 }
 
 .terms_span>input:checked+label { /* + 나 다음에 오는 선택자 */
-	background-image: url('img/check_on.gif');
+	background-image: url('images/check_on.gif');
 }
 
 .terms_ul {
@@ -252,23 +254,20 @@ a {
 </style>
 </head>
 <body>
-	<header>
-		<div class="header">
-			<h1 class="rcdi_logo">
-				<a href="#" class="r_logo"></a>
-			</h1>
-			<div class="lang">
-				<select class="langselect">
-					<option>한국어</option>
-					<option>English</option>
-					<option>中文(简体)</option>
-					<option>中文(台灣)</option>
-				</select>
-			</div>
+	<div class="header">
+		<h1 class="rcdi_logo">
+			<a href="#" class="r_logo"></a>
+		</h1>
+		<div class="lang">
+			<select class="langselect">
+				<option>한국어</option>
+				<option>English</option>
+				<option>中文(简体)</option>
+				<option>中文(台灣)</option>
+			</select>
 		</div>
-	</header>
+	</div>
 
-	<section>
 		<div class="container">
 			<form class="join_content">
 				<div class="terms">
@@ -365,9 +364,8 @@ a {
 									</p>
 
 								</div>
-							</div></li>
-
-
+							</div>
+						</li>
 
 						<li class="terms_ul_li4"><span class="ul_li_span"> <input
 								type="checkbox" id="li4box" class="ckboxs"> <label
@@ -396,12 +394,8 @@ a {
 
 		</div>
 
-	</section>
-
-
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<%@ include file="../include/footer.jsp"%>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -418,7 +412,6 @@ a {
 
 			$('.ckboxs').click(function() {
 				var ckleng = $('.ckboxs:checkbox:checked').length; /* 클래스 ckboxs에가서 checkbox옵션인 것 중 checked된 것을 숫자세서 가져와라. checked된 것의 개수*/
-				alert('check');
 				if (ckleng == 4) {
 					$('#cbox').prop(':checked', true);
 				} else {
@@ -429,7 +422,6 @@ a {
 			$('.btn_agree').click(function() {
 				var must1 = $('#li1box').is(':checked');
 				var must2 = $('#li2box').is(':checked');
-				alert(must1 + ", " + must2);
 				if (must1 == true && must2 == true) {
 					location.href = "member.rcdi";
 				} else {
@@ -441,7 +433,7 @@ a {
 
 		});
 	</script>
-	<%@ include file="../include/footer.jsp"%>
+	
 
 </body>
 </html>

@@ -114,7 +114,7 @@ tr:nth-child(1){
 	width: 60px;
 }
 .tb_title {
-	width: 500px;
+	width: 280px;
 }
 .writer, .like {
 	width: 80px;
@@ -135,12 +135,11 @@ tr:nth-child(1){
 
 /* 검색영역 */
 .srch_group {
-	width: 350px;
-	border: 1px solid dimgray;
+	width: 323px;
 	background: #ffffff;
 	height: 56px;
 	display: flex;
-	margin: 60px auto;
+	margin: 55px auto 0;
 	border-radius: 5px;
 }
 select {
@@ -150,23 +149,21 @@ select {
 .slt_box {
 	box-sizing: border-box;
 	display: inline-block;
-	flex: 1;
-	margin-left:2px;
+	margin-right: 3px;
 }
 .slt_style {
 	width: 110px;
-	height: 50px;
-	border: none;
+	height: 30px;
+	border: 1px solid #dadada;
 	background: #ffffff;
 }
 .ipt_box {
 	height: 50px;
-	margin-left: 10px;	
 }
 .ipt_style {
-	height: 50px;
+	height: 30px;
 	outline: none;
-	border: none;
+	border: 1px solid #dadada;
 }
 .icon_srch {
 	width : auto;
@@ -309,8 +306,8 @@ select {
 				</div>
 				<div class="ipt_box">
 					<input type="text" id="srchWord" name="srchWord" class="ipt ipt_style" placeholder="검색어를 입력해 주세요.">
-					<div class="icon_srch"><i class="fas fa-search"></i></div>
-					<button class="search_btn" id="search_btn">검색</button>
+					<div class="icon_srch" id="search_btn_icon"><i class="fas fa-search"></i></div>
+					<button class="search_btn" id="search_btn" style="display: none;">검색</button>
 				</div>
 			</div>
 			<!-- 페이지 네이션 -->
@@ -366,6 +363,13 @@ $(document).ready(function(){
 	} else if(sort_type == "view"){
 		$('#orderCnt').css('color', 'white').css('font-weight', 'bold').css('background-color', '#333');
 	}
+	
+	$('#search_btn_icon').click(function(){
+		$('#search_btn').click();
+	});
+	
+	
+	
 	
 	$('#search_btn').click(function(){
 		var search_option = $('#selsearch').val();

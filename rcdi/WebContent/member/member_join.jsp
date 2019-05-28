@@ -89,6 +89,11 @@
 	.addr_btn {
 		margin-right: 2px;
 	}
+	.btn_normal {
+		background-color: #363636;
+		color: white;
+		cursor: pointer;
+	}
 	#sample6_detailAddress {
 		margin-bottom: 13px;
 	
@@ -102,8 +107,8 @@
 		color: white;
 		letter-spacing: -1;
 		text-align: center;
-		margin: 10px 0 100px;
-		
+		margin: 10px 0;
+		cursor: pointer;
 	}
 	
 

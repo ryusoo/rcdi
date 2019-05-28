@@ -203,7 +203,6 @@ i.fa-heart {
 	border: 1px solid dimgray;
 	border-radius: 5px;
 	height: auto;
-	background-color: #eaeaea;
 	padding: 10px;
 }
 
@@ -239,13 +238,15 @@ i.fa-heart {
 }
 .btn_comment {
 	float: right;
-	margin-top: 15px;
+	margin-top: 30px;
 }
 .writer_top {
 	font-weight: bold;
+	display: inline-block;
+	padding-bottom: 10px;
 }
 .btn_comment {
-	margin: 5px 10px;
+	margin: 10px 0px 10px 10px;
 	border-radius: 20px;
 	color: white;
 	background-color: #333;
@@ -263,7 +264,6 @@ i.fa-heart {
 	display: none;
 	margin: 6px 5px;
 }
-
 
 /* 모달창 */
 #modal {
@@ -513,8 +513,8 @@ $(document).ready(function(){
 		location.href="boardList.rcdi"; <%-- <%=referer%> --%>
 	});
 	
-	
-	// 댓글 등록
+	   
+	// 댓글 등록 
 	$(document).on("click", "#reply_btn", function(){
 		oEditors.getById["replyInsert"].exec("UPDATE_CONTENTS_FIELD", []);
 		

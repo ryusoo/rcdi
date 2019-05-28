@@ -125,7 +125,7 @@
 	display: none;
 }
 .modal_title {
-	background-color: dimgray;
+	background-color: #363636;
 	color: white;
 	border-radius: 5px 5px 0px 0px;
 	font-size: 13px;

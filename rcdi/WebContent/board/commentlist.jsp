@@ -28,31 +28,34 @@
 	<!-- forEach에서 목록을 띄움 item안의 list에 값이 없으면 아예 실행을 안함 item안에 들어온 건수만큼 반복을 시켜라라는 뜻이기 때문이다. 범위를 주고싶으면 begin, end를 사용하면 된다-->
 	
 		<div class="comment_list_wrap each_space">
-			<div class="top_comment"> 
-				<i class="fas fa-comment-dots"></i>
-				<span class="comment_cnt">${replyList.size()}</span>
-				<span>Comments</span>
-			</div>
-		<c:forEach items="${replyList}" var="replyview">
-			<div class="comment_box">
-				<div class="writer_comment">
-					<div class="comment_head">
-						<span>${replyview.writer}</span>
-						<div class="reg_date">
-							<i class="far fa-clock"></i>
-							<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${replyview.regdate}" />
+			<c:if test="${replyList.size() > 0}">
+				<div class="top_comment"> 
+					<i class="fas fa-comment-dots"></i>
+					<span class="comment_cnt">${replyList.size()}</span>
+					<span>Comments</span>
+				</div>
+			</c:if>
+			<c:forEach items="${replyList}" var="replyview">
+				<div class="comment_box">
+					<div class="writer_comment">
+						<div class="comment_head">
+							<span>${replyview.writer}</span>
+							<div class="reg_date">
+								<i class="far fa-clock"></i>
+								<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${replyview.regdate}" />
+							</div>
+							<c:if test="${sessionScope.loginUser.id == replyview.writer}">
+								<a class="comment_delete_btn reply_del" data_num="${replyview.rno}">삭제</a>
+							</c:if>
 						</div>
-						<c:if test="${sessionScope.loginUser.id == replyview.writer}">
-							<a class="comment_delete_btn reply_del" data_num="${replyview.rno}">삭제</a>
-						</c:if>
-					</div>
-					<div class="comment_body">
-						${replyview.content}
-					</div>
-				</div>					
-			</div>
+						<div class="comment_body">
+							${replyview.content}
+						</div>
+					</div>					
+				</div>
+			</c:forEach>
 		</div>
-	</c:forEach>
+	
 	
 	<!-- 비로그인 시, 로그인 시 댓글 작성 영역-->
 	<!--비로그인 시 로그인 하라는 경고창 -->
