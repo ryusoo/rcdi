@@ -70,13 +70,17 @@ th, td {
 	cursor: pointer;
 }
 th {
-	background-color: white;
-	border-bottom: 2px solid dimgray;
+	border-top: 1px solid #757575;
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #d0d0d0;
 	padding: 3px;
 }
+tr {
+	border-bottom: 1px solid #d0d0d0;
+}
 tr:nth-child(1){
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),
-		     	0 2px 10px 0 rgba(0,0,0,0.12);
+/* 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),
+		     	0 2px 10px 0 rgba(0,0,0,0.12); */
 }
 .tbl_list {
 	width: 958px;
