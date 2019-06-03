@@ -121,7 +121,7 @@ section {
 }
 
 .terms_span>input:checked+label { /* + 나 다음에 오는 선택자 */
-	background-image: url('images/check_on.gif');
+	background-image: url('images/check_on.png');
 }
 
 .terms_ul {
